@@ -15,9 +15,9 @@ Napi::Object Yolo_cpu::Init(Napi::Env env, Napi::Object exports) {
 }
 
 Yolo_cpu::Yolo_cpu(const Napi::CallbackInfo& info) : Napi::ObjectWrap<Yolo_cpu>(info) {
-    this->MODEL_PATH = "bin/model/yolov3.weights";
-    this->CFG_PATH = "bin/model/yolov3.cfg";
-    this->CLASSES_PATH = "bin/model/coco.names";
+    this->MODEL_PATH = "resources/cpp/bin/model/yolov3.weights";
+    this->CFG_PATH = "resources/cpp/bin/model/yolov3.cfg";
+    this->CLASSES_PATH = "resources/cpp/bin/model/coco.names";
 
     this->confThreshold = 0.4;
     this->nmsThreshold = 0.5;
@@ -40,7 +40,7 @@ Napi::Value Yolo_cpu::start(const Napi::CallbackInfo& info) {
     }
     string arg0 = info[0].As<Napi::String>().Utf8Value();
     int arg1 = info[1].As<Napi::Number>().Int32Value();
-    
+
     int result = this->doInference(arg0, arg1);
 
     Napi::Number ret = Napi::Number::New(env, result);
@@ -48,21 +48,21 @@ Napi::Value Yolo_cpu::start(const Napi::CallbackInfo& info) {
 }
 
 int Yolo_cpu::doInference(const string imagePath, const int resize) {
-    Mat frame = imread(imagePath, IMREAD_COLOR); 
+    Mat frame = imread(imagePath, IMREAD_COLOR);
     vector<Mat> outs;
-    
+
 //Mark: Pre-process
     imagePadding(frame);
-    static Mat blob = blobFromImage(frame, 
+    static Mat blob = blobFromImage(frame,
                                     1, // scalarfactor: double
                                     Size(resize, resize), // resizeRes: Size
-                                    Scalar(), 
+                                    Scalar(),
                                     true, // swapRB: bool
-                                    false, 
+                                    false,
                                     CV_8U);
 
     net.setInput(blob,
-                 "", 
+                 "",
                  1/255.0, // scale: double
                  Scalar()); // mean: Scalar
 
@@ -70,14 +70,14 @@ int Yolo_cpu::doInference(const string imagePath, const int resize) {
     net.forward(outs, outNames);
 
 //Mark: Post-process
-    
+
     int peopleNum = postProcess(frame, outs);
 
 //Mark: Draw rect and other info in output image.
     vector<double> layersTimes;
     double freq = getTickFrequency() / 1000;
     double t = net.getPerfProfile(layersTimes) / freq;
-    
+
     string labelInferTime = format ("Inference time: %.2f ms", t);
     string labelPeople = format ("People: %d", peopleNum);
     putText (frame, labelInferTime, Point(0, 35), FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 255), 2);
@@ -156,7 +156,7 @@ int Yolo_cpu::postProcess(Mat& frame, const vector<Mat>& outs) {
 
     vector<int> indices;
     NMSBoxes(boxes, confidences, confThreshold, nmsThreshold, indices);
-    for (size_t i = 0; i < indices.size(); ++i) {   
+    for (size_t i = 0; i < indices.size(); ++i) {
         int idx = indices[i];
         if (classIds[idx] == 0) { // Draw rectangle if class is a person.
             people++;
