@@ -82,10 +82,7 @@ router.post('/basic/image-info', function(req, res) {
   filename = filename.replace(/:/g,"");
   filename = filename.replace(/-/g,"");
   console.log(filename);
-  /*
-  require("fs").writeFile("resources/images/original/" + filename, base64Data, 'base64', function(err) {
-    console.log(err);
-  });*/
+  
   const query2 = `select datetime('${originalDate}', (select saveInterval || ' seconds' from setting)) as date;`;
   db.each(query2, (err, row) => {
     if (err) return res.json(err);
@@ -94,15 +91,20 @@ router.post('/basic/image-info', function(req, res) {
     });
   });
 
-  var obj = new addon.Yolo_cpu();
-  var people = obj.start("resources/images/original/" + filename, 416);
-  console.log(people); // people number
-  const query1 = `insert into cam_image (name, originalDate, cameraID, peopleCNT)
-    values ("${originalDate}_${cameraID}.jpeg", "${originalDate}", ${cameraID}, ${people});`;
-  db.each(query1, (err, row) => {
-    if (err) return res.json(err);
-    console.log('update success!!');
+  require("fs").writeFile("resources/images/original/" + filename, base64Data, 'base64', function(err) {
+    if (err === null) {
+      var obj = new addon.Yolo_cpu();
+      var people = obj.start("resources/images/original/" + filename, 416);
+      console.log(people); // people number
+      const query1 = `insert into cam_image (name, originalDate, cameraID, peopleCNT)
+        values ("${originalDate}_${cameraID}.jpeg", "${originalDate}", ${cameraID}, ${people});`;
+      db.each(query1, (err, row) => {
+        if (err) return res.json(err);
+        console.log('update success!!');
+      });
+    } else {
+      console.log('fail');
+    }
   });
-});
 
-module.exports = router;
+});
