@@ -82,9 +82,10 @@ router.post('/basic/image-info', function(req, res) {
   filename = filename.replace(/:/g,"");
   filename = filename.replace(/-/g,"");
   console.log(filename);
+  /*
   require("fs").writeFile("resources/images/original/" + filename, base64Data, 'base64', function(err) {
     console.log(err);
-  });
+  });*/
   const query2 = `select datetime('${originalDate}', (select saveInterval || ' seconds' from setting)) as date;`;
   db.each(query2, (err, row) => {
     if (err) return res.json(err);
