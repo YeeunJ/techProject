@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var sqlite3 = require('sqlite3').verbose();
 var fs = require('fs');
-var addon = require('bindings')('people-detector');
+var addon = require('./resources/cpp/bindings')('people-detector');
 //var exec = require('child_process').exec;
 //var api = require('./apiController');
 
