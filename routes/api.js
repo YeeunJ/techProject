@@ -92,7 +92,7 @@ router.post('/basic/image-info', function(req, res) {
       "originalDate": row.date
     });
   });
-/*
+
   var obj = new addon.Yolo_cpu();
   var people = obj.start("resources/images/original/" + filename, 416);
   console.log(people); // people number
@@ -102,7 +102,6 @@ router.post('/basic/image-info', function(req, res) {
     if (err) return res.json(err);
     console.log('update success!!');
   });
-*/
 });
 
 module.exports = router;
