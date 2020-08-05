@@ -82,7 +82,7 @@ router.post('/basic/image-info', function(req, res) {
   filename = filename.replace(/:/g,"");
   filename = filename.replace(/-/g,"");
   console.log(filename);
-  
+
   const query2 = `select datetime('${originalDate}', (select saveInterval || ' seconds' from setting)) as date;`;
   db.each(query2, (err, row) => {
     if (err) return res.json(err);
@@ -90,7 +90,7 @@ router.post('/basic/image-info', function(req, res) {
       "originalDate": row.date
     });
   });
-
+  
   require("fs").writeFile("resources/images/original/" + filename, base64Data, 'base64', function(err) {
     if (err === null) {
       var obj = new addon.Yolo_cpu();
@@ -108,3 +108,5 @@ router.post('/basic/image-info', function(req, res) {
   });
 
 });
+
+module.exports = router;
