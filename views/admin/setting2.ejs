@@ -1,0 +1,93 @@
+<form action="./update" method="post" id="form_setting">
+
+<div id="info">
+  <div class="info" id="info_company">
+    <table>
+      <tr class="info_title">
+        <td>업체 정보</td> <td><button class="edit btn" id="edit_company" type="button">수정</button><button class="confirm btn submit" id="confirm_company">확인</button></td>
+      </tr>
+      <tr></tr>
+      <tr></tr>
+      <tr>
+        <td class="info_company_left">업체명</td>
+        <td class="info_company_right"><input type="text" id="companyName" value="<%= data.companyName %>" name = "companyName" class="input" placeholder="width" required readonly></td>
+      </tr>
+      <tr>
+        <td class="info_company_left">전화번호</td>
+        <td class="info_company_right"><input type="text" id="phone" value="<%= data.phone %>" name = "phone" class="input" placeholder="width" required readonly></td>
+      </tr>
+      <tr>
+        <td class="info_company_left">주소</td>
+        <td class="info_company_right"><input type="text" id="location" value="<%= data.location %>" name = "location" class="input" placeholder="width" required readonly></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div id="setting"> <!-- view -->
+    <div class="info" id="info_camera">
+      <table>
+        <tr class="info_title">
+          <td>카메라 정보</td> <td><button class="edit btn" id="edit_camera" type="button">수정</button></td>
+        </tr>
+        <tr></tr>
+        <tr></tr>
+        <tr>
+          <td>카메라 해상도</td>
+          <td class="info_camera_middle"><input type="text" id="sizeW" value="<%= data.sizeW %>" name = "sizeW" class="input" placeholder="width" required readonly></td>
+          <td><input type="text" id="sizeH" name = "sizeH" value="<%= data.sizeH %>" placeholder="height" required readonly></td>
+        </tr>
+        <tr>
+          <td>리사이즈 해상도</td>
+          <td class="info_camera_middle"><input type="text" id="resizeW" value="<%= data.resizeW %>" name = "resizeW" class="input" placeholder="width" required readonly></td>
+          <td><input type="text" id="resizeH" value="<%= data.resizeH %>" name = "resizeH" placeholder="height" required readonly></td>
+        </tr>
+        <tr>
+          <td>카메라 숫자</td>
+          <td class="info_camera_middle">
+            <input type="text" id="camNum" value="<%= data.camNum %>" name = "camNum" class="input" placeholder="camNum" required readonly>
+            <!--
+            <select id="camNum" name="camNum" disabled>
+              <option selected value="<%= data.camNum %>" class="input"><%= data.camNum %></option>
+              <option value="1" class="input">1</option>
+              <option value="2" class="input">2</option>
+              <option value="3" class="input">3</option>
+            </select> -->
+          </td>
+          <td><button class="confirm btn submit" id="confirm_camera">확인</button></td>
+        </tr>
+        </table>
+      </div>
+      <div class="info" id="info_image">
+        <table>
+          <tr class="info_title">
+            <td class="info_image_left">이미지 저장 정보</td> <td><button class="edit btn" id="edit_image" type="button">수정</button></td>
+          </tr>
+          <tr></tr>
+          <tr></tr>
+         <tr>
+           <td class="info_image_left">저장 간격 (초)</td>
+           <td>
+             <input class="info_camera" type="text" id="saveInterval" value="<%= data.saveInterval %>" name = "saveInterval" class="input" placeholder="saveInterval" required readonly>
+           </td>
+         </tr>
+         <tr>
+           <td class="info_image_left">최대 저장 갯수 (개)</td>
+           <td>
+            <input class="info_camera" type="text" id="saveNum" value="<%= data.saveNum %>" name = "saveNum" class="input" placeholder="saveNum" required readonly>
+           </td>
+         </tr>
+         <tr>
+           <td class="info_image_left">최대 저장 기간 (개월)</td>
+           <td>
+             <input class="info_camera" type="text" id="savePeriod" value="<%= data.savePeriod %>" name = "savePeriod" class="input" placeholder="savePeriod" required readonly>
+           </td>
+         </tr>
+       </table>
+       </div>
+       <div id="space"></div>
+       <td><button class="confirm btn submit" id="confirm_image">확인</button></td>
+  </div>
+  </form>
+
+<script src="../public/js/setting.js"></script>

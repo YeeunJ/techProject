@@ -1,0 +1,115 @@
+body{
+  background-color: #131419;
+  padding: 0;
+  margin:0;
+  text-align: center;
+}
+
+#header {
+  text-align: center;
+}
+
+#logo{
+  background-color: rgba( 255, 255, 255, 0.05);
+  border-radius: 0 0 15px 15px;
+  padding: 20px;
+  margin-bottom: 10px;
+  text-align: left;
+  display: inline-block;
+  width: 80%;
+  min-width: 1000px;
+  box-shadow: 2px 2px 5px 0.5px rgba(0, 0,0,0.4);
+}
+
+/*chart*/
+.chartSection{
+  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.chartContent{
+  display: inline-block;
+  background-color: #1b1b21;
+  width: 80%;
+  padding: 20px;
+  min-width: 1000px;
+  border-radius: 20px;
+  margin-bottom: -23px;
+  box-shadow: 2px 2px 5px 0.5px rgba(0, 0,0,0.4);
+}
+.chartTab{
+  width: 100%;
+  border-radius: 3px;
+  margin-top: 20px;
+  text-align: justify;
+}
+.CameraNumber{
+  color: white;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: left;
+}
+.chartCrt{
+  display: inline-block;
+  width: 34%;
+  text-align: right;
+}
+.criteria{
+  display: inline-block;
+  color: #606060;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 5px 10px;
+  margin-right: 10px;
+  border-radius: 18px;
+  font-size: 0.8em;
+}
+
+.clickedCriteria{
+  display: inline-block;
+  color: #131419 !important;
+  background-color: #4abd9e;
+  border: none !important;
+  padding: 5px 10px;
+  margin-right: 10px;
+  border-radius: 18px;
+  font-size: 0.8em;
+}
+.chart{
+  width: 90%;
+  margin: 30px 0 30px 60px;
+  text-align: center;
+}
+#myChart2{
+  display: none;
+}
+#myChart3{
+  display: none;
+}
+
+.chartjsLegend li span {
+       display: inline-block;
+       width: 12px;
+       height: 12px;
+       margin-right: 5px;
+       border-radius: 25px;
+}
+
+/*footer*/
+#footer{
+  padding: 20px;
+  margin-bottom: 10px;
+  display: inline-block;
+  width: 80%;
+  min-width: 1000px;
+}
+
+#copyright{
+  float: left;
+  display: inline-block;
+  color: rgba(255,255,255, 0.4);
+}
+#companyInfo{
+  float: right;
+  display: inline-block;
+  color: rgba(255,255,255, 0.4);
+}

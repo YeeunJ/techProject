@@ -1,0 +1,24 @@
+<div class = "chartSection">
+  <div class="chartContent">
+    <div class="CameraNumber">
+      카메라별 차트
+    </div>
+    <form action="./search" method="post" id="search">
+    <div class="chartTab">
+      <%- include('./search') %>
+      <div class="chartCrt">
+        <div class = "clickedCriteria" id = "chartBtn1"><button class="submit" type="button">지난 7일 총인원</button></div>
+        <div class = "criteria" id = "chartBtn2"><button class="submit" type="button">시간 별 총인원</button></div>
+        <div class = "criteria" id = "chartBtn3"><button class="submit" type="button">최근 평균 인원수</button></div>
+      </div>
+      </div>
+      <div class="chart">
+        <canvas id="myChart1" width="1200px" height="500px"></canvas>
+        <canvas id="myChart2" width="1200px" height="500px"></canvas>
+        <canvas id="myChart3" width="1200px" height="500px"></canvas>
+      </div>
+      </form>
+    </div>
+</div>
+
+<script src="./public/js/chart.js"></script>
