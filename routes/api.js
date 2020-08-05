@@ -95,7 +95,7 @@ router.post('/basic/image-info', function(req, res) {
   });
 
   var obj = new addon.Yolo_cpu();
-  var people = obj.start("resources/images/original/" + filename, 416);
+  var people = obj.start("../resources/images/original/" + filename, 416);
   console.log(people); // people number
   const query1 = `insert into cam_image (name, originalDate, cameraID, peopleCNT)
     values ("${originalDate}_${cameraID}.jpeg", "${originalDate}", ${cameraID}, ${people});`;
