@@ -117,6 +117,9 @@ body{
   left: 300px;
   position: absolute ;
 }
+.ui-resizable {
+    position: absolute !important;
+}
 .button{
   display: inline-block;
   text-align: right;
