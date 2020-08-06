@@ -22,7 +22,7 @@ router.get('/first', function(req, res){
   });
 
 });
-
+/*update에서 cam_query를 camNum이랑 같이 join!!! left join써보자!!*/
 router.get('/update', function (req, res, next) {
     const cam_query = `select * from camera;`;
     const query2 = `select * from setting where id = 1;`;

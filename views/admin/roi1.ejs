@@ -1,0 +1,61 @@
+<div id="adminROI">
+  <div class="roi">
+    <div id = "titleContent">
+    </div>
+    <div id="roiContent">
+      <div class="title">
+        ROI 설정
+      </div>
+      <div id="explain">
+        설정하려고 하는 카메라 버튼을 클릭한 뒤 사진에서 원하는 범위를 드래그한 뒤 저장해주세요.<br>
+        범위를 설정한 뒤에 저장 버튼이 생깁니다.
+      </div>
+      <div id="roiTab">
+        <%data2.forEach(function(d) {%>
+        <div class="roiCam" id="cam<%= d.id%>">CAMERA <%= d.id%></div><br />
+        <% })%>
+      </div>
+      <div id="roiImage">
+        <%data2.forEach(function(d) {%>
+        <div id="camera<%= d.id%>" class="eachCamera">
+          <img src="../resources/images/conf/<%= d.image%>" id="image<%= d.id%>" class="image" draggable="false" />
+        </div>
+        <% })%>
+      </div>
+      <div class="button">
+        <button type= 'button' id="submit">저장</button><br/>
+        <button type="button" id="cancel">리셋</button>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+</div>
+<script type="text/javascript">
+  var x1 = 0,
+    y1 = 0,
+    x2 = 0,
+    y2 = 0;
+  var count = 0;
+  var id = "camera1";
+  var button = "cam1";
+  var roiForm = document.createElement('form');
+  roiForm.name = 'roiForm';
+  roiForm.method = 'post';
+  roiForm.action = './submit';
+/*div 추가 버튼을 두고 누르면 div 추가되게!!
+취소 버튼은 예전과 동일하게!!
+교수님 것 보고 div 크기 조절, 움직임 가능하게
+첫번째 누를때 확인 버튼이 생기게
+확인 버튼 생기면 그 때 form에 데이터 넣자!!
+두번 클릭하면 삭제..? 이건 넣을 수 있으면!!
+
+search 해야하는데.. 일단 내일 하고!!
+플러스로 갯수 확인해서 delete하는 코드 쿼리 짜두자!!
+
+*/
+  <% data2.forEach(function(d) {%>
+
+  <% }) %>
+</script>
