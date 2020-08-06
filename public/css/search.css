@@ -49,11 +49,11 @@ button.submit{
 }
 
 #chartBtn0{
-  background:grey !important;
+  background:rgba( 255, 255, 255, 0.7) !important;
   color:black !important;
 }
 
 #chartBtn0:hover{
-  background:#606060 !important;
+  background:grey !important;
   color:black !important;
 }

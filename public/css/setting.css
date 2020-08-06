@@ -76,12 +76,6 @@ input, select{
   text-align: center;
   padding: 0px 20px;
 }
-#info_company input, #info_company_first input{
-  width: 250px;
-  text-overflow: ellipsis;
-  text-align:center;
-  color:grey;
-}
 
 div#setting input{
   color:grey;
@@ -94,7 +88,7 @@ div#info_company_first input{
   height: 40px;
 }
 
-button.edit, button.cancle{
+button.edit{
   box-sizing: border-box;
   width: 80px;
   font-size:12px;
@@ -105,6 +99,19 @@ button.edit, button.cancle{
   border: 1px solid #4abd9e;
   text-align: center;
 }
+
+button.cancle{
+  box-sizing: border-box;
+  width: 80px;
+  font-size:12px;
+  border-radius: 50px;
+  height: 25px;
+  background-color:rgba( 255, 255, 255, 0.7);;
+  color:black;
+  border:none;
+  text-align: center;
+}
+
 button.cancle{
   display:none;
 }
@@ -137,6 +144,21 @@ button#confirm_camera, button#confirm_image, button#confirm_company{
   display:none;
 }
 
+#info_company input, #info_company_first input{
+  width: 250px;
+  text-overflow: ellipsis;
+  text-align:center;
+  color:grey;
+}
 .info_left{
-  width:140px;
+  width:130px;
+}
+input#companyName{
+  width: 160px;
+}
+input#phone{
+  width: 160px;
+}
+input#location{
+  width: 280px;
 }
