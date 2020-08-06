@@ -27,35 +27,6 @@ div#setting1, div#setting{
 div#info_company{
   display:block;
 }
-/*
-#info_company, div#info_company_first{
-  width:40%;
-}
-#info_company .info_company_left, div#info_company_first .info_company_left{
-  width: 30%;
-}
-#info_company .info_company_right, #info_company_first .info_company_right{
-  width: 70%;
-}*/
-
-#info_name{
-  width:10%;
-}
-#info_name2{
-  width:10%;
-}
-#info_phone{
-  width:10%;
-}
-#info_phone2{
-  width:10%;
-}
-#info_location{
-  width:10%;
-}
-#info_location2{
-  width:10%;
-}
 
 .info{
   width: 50%;
@@ -164,4 +135,8 @@ button#confirm_company{
 
 button#confirm_camera, button#confirm_image, button#confirm_company{
   display:none;
+}
+
+.info_left{
+  width:140px;
 }

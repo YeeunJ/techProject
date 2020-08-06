@@ -2,7 +2,7 @@ div#search{
   color: white;
   margin-bottom: 30px;
   float:left;
-  width:65%;
+  width:68%;
   //border:solid 1px red;
 }
 input, select{
@@ -46,4 +46,14 @@ input{
 
 button.submit{
   all: unset;
+}
+
+#chartBtn0{
+  background:grey !important;
+  color:black !important;
+}
+
+#chartBtn0:hover{
+  background:#606060 !important;
+  color:black !important;
 }

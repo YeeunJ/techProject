@@ -4,15 +4,15 @@
     <div class="info" id="info_company">
       <table>
         <tr class="info_title">
-          <td>업체 정보</td> <td><button class="edit btn" id="edit_company" type="button">수정</button><button class="cancle btn" id="cancle_company" type="button">취소</button><button class="confirm btn submit" id="confirm_company" style="margin-left: 10px;">확인</button>
+          <td class="info_left">업체 정보</td> <td><button class="edit btn" id="edit_company" type="button">수정</button><button class="cancle btn" id="cancle_company" type="button">취소</button><button class="confirm btn submit" id="confirm_company" style="margin-left: 10px;">확인</button>
           </td>
         </tr>
         <tr>
-        <tr><td class="info_company_left">업체명</td>
+        <tr><td>업체명</td>
         <td class="info_company_right"><input type="text" id="companyName" value="<%= data.companyName %>" name = "companyName" class="input" placeholder="업체명" required readonly></td>
-        <td class="info_company_left">전화번호</td>
+        <td>전화번호</td>
         <td class="info_company_right"><input type="text" id="phone" value="<%= data.phone %>" name = "phone" class="input" placeholder="전화번호" required readonly></td>
-        <td class="info_company_left">주소</td>
+        <td>주소</td>
         <td class="info_company_right"><input type="text" id="location" value="<%= data.location %>" name = "location" class="input" placeholder="주소" required readonly></td>
         </tr>
       </table>
@@ -23,24 +23,24 @@
       <table>
         <tr></tr>
         <tr class="info_title">
-          <td>카메라 정보</td> <td><button class="edit btn" id="edit_camera" type="button">수정</button><button class="cancle btn" id="cancle_camera" type="button">취소</button></td>
+          <td class="info_left">카메라 정보</td> <td><button class="edit btn" id="edit_camera" type="button">수정</button><button class="cancle btn" id="cancle_camera" type="button">취소</button></td>
         </tr>
         <tr></tr>
         <tr></tr>
         <tr>
-          <td>카메라 해상도</td>
+          <td class="info_left">카메라 해상도</td>
           <td class="info_camera_middle"><input type="text" id="sizeW" value="<%= data.sizeW %>" name = "sizeW" class="input" placeholder="width" required readonly></td>
           <td><input type="text" id="sizeH" name = "sizeH" value="<%= data.sizeH %>" placeholder="height" required readonly></td>
         </tr>
         <tr>
-          <td>리사이즈 해상도</td>
+          <td class="info_left">리사이즈 해상도</td>
           <td class="info_camera_middle"><input type="text" id="resizeW" value="<%= data.resizeW %>" name = "resizeW" class="input" placeholder="width" required readonly></td>
           <td><input type="text" id="resizeH" value="<%= data.resizeH %>" name = "resizeH" placeholder="height" required readonly></td>
         </tr>
         <tr>
-          <td>카메라 숫자</td>
+          <td class="info_left">카메라 숫자</td>
           <td class="info_camera_middle">
-            <input type="text" id="camNum" value="<%= data.camNum %>" name = "camNum" class="input" placeholder="camNum" required readonly>
+            <input type="text" id="camNum" value="<%= data.camNum %>" name = "camNum" class="input" placeholder="카메라 개수" required readonly>
             <!--
             <select id="camNum" name="camNum" disabled>
               <option selected value="<%= data.camNum %>" class="input"><%= data.camNum %></option>
@@ -64,19 +64,19 @@
          <tr>
            <td class="info_image_left">저장 간격 (초)</td>
            <td>
-             <input class="info_camera" type="text" id="saveInterval" value="<%= data.saveInterval %>" name = "saveInterval" class="input" placeholder="saveInterval" required readonly>
+             <input class="info_camera" type="text" id="saveInterval" value="<%= data.saveInterval %>" name = "saveInterval" class="input" placeholder="저장 간격 (초)" required readonly>
            </td>
          </tr>
          <tr>
            <td class="info_image_left">최대 저장 갯수 (개)</td>
            <td>
-            <input class="info_camera" type="text" id="saveNum" value="<%= data.saveNum %>" name = "saveNum" class="input" placeholder="saveNum" required readonly>
+            <input class="info_camera" type="text" id="saveNum" value="<%= data.saveNum %>" name = "saveNum" class="input" placeholder="최대 저장 갯수 (개)" required readonly>
            </td>
          </tr>
          <tr>
            <td class="info_image_left">최대 저장 기간 (개월)</td>
            <td>
-             <input class="info_camera" type="text" id="savePeriod" value="<%= data.savePeriod %>" name = "savePeriod" class="input" placeholder="savePeriod" required readonly>
+             <input class="info_camera" type="text" id="savePeriod" value="<%= data.savePeriod %>" name = "savePeriod" class="input" placeholder="최대 저장 기간 (개월)" required readonly>
            </td>
          </tr>
        </table>
