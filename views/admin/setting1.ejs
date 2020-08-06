@@ -1,31 +1,25 @@
 <form action="./update" method="post" id="setting1">
-<div id="info">
+<div id="setting1">
   <div class="info" id="info_company_first">
     <table>
       <tr class="info_title">
         <td>업체 정보</td>
       </tr>
-      <tr></tr>
-      <tr></tr>
       <tr>
-        <td class="info_company_left">업체명</td>
-        <td class="info_company_right"><input type="text" id="companyName" value="<%= data.companyName %>" name = "companyName" class="input" placeholder="업체명" required></td>
-      </tr>
-      <tr>
-        <td class="info_company_left">전화번호</td>
-        <td class="info_company_right"><input type="text" id="phone" value="<%= data.phone %>" name = "phone" class="input" placeholder="전화번호" required></td>
-      </tr>
-      <tr>
-        <td class="info_company_left">주소</td>
-        <td class="info_company_right"><input type="text" id="location" value="<%= data.location %>" name = "location" class="input" placeholder="주소" required></td>
+      <tr><td class="info_company_left">업체명</td>
+      <td class="info_company_right"><input type="text" id="companyName" value="<%= data.companyName %>" name = "companyName" class="input" placeholder="업체명" required></td>
+      <td class="info_company_left">전화번호</td>
+      <td class="info_company_right"><input type="text" id="phone" value="<%= data.phone %>" name = "phone" class="input" placeholder="전화번호" required></td>
+      <td class="info_company_left">주소</td>
+      <td class="info_company_right"><input type="text" id="location" value="<%= data.location %>" name = "location" class="input" placeholder="주소" required></td>
       </tr>
     </table>
   </div>
-</div>
+  <hr>
 
-<div id="setting1">
     <div class="info" id="info_camera">
       <table>
+        <tr></tr>
         <tr class="info_title">
           <td>카메라 정보</td>
         </tr>
@@ -51,6 +45,7 @@
       </div>
       <div class="info" id="info_image">
         <table>
+          <tr></tr>
           <tr class="info_title">
             <td class="info_image_left">이미지 저장 정보</td>
           </tr>
