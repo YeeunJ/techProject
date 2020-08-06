@@ -10,11 +10,7 @@ getDefaultSetting(now);
 var hour, minute, second, time, year, month, day, date;
 
 //지난 7일 총인원이 default
-var lastweek = lastWeek();
-$('#date_from').val(getDate(lastweek)); //date
-$('#date_to').val(getDate(real_now)); // real_now
-$('#time_from').val('00:00:00'); //getTime(lastweek)
-$('#time_to').val('00:00:00'); //getTime(real_now)
+getWeekData();
 submit();
 
 
@@ -46,7 +42,7 @@ function getDefaultSetting(now){
 function lastWeek() {
   var d = new Date();
   var dayOfMonth = d.getDate()
-  d.setDate(dayOfMonth - 7)
+  d.setDate(dayOfMonth - 6)
   return d;
 }
 
@@ -71,6 +67,14 @@ function getTime(d){
   return h + ":" + m + ":" + s;
 }
 
+function getWeekData(){
+  var lastweek = lastWeek();
+  $('#date_from').val(getDate(lastweek)); //date
+  $('#date_to').val(getDate(real_now)); // real_now
+  $('#time_from').val(getTime(lastweek)); //'00:00:00'
+  $('#time_to').val(getTime(lastweek)); //'00:00:00'
+}
+
 const btn1 = document.querySelector('#chartBtn1');
 const btn2 = document.querySelector('#chartBtn2');
 const btn3 = document.querySelector('#chartBtn3');
@@ -83,11 +87,7 @@ function submit(){
 }
 
 $(btn1).click(function(){
-  var lastweek = lastWeek();
-  $('#date_from').val(getDate(lastweek)); //date
-  $('#date_to').val(getDate(real_now)); // real_now
-  $('#time_from').val('00:00:00'); //getTime(lastweek)
-  $('#time_to').val('00:00:00'); //getTime(real_now)
+  getWeekData();
   submit();
 });
 
