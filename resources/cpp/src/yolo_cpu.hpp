@@ -27,16 +27,16 @@ class Yolo_cpu : public Napi::ObjectWrap<Yolo_cpu> {
         float nmsThreshold = 0.5;
         Net net;
         vector<cv::String> outNames;
-        
+
     public:
         static Napi::Object Init(Napi::Env env, Napi::Object exports);
         Yolo_cpu(const Napi::CallbackInfo& info);
-    
+
     protected:
         Napi::Value start(const Napi::CallbackInfo& info);
 
     private:
-        int doInference(const string imagePath, const int resize);
+        int doInference(const string inputImagePath, const string outputImagePath, const int resize);
         int postProcess (Mat& frame, const vector<Mat>& outs);
         void imagePadding (Mat& frame);
 };
