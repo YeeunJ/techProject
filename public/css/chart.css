@@ -51,7 +51,7 @@ body{
 }
 .chartCrt{
   display: inline-block;
-  width: 34%;
+  width: 32%;
   text-align: right;
 }
 .criteria{
@@ -61,7 +61,7 @@ body{
   padding: 5px 10px;
   margin-right: 10px;
   border-radius: 18px;
-  font-size: 0.8em;
+  font-size: 0.7em;
 }
 
 .clickedCriteria{
@@ -72,7 +72,7 @@ body{
   padding: 5px 10px;
   margin-right: 10px;
   border-radius: 18px;
-  font-size: 0.8em;
+  font-size: 0.7em;
 }
 .chart{
   width: 90%;
