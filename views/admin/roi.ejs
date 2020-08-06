@@ -11,25 +11,25 @@
         범위를 설정한 뒤에 저장 버튼이 생깁니다.
       </div>
       <div id="roiTab">
-        <%for(var i=1; i<=data.camNum; i++){ %>
+        <%for(var i=0; i<data.camNum; i++){ %>
         <% if(data2.length > i){ %>
-        <div class="roiCam" id="cam<%= data2[i-1].id%>">CAMERA <%=i%></div><br />
+        <div class="roiCam" id="cam<%= data2[i].id%>">CAMERA <%= i+1%></div><br />
         <% } else{ %>
-        <div class="roiCam" id="cam<%= i%>">CAMERA <%=i%></div><br />
+        <div class="roiCam" id="cam<%= i+1%>">CAMERA <%=i+1%></div><br />
         <% }}%>
       </div>
       <div id="roiImage">
-        <%data2.forEach(function(d) {%>
+        <% for(var i =0; i<data.camNum; i++) {%>
           <% if(data2.length > i){ %>
-        <div id="camera<%= d.id%>" class="eachCamera">
-          <img src="../resources/images/conf/<%= d.image%>" id="image<%= d.id%>" class="image"  width = "640px" draggable="false" />
+        <div id="camera<%= data2[i].id%>" class="eachCamera">
+          <img src="../resources/images/conf/<%= data2[i].image%>" id="image<%= data2[i].id%>" class="image"  width = "640px" draggable="false" />
         </div>
         <% }else{ %>
-          <div id="camera<%= d.id%>" class="eachCamera">
+          <div id="camera<%= i+1%>" class="eachCamera">
             <div class = "noImage">아직 이미지가 존재하지 않습니다.</div>
           </div>
         <% }%>
-        <% })%>
+        <% }%>
       </div>
       <div class="button">
         <button type= 'button' id="submit">저장</button><br/>
@@ -54,9 +54,9 @@
   roiForm.method = 'post';
   roiForm.action = './submit';
 
-  <% data2.forEach(function(d) {
-      %>
-      $("#camera<%= d.id%>").selectable({
+  <% for(var i =0; i<data.camNum; i++) {%>
+    <% if(data2.length > i){ %>
+      $("#camera<%= data2[i].id%>").selectable({
         start: function(event, ui) {
           var offset = $(this).offset();
           x1 = (event.pageX - offset.left);
@@ -69,40 +69,54 @@
           console.log("X1: " + x1 + "  Y1: " + y1);
           console.log("X2: " + x2 + "  Y2: " + y2);
           count++;
-          if($("#camera<%= d.id %>").children().length >= 1){
+          if($("#camera<%= data2[i].id %>").children().length >= 1){
             document.getElementById('submit').style.display = 'inline-block';
             document.getElementById('cancel').style.display = 'inline-block';
           }
           var input = document.createElement('input');
           input.setAttribute("type", "hidden");
           input.setAttribute("name", "data");
-          input.setAttribute("value", [<%= d.id %>,x1,x2,y1,y2]);
+          input.setAttribute("value", [<%= data2[i].id %>,x1,x2,y1,y2]);
           roiForm.appendChild(input);
 
           if (y1 <= y2 && x1 <= x2)
-            $("#camera<%= d.id %>").append('<div class = "blurRoi" style="left: ' + x1 + 'px;top: ' + y1 + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div>');
+            $("#camera<%= data2[i].id %>").append('<div class = "blurRoi" style="left: ' + x1 + 'px;top: ' + y1 + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div>');
           else if (y1 <= y2) {
-            $("#camera<%= d.id %>").append('<div class = "blurRoi" style="left: ' + x2 + 'px;top: ' + y1 + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div>');
+            $("#camera<%= data2[i].id %>").append('<div class = "blurRoi" style="left: ' + x2 + 'px;top: ' + y1 + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div>');
           } else if (x1 > x2) {
-            $("#camera<%= d.id %>").append('<div class = "blurRoi" style="left: ' + x2 + 'px;top: ' + y2 + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div>');
+            $("#camera<%= data2[i].id %>").append('<div class = "blurRoi" style="left: ' + x2 + 'px;top: ' + y2 + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div>');
           } else
-            $("#camera<%= d.id %>").append('<div class = "blurRoi" style="left: ' + x1 + 'px;top: ' + y2 + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div>');
+            $("#camera<%= data2[i].id %>").append('<div class = "blurRoi" style="left: ' + x1 + 'px;top: ' + y2 + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div>');
         }
       });
-      document.getElementById('cam<%= d.id%>').addEventListener('click', function() {
+      document.getElementById('cam<%= data2[i].id%>').addEventListener('click', function() {
         if (!($('#' + button).hasClass('completeCam'))) {
           document.getElementById(button).className = 'roiCam';
         }
         document.getElementById(id).style.display = 'none';
-        if (!($('#' +'cam<%= d.id%>').hasClass('completeCam'))) {
-          document.getElementById('cam<%= d.id%>').className = 'clickedCam';
+        if (!($('#' +'cam<%= data2[i].id%>').hasClass('completeCam'))) {
+          document.getElementById('cam<%= data2[i].id%>').className = 'clickedCam';
         }
-        document.getElementById('camera<%= d.id%>').style.display = 'block';
-        id = "camera<%= d.id%>";
-        button = "cam<%= d.id%>";
+        document.getElementById('camera<%= data2[i].id%>').style.display = 'block';
+        id = "camera<%= data2[i].id%>";
+        button = "cam<%= data2[i].id%>";
       });
-      document.getElementById('camera<%= d.id%>').style.display = 'none';
-      <% }) %>
+      document.getElementById('camera<%= data2[i].id%>').style.display = 'none';
+      <% }else{ %>
+        document.getElementById('cam<%= i+1%>').addEventListener('click', function() {
+          if (!($('#' + button).hasClass('completeCam'))) {
+            document.getElementById(button).className = 'roiCam';
+          }
+          document.getElementById(id).style.display = 'none';
+          if (!($('#' +'cam<%= i+1 %>').hasClass('completeCam'))) {
+            document.getElementById('cam<%= i+1%>').className = 'clickedCam';
+          }
+          document.getElementById('camera<%= i+1%>').style.display = 'block';
+          id = "camera<%= i+1%>";
+          button = "cam<%= i+1%>";
+        });
+        document.getElementById('camera<%= i+1%>').style.display = 'none';
+      <% }} %>
     document.getElementById('camera1').style.display = 'block';
   document.getElementById('cam1').className = 'clickedCam';
 
