@@ -18,7 +18,7 @@
       <div id="roiImage">
         <%data2.forEach(function(d) {%>
         <div id="camera<%= d.id%>" class="eachCamera">
-          <img src="../resources/images/conf/<%= d.image%>" id="image<%= d.id%>" class="image" draggable="false" />
+          <img src="../resources/images/conf/<%= d.image%>" id="image<%= d.id%>" class="image" width = "640px" draggable="false" />
         </div>
         <% })%>
       </div>
@@ -60,4 +60,47 @@ search 해야하는데.. 일단 내일 하고!!
   <% data2.forEach(function(d) {%>
 
   <% }) %>
+  document.getElementById('cancel').addEventListener('click', function() {
+    document.getElementById(button).className = 'clickedCam';
+    $('#' + id).selectable("enable");
+    $('#roi-form #count').val(count - $('#' + id).children('div').length / 4);
+    $('#' + id).children('div').remove();
+    document.getElementById('form' + id).remove();
+  });
+
+  /*submit button click*/
+  document.getElementById('submit').addEventListener('click', function() {
+        document.getElementById(button).className = 'completeCam';
+        $('#' + id).selectable("disable");
+        document.getElementById(id).style.display = 'none';
+        var flag = 0;
+        var i, tid, tbutton;
+
+        for (i = 0; i < $('#roiImage').children().length; i++) {
+          console.log(i);
+          tid = $('#roiImage').children().eq(i).attr('id');
+          tbutton = "cam" + tid[tid.length - 1];;
+          console.log(tid);
+          console.log(tbutton);
+          console.log($('#' + tbutton).hasClass('completeCam'));
+          if (!($('#' + tbutton).hasClass('completeCam'))) {
+            flag = 1;
+            break;
+          }
+        }
+        if (flag == 1) {
+          id = $('#roiImage').children().eq(i).attr('id');
+          button = "cam" + id[id.length - 1];
+          document.getElementById(button).className = 'clickedCam';
+          document.getElementById(id).style.display = 'block';
+        } else {
+          var input = document.createElement('input');
+          input.setAttribute("type", "hidden");
+          input.setAttribute("name", "count");
+          input.setAttribute("value", count);
+          roiForm.appendChild(input);
+          document.body.appendChild(roiForm);
+          roiForm.submit();
+        }
+      });
 </script>

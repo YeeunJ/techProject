@@ -11,14 +11,17 @@
         범위를 설정한 뒤에 저장 버튼이 생깁니다.
       </div>
       <div id="roiTab">
-        <%data2.forEach(function(d) {%>
-        <div class="roiCam" id="cam<%= d.id%>">CAMERA <%= d.id%></div><br />
-        <% })%>
+        <%for(var i=0; i<data.camNum; i++){ %>
+        <% if(data2.length > i) %>
+        <div class="roiCam" id="cam<%= d[i].id%>">CAMERA <%=i%></div><br />
+        <% else %>
+        <div class="roiCam" id="cam<%= i%>">CAMERA <%=i%></div><br />
+        <% }%>
       </div>
       <div id="roiImage">
         <%data2.forEach(function(d) {%>
         <div id="camera<%= d.id%>" class="eachCamera">
-          <img src="../resources/images/conf/<%= d.image%>" id="image<%= d.id%>" class="image" draggable="false" />
+          <img src="../resources/images/conf/<%= d.image%>" id="image<%= d.id%>" class="image"  width = "640px" draggable="false" />
         </div>
         <% })%>
       </div>
@@ -60,7 +63,10 @@
           console.log("X1: " + x1 + "  Y1: " + y1);
           console.log("X2: " + x2 + "  Y2: " + y2);
           count++;
-
+          if($("#camera<%= d.id %>").children().length >= 1){
+            document.getElementById('submit').style.display = 'inline-block';
+            document.getElementById('cancel').style.display = 'inline-block';
+          }
           var input = document.createElement('input');
           input.setAttribute("type", "hidden");
           input.setAttribute("name", "data");
@@ -101,6 +107,8 @@
     $('#roi-form #count').val(count - $('#' + id).children('div').length / 4);
     $('#' + id).children('div').remove();
     document.getElementById('form' + id).remove();
+    document.getElementById('submit').style.display = 'none';
+    document.getElementById('cancel').style.display = 'none';
   });
 
   /*submit button click*/
@@ -128,6 +136,14 @@
           button = "cam" + id[id.length - 1];
           document.getElementById(button).className = 'clickedCam';
           document.getElementById(id).style.display = 'block';
+
+          if($("#"+id).children().length > 1){
+            document.getElementById('submit').style.display = 'inline-block';
+            document.getElementById('cancel').style.display = 'inline-block';
+          }else{
+            document.getElementById('submit').style.display = 'none';
+            document.getElementById('cancel').style.display = 'none';
+          }
         } else {
           var input = document.createElement('input');
           input.setAttribute("type", "hidden");

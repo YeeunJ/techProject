@@ -12,7 +12,7 @@ const db = new sqlite3.Database('./resources/db/information.db', sqlite3.OPEN_RE
 
 router.get('/reset', function(req, res){
   const query1 = `UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME = 'camera';`;
-  const query2 = `UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME = 'camera';`;
+  const query2 = `UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME = 'cam_image';`;
   const query3 = `UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME = 'camera';`;
   console.log(req);
   db.serialize();
@@ -30,7 +30,6 @@ router.get('/first', function(req, res){
   const query = `select * from setting where id = 1;`;
   console.log(req);
   db.serialize();
-
   db.each(query, function(err, row){
     if(err) return res.json(err);
     res.render('admin/index', {data: row, data2: ""});

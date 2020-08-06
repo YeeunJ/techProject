@@ -136,7 +136,7 @@ body{
 
 #addDiv {
   font-size: 15px;
-  padding: 5px 40px;
+  padding: 5px 26px;
   background-color: rgba( 255, 255, 255, 0.7);
   display: inline-block;
   border-radius: 30px;
@@ -152,6 +152,7 @@ body{
   border-radius: 30px;
   border: none;
   margin-bottom: 10px;
+  display: none;
 }
 
 #cancel{
@@ -162,6 +163,7 @@ body{
   border-radius: 30px;
   border: none;
   margin-bottom: 7px;
+  display: none;
 }
 
 .cropper {
