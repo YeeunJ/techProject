@@ -9,6 +9,15 @@ var real_now = new Date();
 getDefaultSetting(now);
 var hour, minute, second, time, year, month, day, date;
 
+//지난 7일 총인원이 default
+var lastweek = lastWeek();
+$('#date_from').val(getDate(lastweek)); //date
+$('#date_to').val(getDate(real_now)); // real_now
+$('#time_from').val('00:00:00'); //getTime(lastweek)
+$('#time_to').val('00:00:00'); //getTime(real_now)
+submit();
+
+
 function getDefaultSetting(now){
   hour = now.getHours()>9 ? ''+now.getHours() : '0'+now.getHours();
   minute = now.getMinutes()>9 ? ''+now.getMinutes() : '0'+now.getMinutes();
@@ -26,10 +35,12 @@ function getDefaultSetting(now){
   month = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
   day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
   date = year + '-' + month + '-' + day;
+
+  /*
   $('#date_from').val(date);
   $('#date_to').val(date);
   $('#time_from').val('08:00:00'); //시작 초기 값
-  $('#time_to').val(time);
+  $('#time_to').val(time);*/
 }
 
 function lastWeek() {
@@ -77,9 +88,9 @@ $(btn1).click(function(){
   $('#date_to').val(getDate(real_now)); // real_now
   $('#time_from').val('00:00:00'); //getTime(lastweek)
   $('#time_to').val('00:00:00'); //getTime(real_now)
-
   submit();
 });
+
 $(btn2).click(function(){
   $('#date_from').val(date);
   $('#date_to').val(date);
