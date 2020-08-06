@@ -7,8 +7,10 @@
         ROI 설정
       </div>
       <div id="explain">
-        설정하려고 하는 카메라 버튼을 클릭한 뒤 사진에서 원하는 범위를 드래그한 뒤 저장해주세요.<br>
-        범위를 설정한 뒤에 저장 버튼이 생깁니다.
+        <b style = "color: rgb(74, 189,158)">1.</b> 영역을 지정할 카메라를 선택한다.<br>
+        <b style = "color: rgb(74, 189,158)">2.</b> 사진 위에 인원수를 셀 영역을 표시한다. <br>
+        <b style = "color: rgb(74, 189,158)">3.</b> 우측 하단의 확인 버튼을 눌러 설정을 완료한다. <br>
+        <b style = "color: rgb(74, 189,158)">4.</b> 모든 영역을 저장했다면 완료 버튼을 눌러 설정을 완료한다.
       </div>
       <div id="roiTab">
         <%for(var i=0; i<data.camNum; i++){ %>
@@ -26,7 +28,10 @@
         </div>
         <% }else{ %>
           <div id="camera<%= i+1%>" class="eachCamera">
-            <div class = "noImage">아직 이미지가 존재하지 않습니다.</div>
+            <div class = "noImage">
+              아직 이미지가 존재하지 않습니다.<br>
+              <button type="button" id = "refresh">새로고침</button>을 눌러주세요.
+            </div>
           </div>
         <% }%>
         <% }%>
@@ -90,13 +95,15 @@
         }
       });
       document.getElementById('cam<%= data2[i].id%>').addEventListener('click', function() {
-        if (!($('#' + button).hasClass('completeCam'))) {
+        if ($("#"+id).children().length > 1){
+          document.getElementById(button).className = 'completeCam';
+        }else{
           document.getElementById(button).className = 'roiCam';
         }
         document.getElementById(id).style.display = 'none';
-        if (!($('#' +'cam<%= data2[i].id%>').hasClass('completeCam'))) {
+        //if (!($('#' +'cam<%= data2[i].id%>').hasClass('completeCam'))) {
           document.getElementById('cam<%= data2[i].id%>').className = 'clickedCam';
-        }
+        //}
         document.getElementById('camera<%= data2[i].id%>').style.display = 'block';
         id = "camera<%= data2[i].id%>";
         button = "cam<%= data2[i].id%>";
@@ -104,13 +111,15 @@
       document.getElementById('camera<%= data2[i].id%>').style.display = 'none';
       <% }else{ %>
         document.getElementById('cam<%= i+1%>').addEventListener('click', function() {
-          if (!($('#' + button).hasClass('completeCam'))) {
+          if ($("#"+id).children().length > 1){
+            document.getElementById(button).className = 'completeCam';
+          }else{
             document.getElementById(button).className = 'roiCam';
           }
           document.getElementById(id).style.display = 'none';
-          if (!($('#' +'cam<%= i+1 %>').hasClass('completeCam'))) {
+          //if (!($('#' +'cam<%= i+1 %>').hasClass('completeCam'))) {
             document.getElementById('cam<%= i+1%>').className = 'clickedCam';
-          }
+          //}
           document.getElementById('camera<%= i+1%>').style.display = 'block';
           id = "camera<%= i+1%>";
           button = "cam<%= i+1%>";

@@ -7,25 +7,40 @@
         ROI 설정
       </div>
       <div id="explain">
-        설정하려고 하는 카메라 버튼을 클릭한 뒤 사진에서 원하는 범위를 드래그한 뒤 저장해주세요.<br>
-        범위를 설정한 뒤에 저장 버튼이 생깁니다.
+        <b style = "color: rgb(74, 189,158)">1.</b> 영역을 지정할 카메라를 선택한다.<br>
+        <b style = "color: rgb(74, 189,158)">2.</b> 사진 위에 인원수를 셀 영역을 표시한다. <br>
+        <b style = "color: rgb(74, 189,158)">3.</b> 우측 하단의 확인 버튼을 눌러 설정을 완료한다. <br>
+        <b style = "color: rgb(74, 189,158)">4.</b> 모든 영역을 저장했다면 완료 버튼을 눌러 설정을 완료한다.
       </div>
       <div id="roiTab">
-        <%data2.forEach(function(d) {%>
-        <div class="roiCam" id="cam<%= d.id%>">CAMERA <%= d.id%></div><br />
-        <% })%>
+        <%for(var i=0; i<data.camNum; i++){ %>
+        <% if(data2.length > i){ %>
+        <div class="roiCam" id="cam<%= data2[i].id%>">CAMERA <%= i+1%></div><br />
+        <% } else{ %>
+        <div class="roiCam" id="cam<%= i+1%>">CAMERA <%=i+1%></div><br />
+        <% }}%>
       </div>
       <div id="roiImage">
-        <%data2.forEach(function(d) {%>
-        <div id="camera<%= d.id%>" class="eachCamera">
-          <img src="../resources/images/conf/<%= d.image%>" id="image<%= d.id%>" class="image" width = "640px" draggable="false" />
+        <% for(var i =0; i<data.camNum; i++) {%>
+          <% if(data2.length > i){ %>
+        <div id="camera<%= data2[i].id%>" class="eachCamera">
+          <img src="../resources/images/conf/<%= data2[i].image%>" id="image<%= data2[i].id%>" class="image"  width = "640px" draggable="false" />
         </div>
-        <% })%>
+        <% }else{ %>
+          <div id="camera<%= i+1%>" class="eachCamera">
+            <div class = "noImage">
+              아직 이미지가 존재하지 않습니다.<br>
+              <button type="button" id = "refresh">새로고침</button>을 눌러주세요.
+            </div>
+          </div>
+        <% }%>
+        <% }%>
       </div>
       <div class="button">
         <button type= 'button' id="addDiv">영역 추가</button><br/>
+        <button type="button" id="cancel">리셋</button><br/>
         <button type= 'button' id="submit">저장</button><br/>
-        <button type="button" id="cancel">리셋</button>
+        <button type= 'button' id="addDiv">완료</button>
       </div>
     </div>
   </div>
@@ -45,27 +60,64 @@
   roiForm.name = 'roiForm';
   roiForm.method = 'post';
   roiForm.action = './submit';
-/*div 추가 버튼을 두고 누르면 div 추가되게!!
-취소 버튼은 예전과 동일하게!!
-교수님 것 보고 div 크기 조절, 움직임 가능하게
-첫번째 누를때 확인 버튼이 생기게
-확인 버튼 생기면 그 때 form에 데이터 넣자!!
-두번 클릭하면 삭제..? 이건 넣을 수 있으면!!
 
-search 해야하는데.. 일단 내일 하고!!
-플러스로 갯수 확인해서 delete하는 코드 쿼리 짜두자!!
+  document.getElementById('addDiv').addEventListener('click', function() {
+    $('#'+id).append('<div class="blurRoi" id = "blur'+count+'"><div class="resize" id="resize'+count+'"></div></div>');
+    $('#resize'+count).resizable();
+    $('#blur'+count).draggable({
+        appendTo: 'body',
+        start: function(event, ui) {
+            isDraggingMedia = true;
+        },
+        stop: function(event, ui) {
+            isDraggingMedia = false;
+            // blah
+        }
+    });
+    count++;
+  });
 
-*/
+  <% for(var i =0; i<data.camNum; i++) {%>
+    <% if(data2.length > i){ %>
+      document.getElementById('cam<%= data2[i].id%>').addEventListener('click', function() {
+        if ($("#"+id).children().length > 1){
+          document.getElementById(button).className = 'completeCam';
+        }else{
+          document.getElementById(button).className = 'roiCam';
+        }
+        document.getElementById(id).style.display = 'none';
+        document.getElementById('cam<%= data2[i].id%>').className = 'clickedCam';
+        document.getElementById('camera<%= data2[i].id%>').style.display = 'block';
+        id = "camera<%= data2[i].id%>";
+        button = "cam<%= data2[i].id%>";
+      });
+      document.getElementById('camera<%= data2[i].id%>').style.display = 'none';
+      <% }else{ %>
+        document.getElementById('cam<%= i+1%>').addEventListener('click', function() {
+          if ($("#"+id).children().length > 1){
+            document.getElementById(button).className = 'completeCam';
+          }else{
+            document.getElementById(button).className = 'roiCam';
+          }
+          document.getElementById(id).style.display = 'none';
+          document.getElementById('cam<%= i+1%>').className = 'clickedCam';
+          document.getElementById('camera<%= i+1%>').style.display = 'block';
+          id = "camera<%= i+1%>";
+          button = "cam<%= i+1%>";
+        });
+        document.getElementById('camera<%= i+1%>').style.display = 'none';
+    <% }} %>
+  document.getElementById('camera1').style.display = 'block';
+  document.getElementById('cam1').className = 'clickedCam';
 
-  <% data2.forEach(function(d) {%>
-
-  <% }) %>
+  /*cancel button click */
   document.getElementById('cancel').addEventListener('click', function() {
     document.getElementById(button).className = 'clickedCam';
     $('#' + id).selectable("enable");
     $('#roi-form #count').val(count - $('#' + id).children('div').length / 4);
     $('#' + id).children('div').remove();
-    document.getElementById('form' + id).remove();
+    document.getElementById('submit').style.display = 'none';
+    document.getElementById('cancel').style.display = 'none';
   });
 
   /*submit button click*/
@@ -93,6 +145,14 @@ search 해야하는데.. 일단 내일 하고!!
           button = "cam" + id[id.length - 1];
           document.getElementById(button).className = 'clickedCam';
           document.getElementById(id).style.display = 'block';
+
+          if($("#"+id).children().length > 1){
+            document.getElementById('submit').style.display = 'inline-block';
+            document.getElementById('cancel').style.display = 'inline-block';
+          }else{
+            document.getElementById('submit').style.display = 'none';
+            document.getElementById('cancel').style.display = 'none';
+          }
         } else {
           var input = document.createElement('input');
           input.setAttribute("type", "hidden");
