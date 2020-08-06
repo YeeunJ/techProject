@@ -39,7 +39,7 @@ router.get('/first', function(req, res){
 });
 /*update에서 cam_query를 camNum이랑 같이 join!!! left join써보자!!*/
 router.get('/update', function (req, res, next) {
-    const cam_query = `select * from camera;`;
+    const cam_query = `select * from camera limit 2;`;
     const query2 = `select * from setting where id = 1;`;
 
     db.serialize(() => {
@@ -63,7 +63,7 @@ router.post('/update', function (req, res, next) {
     set sizeW = ${sizeW}, sizeH = ${sizeH}, resizeW = ${resizeW}, resizeH = ${resizeH},
     camNum = ${camNum}, savePeriod = ${savePeriod}, saveInterval = ${saveInterval}, saveNum = ${saveNum}, regDate = datetime('now', 'localtime')
     where id = 1;`;
-    const cam_query = `select * from camera;`;
+    const cam_query = `select * from camera limit 2;`;
     const query2 = `select * from setting where id = 1;`;
     console.log(query);
     console.log(cam_query);

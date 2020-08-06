@@ -11,18 +11,24 @@
         범위를 설정한 뒤에 저장 버튼이 생깁니다.
       </div>
       <div id="roiTab">
-        <%for(var i=0; i<data.camNum; i++){ %>
-        <% if(data2.length > i) %>
-        <div class="roiCam" id="cam<%= d[i].id%>">CAMERA <%=i%></div><br />
-        <% else %>
+        <%for(var i=1; i<=data.camNum; i++){ %>
+        <% if(data2.length > i){ %>
+        <div class="roiCam" id="cam<%= data2[i-1].id%>">CAMERA <%=i%></div><br />
+        <% } else{ %>
         <div class="roiCam" id="cam<%= i%>">CAMERA <%=i%></div><br />
-        <% }%>
+        <% }}%>
       </div>
       <div id="roiImage">
         <%data2.forEach(function(d) {%>
+          <% if(data2.length > i){ %>
         <div id="camera<%= d.id%>" class="eachCamera">
           <img src="../resources/images/conf/<%= d.image%>" id="image<%= d.id%>" class="image"  width = "640px" draggable="false" />
         </div>
+        <% }else{ %>
+          <div id="camera<%= d.id%>" class="eachCamera">
+            <div class = "noImage">아직 이미지가 존재하지 않습니다.</div>
+          </div>
+        <% }%>
         <% })%>
       </div>
       <div class="button">

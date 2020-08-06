@@ -82,7 +82,14 @@ body{
 .eachCamera{
   position: relative;
 }
-
+.noImage {
+  background-color: rgba(255,255,255,0,4);
+  border: 1px solid white;
+  border-radius: 10px;
+  text-align: center;
+  width: 640px;
+  padding: 200px 0;
+}
 .blurRoi{
   position: absolute;
   border: 1px solid #f84450;
