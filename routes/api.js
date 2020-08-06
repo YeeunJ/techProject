@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var sqlite3 = require('sqlite3').verbose();
 var fs = require('fs');
-var addon = require('bindings')('../resources/cpp/build/Release/people-detector');
+//var addon = require('bindings')('../resources/cpp/build/Release/people-detector');
 //var exec = require('child_process').exec;
 //var api = require('./apiController');
 
@@ -93,7 +93,7 @@ router.post('/basic/image-info', function(req, res) {
 
   require("fs").writeFile("resources/images/original/" + filename, base64Data, 'base64', function(err) {
     if (err === null) {
-
+/*
       var obj = new addon.Yolo_cpu();
       var people = obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416);
       console.log(people); // people number
@@ -102,7 +102,7 @@ router.post('/basic/image-info', function(req, res) {
       db.each(query1, (err, row) => {
         if (err) return res.json(err);
         console.log('update success!!');
-      });
+      });*/
     } else {
       console.log('fail');
     }
