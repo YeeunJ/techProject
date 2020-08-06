@@ -126,7 +126,6 @@
     $('#' + id).selectable("enable");
     $('#roi-form #count').val(count - $('#' + id).children('div').length / 4);
     $('#' + id).children('div').remove();
-    document.getElementById('form' + id).remove();
     document.getElementById('submit').style.display = 'none';
     document.getElementById('cancel').style.display = 'none';
   });

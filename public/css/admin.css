@@ -119,25 +119,25 @@ body{
 
 .clickedCam{
   display: inline-block;
-  color: rgba(255, 255, 255, 0.8);
-  padding: 1px 15px;
-  font-size: 0.8em;
-  border-radius: 20px;
-  border: 2px solid rgba(74, 189, 158, 0.8);
-  background-color: rgba(74, 189, 158, 0.1);
-  margin-bottom: 16px;
-  cursor: pointer;
-  margin-left: 5px;
-}
-
-.completeCam{
-  display: inline-block;
   color: black !important;
   padding: 1px 15px;
   font-size: 0.8em;
   border-radius: 20px;
   border: 2px solid rgba(74, 189, 158, 0.1); !important;
   background-color: rgba(74, 189, 158);
+  margin-bottom: 16px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.completeCam{
+  display: inline-block;
+  color: rgba(74, 189, 158) !important;
+  padding: 1px 15px;
+  font-size: 0.8em;
+  border-radius: 20px;
+  border: 2px solid rgba(74, 189, 158); !important;
+  background-color: rgba(255, 255, 255, 0.1);
   margin-bottom: 16px;
   cursor: pointer;
   margin-left: 8px;
