@@ -1,6 +1,29 @@
+<form action="./update" method="post" id="setting1">
+<div id="info">
+  <div class="info" id="info_company_first">
+    <table>
+      <tr class="info_title">
+        <td>업체 정보</td>
+      </tr>
+      <tr></tr>
+      <tr></tr>
+      <tr>
+        <td class="info_company_left">업체명</td>
+        <td class="info_company_right"><input type="text" id="companyName" value="<%= data.companyName %>" name = "companyName" class="input" placeholder="업체명" required></td>
+      </tr>
+      <tr>
+        <td class="info_company_left">전화번호</td>
+        <td class="info_company_right"><input type="text" id="phone" value="<%= data.phone %>" name = "phone" class="input" placeholder="전화번호" required></td>
+      </tr>
+      <tr>
+        <td class="info_company_left">주소</td>
+        <td class="info_company_right"><input type="text" id="location" value="<%= data.location %>" name = "location" class="input" placeholder="주소" required></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
 <div id="setting1">
-  <!--<%= data.sizeW %>-->
-    <form action="./update" method="post" id="setting1">
     <div class="info" id="info_camera">
       <table>
         <tr class="info_title">
@@ -55,8 +78,8 @@
        </table>
        </div>
        <td><button class="confirm btn submit" id="confirm">확인</button></td>
-       </form>
        <!--
        <button class="btn" id="change">정보 수정</button>
        <button class="submit btn" id="confirm">확인</button>-->
   </div>
+  </form>

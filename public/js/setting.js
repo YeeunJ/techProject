@@ -9,6 +9,8 @@ document.querySelector('#confirm1').addEventListener('click', function(){
 document.querySelector('#edit_camera').addEventListener('click', function(){
   var btn = document.getElementById("confirm_camera");
   btn.style.display = "inline-block";
+  var cancle = document.getElementById("cancle_camera");
+  cancle.style.display = "inline-block";
   var edit_camera = document.getElementById("edit_camera");
   edit_camera.style.display = "none";
   var edit_image = document.getElementById("edit_image");
@@ -31,6 +33,8 @@ document.querySelector('#edit_camera').addEventListener('click', function(){
 document.querySelector('#edit_image').addEventListener('click', function(){
   var btn = document.getElementById("confirm_image");
   btn.style.display = "inline-block";
+  var cancle = document.getElementById("cancle_image");
+  cancle.style.display = "inline-block";
   var edit_camera = document.getElementById("edit_camera");
   edit_camera.style.display = "none";
   var edit_image = document.getElementById("edit_image");
@@ -49,6 +53,8 @@ document.querySelector('#edit_image').addEventListener('click', function(){
 document.querySelector('#edit_company').addEventListener('click', function(){
   var btn = document.getElementById("confirm_company");
   btn.style.display = "inline-block";
+  var cancle = document.getElementById("cancle_company");
+  cancle.style.display = "inline-block";
   var edit_camera = document.getElementById("edit_camera");
   edit_camera.style.display = "none";
   var edit_image = document.getElementById("edit_image");
@@ -62,4 +68,14 @@ document.querySelector('#edit_company').addEventListener('click', function(){
   f.companyName.style.color= "white";
   f.phone.style.color= "white";
   f.location.style.color= "white";
+});
+
+document.querySelector('#cancle_company').addEventListener('click', function(){
+  window.location.href = './update';
+});
+document.querySelector('#cancle_camera').addEventListener('click', function(){
+  window.location.href = './update';
+});
+document.querySelector('#cancle_image').addEventListener('click', function(){
+  window.location.href = './update';
 });
