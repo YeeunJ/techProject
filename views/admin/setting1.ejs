@@ -27,18 +27,18 @@
         <tr></tr>
         <tr>
           <td class="info_left">카메라 해상도</td>
-          <td class="info_camera_middle"><input type="text" id="sizeW" value="<%= data.sizeW %>" name = "sizeW" class="input" placeholder="width" required></td>
-          <td><input type="text" id="sizeH" name = "sizeH" value="<%= data.sizeH %>" placeholder="height" required></td>
+          <td class="info_camera_middle"><input type="number" id="sizeW" value="<%= data.sizeW %>" name = "sizeW" class="input" placeholder="width" required></td>
+          <td><input type="number" id="sizeH" name = "sizeH" value="<%= data.sizeH %>" placeholder="height" required></td>
         </tr>
         <tr>
           <td class="info_left">리사이즈 해상도</td>
-          <td class="info_camera_middle"><input type="text" id="resizeW" value="<%= data.resizeW %>" name = "resizeW" class="input" placeholder="width" required></td>
-          <td><input type="text" id="resizeH" value="<%= data.resizeH %>" name = "resizeH" placeholder="height" required></td>
+          <td class="info_camera_middle"><input type="number" id="resizeW" value="<%= data.resizeW %>" name = "resizeW" class="input" placeholder="width" required></td>
+          <td><input type="number" id="resizeH" value="<%= data.resizeH %>" name = "resizeH" placeholder="height" required></td>
         </tr>
         <tr>
           <td class="info_left">카메라 숫자</td>
           <td class="info_camera_middle">
-            <input type="text" id="camNum" value="<%= data.camNum %>" name = "camNum" class="input" placeholder="카메라 개수" required>
+            <input type="number" id="camNum" value="<%= data.camNum %>" name = "camNum" class="input" placeholder="카메라 개수" required>
           </td>
         </tr>
         </table>
@@ -54,19 +54,19 @@
          <tr>
            <td class="info_image_left">저장 간격 (초)</td>
            <td>
-              <input class="info_camera" type="text" id="saveInterval" value="<%= data.saveInterval %>" name = "saveInterval" class="input" placeholder="저장 간격 (초)" required>
+              <input class="info_camera" type="number" id="saveInterval" value="<%= data.saveInterval %>" name = "saveInterval" class="input" placeholder="저장 간격 (초)" required>
            </td>
          </tr>
          <tr>
            <td class="info_image_left">최대 저장 갯수 (개)</td>
            <td>
-              <input class="info_camera" type="text" id="saveNum" value="<%= data.saveNum %>" name = "saveNum" class="input" placeholder="최대 저장 갯수 (개)" required>
+              <input class="info_camera" type="number" id="saveNum" value="<%= data.saveNum %>" name = "saveNum" class="input" placeholder="최대 저장 갯수 (개)" required>
            </td>
          </tr>
          <tr>
            <td class="info_image_left">최대 저장 기간 (개월)</td>
            <td>
-             <input class="info_camera" type="text" id="savePeriod" value="<%= data.savePeriod %>" name = "savePeriod" class="input" placeholder="최대 저장 기간 (개월)" required>
+             <input class="info_camera" type="number" id="savePeriod" value="<%= data.savePeriod %>" name = "savePeriod" class="input" placeholder="최대 저장 기간 (개월)" required>
            </td>
            <!--<td><button class="confirm btn submit" id="confirm_image">확인</button></td>-->
          </tr>
