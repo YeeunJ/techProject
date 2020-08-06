@@ -1,0 +1,1 @@
+cmd_Release/people-detector.node := ln -f "Release/obj.target/people-detector.node" "Release/people-detector.node" 2>/dev/null || (rm -rf "Release/people-detector.node" && cp -af "Release/obj.target/people-detector.node" "Release/people-detector.node")
