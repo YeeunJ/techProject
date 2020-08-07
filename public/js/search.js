@@ -119,8 +119,8 @@ $(btn3).click(function(){
 });
 
 document.querySelector('#searchBtn').addEventListener('click', function(){
-  //var data = {"starttime": document.forms[0].elements[4].value, "endtime": document.forms[0].elements[5].value};
-  var data = {"starttime": '2020-07-26 12:00:22', "endtime": '2020-08-02 12:00:22'};
+  var data = {"starttime": document.getElementById('result_from').value, "endtime": document.getElementById('result_to').value};
+  //var data = {"starttime": '2020-07-26 12:00:22', "endtime": '2020-08-02 12:00:22'};
   console.log(data);
   data = JSON.stringify(data);
 
@@ -145,14 +145,14 @@ document.querySelector('#searchBtn').addEventListener('click', function(){
     console.log(dt5);
 
     var color = ['#4abd9e', '#4097f5', '#f68645', '#dd497d', '#febe27', '#a14cfc', '#84c460', '#fa4cd7', '#3ed4de', '#fc5551'];
-    /*var today = new Date(document.forms[0].elements[5].value.replace('-','/').replace('-','/').substring(0,10));
+    var today = new Date(document.forms[0].elements[5].value.replace('-','/').replace('-','/').substring(0,10));
     var dateD1 = new Date(document.forms[0].elements[5].value.replace('-','/').replace('-','/').substring(0,10));
     var dateTemp = new Date(document.forms[0].elements[5].value.replace('-','/').replace('-','/').substring(0,10));
-    */
+    /*
     var today = new Date('2020-08-02 12:00:22'.replace('-','/').replace('-','/').substring(0,10));
     var dateD1 = new Date('2020-08-02 12:00:22'.replace('-','/').replace('-','/').substring(0,10));
     var dateTemp = new Date('2020-08-02 12:00:22'.replace('-','/').replace('-','/').substring(0,10));
-
+*/
     var data1 = [];
     var data2 = [];
     var data3 = [];
