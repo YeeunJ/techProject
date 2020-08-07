@@ -25,10 +25,12 @@ body{
 #adminROI{
   text-align: center;
   width: 100%;
+  height: 730px;
 }
 .roi{
   display: inline-block;
   width: 80%;
+  height: 645px;
   padding: 30px;
   border-radius: 0 0 20px 20px;
   border-radius: 5px;
@@ -227,11 +229,11 @@ body{
 
 /*footer*/
 #footer{
-  padding: 20px;
+  padding-top: 20px;
   margin-bottom: 10px;
   display: inline-block;
-  width: 80%;
-  min-width: 1000px;
+  width: 83%;
+  min-width: 1060px;
 }
 
 #copyright{
