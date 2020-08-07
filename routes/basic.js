@@ -53,21 +53,25 @@ router.get('/', function(req, res) {
 router.post('/search', function(req, res) {
       const {starttime, endtime} = req.body;
 
+      const query1 = `select * from setting where id = 1;`;
       const query2 = `select * from cam_image where regDate between '${starttime}' and '${endtime}';`;
-      const query3 = `select cameraID, substr(regDate, 1, 10) as date, sum(peopleCNT) as people from cam_image where strftime('%j', regDate) > strftime('%j', datetime('now', '${endtime}'), '-7 days') and regDate between '${starttime}' and '${endtime}' GROUP BY strftime('%j', regDate), cameraID;`;
-      const query4 = `select cameraID, substr(regDate, 1, 13) as date, sum(peopleCNT) as people from cam_image where strftime('%j', regDate) > strftime('%j', datetime('now', '${endtime}'), '-1 days') and regDate between '${starttime}' and '${endtime}' GROUP BY strftime('%H', regDate), cameraID;`;
-      const query5 = `select cameraID, substr(regDate, 1, 16) as date, avg(peopleCNT) as people from cam_image where strftime('%H', regDate) > strftime('%H', datetime('now', '${endtime}'), '-1 hours') and strftime('%j', regDate) > strftime('%j', datetime('now', '${endtime}'), '-1 days') and regDate between '${starttime}' and '${endtime}' GROUP BY strftime('%M', regDate), cameraID;`;
-
-      db.get(query2, (err, rows2) => {
-          db.get(query3, (err, rows3) => {
-            db.get(query4, (err, rows4) => {
-              db.get(query5, (err, rows5) => {
-                //console.log({"data2": row2, "data3": row3, "data4": row4, "data5": row5});
-                console.log({"data2": row2});
-                //res.json(row);
+      const query3 = `select cameraID, substr(regDate, 1, 10) as date, sum(peopleCNT) as people from cam_image where strftime('%j', regDate) > strftime('%j', '${endtime}', '-7 days') and regDate between '${starttime}' and '${endtime}' GROUP BY strftime('%j', regDate), cameraID;`;
+      const query4 = `select cameraID, substr(regDate, 1, 13) as date, sum(peopleCNT) as people from cam_image where strftime('%j', regDate) > strftime('%j', '${endtime}', '-1 days') and regDate between '${starttime}' and '${endtime}' GROUP BY strftime('%H', regDate), cameraID;`;
+      const query5 = `select cameraID, substr(regDate, 1, 16) as date, avg(peopleCNT) as people from cam_image where strftime('%H', regDate) > strftime('%H', '${endtime}', '-1 hours') and strftime('%j', regDate) > strftime('%j', '${endtime}', '-1 days') and regDate between '${starttime}' and '${endtime}' GROUP BY strftime('%M', regDate), cameraID;`;
+      console.log(query2);
+      console.log(query3);
+      console.log(query4);
+      console.log(query5);
+      db.each(query1, (err, rows1) => {
+        db.all(query2, (err, rows2) => {
+          db.all(query3, (err, rows3) => {
+            db.all(query4, (err, rows4) => {
+              db.all(query5, (err, rows5) => {
+                res.json({"data1": rows1, "data2": rows2, "data3": rows3, "data4": rows4, "data5": rows5});
               });
             });
           });
         });
+      });
 });
       module.exports = router;
