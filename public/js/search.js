@@ -8,7 +8,9 @@ var now = new Date();
 var real_now = new Date();
 getDefaultSetting(now);
 var hour, minute, second, time, year, month, day, date;
-
+var searchcheck=false;
+var search_from;
+var search_to;
 //지난 7일 총인원이 default
 getWeekData();
 submit();
@@ -38,6 +40,20 @@ function getDefaultSetting(now){
   $('#date_to').val(date);
   $('#time_from').val('08:00:00'); //시작 초기 값
   $('#time_to').val(time);*/
+}
+
+function timeToString(now){
+  var h1 = now.getHours()>9 ? ''+now.getHours() : '0'+now.getHours();
+  var m1 = now.getMinutes()>9 ? ''+now.getMinutes() : '0'+now.getMinutes();
+  var s1 = '00';
+  var t1 = h1 + ":" + m1 + ":" + s1;
+
+  var y1 = now.getFullYear();
+  var m2 = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+  var d1 = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+  var d = y1 + '-' + m2 + '-' + d1;
+
+  return d+" "+t1;
 }
 
 function lastWeek() {
@@ -80,7 +96,7 @@ function getWeekData(){
   $('#date_from').val(getDate(lastweek)); //date
   $('#date_to').val(getDate(real_now)); // real_now
   $('#time_from').val(getTime(lastweek)); //'00:00:00'
-  $('#time_to').val(getTime(lastweek)); //'00:00:00'
+  $('#time_to').val(getTime(real_now)); //'00:00:00'
 }
 
 const btn0 = document.querySelector('#chartBtn0');
@@ -96,32 +112,52 @@ function submit(){
 }
 
 $(btn0).click(function(){
+  searchcheck=true;
   submit();
+  search_from=$('#result_from').val();
+  search_to=$('#result_to').val();
 });
 
 $(btn1).click(function(){
-  //getWeekData();
+  if(!searchcheck)
+    getWeekData();
+  else{
+    var lw = timeToString(lastWeek());
+    var cr = timeToString(new Date());
+    //lastweek=Math.min(lastweek,result_from_c);
+    if(lw>search_from){
+      var lastweek = lastWeek();
+      $('#date_from').val(getDate(lastweek)); //date
+      $('#time_from').val(getTime(lastweek)); //'00:00:00'
+    }
+    if(cr<search_to){
+      $('#date_to').val(getDate(real_now)); // real_now
+      $('#time_to').val(getTime(real_now)); //'00:00:00'
+    }
+  }
   submit();
 });
 
 $(btn2).click(function(){
-  /*
-  var lastday = lastDay();
-  $('#date_from').val(getDate(lastday)); //date
-  $('#date_to').val(getDate(real_now)); //date
-  $('#time_from').val(getTime(lastday)); //'08:00:00'
-  $('#time_to').val(getTime(real_now)); //time*/
+  if(!searchcheck){
+    var lastday = lastDay();
+    $('#date_from').val(getDate(lastday)); //date
+    $('#date_to').val(getDate(real_now)); //date
+    $('#time_from').val(getTime(lastday)); //'08:00:00'
+    $('#time_to').val(getTime(real_now)); //time
+  }
   submit();
 });
 
 $(btn3).click(function(){
-  /*
-  var lasthour = lastHour();
-  //alert(lasthour);
-  $('#date_from').val(getDate(lasthour)); //date
-  $('#date_to').val(getDate(real_now)); //date
-  $('#time_from').val(getTime(lasthour)); //'08:00:00'
-  $('#time_to').val(getTime(real_now)); //time*/
+  if(!searchcheck){
+    var lasthour = lastHour();
+    //alert(lasthour);
+    $('#date_from').val(getDate(lasthour)); //date
+    $('#date_to').val(getDate(real_now)); //date
+    $('#time_from').val(getTime(lasthour)); //'08:00:00'
+    $('#time_to').val(getTime(real_now)); //time
+  }
   submit();
 });
 
