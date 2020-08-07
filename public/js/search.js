@@ -179,7 +179,7 @@ document.querySelector('#searchBtn').addEventListener('click', function(){
 
   // content-type을 설정하고 데이터 송신
   var xhr = new XMLHttpRequest();
-  xhr.open('POST', 'http://localhost:10051/search');
+  xhr.open('POST', './search');
   xhr.setRequestHeader('Content-type', "application/json");
   xhr.send(data);
 
@@ -463,7 +463,7 @@ document.getElementById('myChart3').style.display = "block";
   document.getElementById('chartBtn3').className = 'criteria';
 
   $('.img_wrapper').children().remove();
-  
+
   for(var i=0; i<dt2.length; i++) {
     $('.img_wrapper').eq(dt2[i].cameraID-1).append('<div class="img_date"><img src="./resources/images/original/'+dt2[i].name+'" alt="" value="'+dt2[i].cameraID+'" onclick=\'showDetail("'+dt2[i].name+'", "'+dt2[i].cameraID+'", "'+dt2[i].regDate+'", "'+dt2[i].peopleCNT+'");\' /><br><p style="display:inline-block;">'+dt2[i].regDate+'</p><p style="display: inline-block; float:right; padding-right: 20px;">'+dt2[i].peopleCNT+'명</p></div>');
   }

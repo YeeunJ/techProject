@@ -210,7 +210,7 @@
 
     // content-type을 설정하고 데이터 송신
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:10051/setting/refresh');
+    xhr.open('POST', './setting/refresh');
     xhr.setRequestHeader('Content-type', "application/json");
     xhr.send(data);
 
