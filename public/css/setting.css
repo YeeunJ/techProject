@@ -5,7 +5,9 @@
 }
 
 hr{
-  //border:solid grey 1px;
+  border: solid 0.5px rgb(255,255,255, 0.3);
+  border-bottom:0px;
+
 }
 
 div#setting1, div#setting, div#search{
