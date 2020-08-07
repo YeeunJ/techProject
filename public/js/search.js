@@ -117,3 +117,24 @@ $(btn3).click(function(){
   $('#time_to').val(getTime(real_now)); //time
   submit();
 });
+
+document.querySelector('#searchBtn').addEventListener('click', function(){
+  var data = {"starttime": document.forms[0].elements[4].value, "endtime": document.forms[0].elements[5].value};
+
+  data = JSON.stringify(data);
+
+  // content-type을 설정하고 데이터 송신
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'http://localhost:10051/search');
+  xhr.setRequestHeader('Content-type', "application/json");
+  xhr.send(data);
+
+  // 데이터 수신이 완료되면 표시
+  xhr.addEventListener('load', function(){
+    console.log(xhr.responseText);
+    /*
+    var result = JSON.parse(xhr.responseText);
+    console.log(result);*/
+
+  });
+});
