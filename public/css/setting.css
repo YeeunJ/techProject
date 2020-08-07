@@ -137,7 +137,7 @@ button#confirm, button#confirm_image{
   width: 100px;
   height:25px;
   float:right;
-  margin-left:100px;
+  margin-left:50px;
 }
 button#confirm_company{
   text-align: center;
