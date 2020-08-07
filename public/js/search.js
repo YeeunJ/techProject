@@ -83,6 +83,7 @@ function getWeekData(){
   $('#time_to').val(getTime(lastweek)); //'00:00:00'
 }
 
+const btn0 = document.querySelector('#chartBtn0');
 const btn1 = document.querySelector('#chartBtn1');
 const btn2 = document.querySelector('#chartBtn2');
 const btn3 = document.querySelector('#chartBtn3');
@@ -94,27 +95,32 @@ function submit(){
   $('#result_to').val(result_to);
 }
 
+$(btn0).click(function(){
+  submit();
+});
 $(btn1).click(function(){
-  getWeekData();
+  //getWeekData();
   submit();
 });
 
 $(btn2).click(function(){
+  /*
   var lastday = lastDay();
   $('#date_from').val(getDate(lastday)); //date
   $('#date_to').val(getDate(real_now)); //date
   $('#time_from').val(getTime(lastday)); //'08:00:00'
-  $('#time_to').val(getTime(real_now)); //time
+  $('#time_to').val(getTime(real_now)); //time*/
   submit();
 });
 
 $(btn3).click(function(){
+  /*
   var lasthour = lastHour();
   //alert(lasthour);
   $('#date_from').val(getDate(lasthour)); //date
   $('#date_to').val(getDate(real_now)); //date
   $('#time_from').val(getTime(lasthour)); //'08:00:00'
-  $('#time_to').val(getTime(real_now)); //time
+  $('#time_to').val(getTime(real_now)); //time*/
   submit();
 });
 
