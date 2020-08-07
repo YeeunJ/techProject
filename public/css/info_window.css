@@ -27,6 +27,7 @@ body,div,ul,li,dl,dd,dt,ol,h1,h2,h3,h4,h5,h6,input,fieldset,legend,p,select,tabl
     border-radius: 15px;
     color: white;
 	box-shadow: 2px 2px 5px 0.5px rgba(0, 0,0,0.4);
+  padding: 15px 0;
   }
   .info_row {
     overflow:hidden;
@@ -72,6 +73,7 @@ body,div,ul,li,dl,dd,dt,ol,h1,h2,h3,h4,h5,h6,input,fieldset,legend,p,select,tabl
     float:left;
     border-radius: 15px;
     color: white;
+    padding: 15px 0;
 	box-shadow: 2px 2px 5px 0.5px rgba(0, 0,0,0.4);
   }
   .cam_info th, .cam_info td:not(.last) {
@@ -83,7 +85,7 @@ body,div,ul,li,dl,dd,dt,ol,h1,h2,h3,h4,h5,h6,input,fieldset,legend,p,select,tabl
   .table_wrapper {
     overflow-y: scroll;
     white-space: nowrap;
-    width: 95%; height: 147px;
+    width: 97%; height: 147px;
     margin: 0 auto;
   }
   /* scrollbar 속성 변경 */
@@ -107,5 +109,5 @@ body,div,ul,li,dl,dd,dt,ol,h1,h2,h3,h4,h5,h6,input,fieldset,legend,p,select,tabl
 	height: 0;
   }
   .site_wrapper {
-    padding-left: 34px;
+    padding-left: 20px;
   }
