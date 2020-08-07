@@ -7,7 +7,7 @@ body,div,ul,li,dl,dd,dt,ol,h1,h2,h3,h4,h5,h6,input,fieldset,legend,p,select,tabl
     color: rgba(255, 255, 255, 0.5);
   }
   #info_wrapper {
-    margin: 35px auto;
+    margin: 15px auto 30px auto;
     overflow: hidden;
     width: 83%;
     min-width: 1040px;

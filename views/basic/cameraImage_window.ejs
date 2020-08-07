@@ -23,9 +23,7 @@
 		<%
 		  if(data2[j].cameraID != i || j==data2.length-1) {
 		%>
-			  </div>
-			</div>
-		  </div>
+
 		<%
 			start = j;
 			if(j==data2.length-1)	start++;
@@ -43,7 +41,9 @@
 	  	}
 		top_pos += 321;
 		%>
-
+			</div>
+		</div>
+		</div>
 	<%
 	}
 	%>
@@ -70,13 +70,6 @@
 				<span onclick="imgModalClose();" class="close">닫기</span>
 			</div>
 		</div>
-
-			</div>
-		</div>
-	</div>
-
-
-
 
 
 </div>
@@ -209,10 +202,7 @@
   			var name = '.total_wrapper'+<%= k+1 %>+' .img_wrapper';
 			console.log("i: "+<%= k %>+"name: "+name);
 
-		    $('.total_wrapper'+<%= k+1 %>+' .img_wrapper').append('<img class="append" src="../../public/images/noimage.PNG" alt="">');
-			$('.total_wrapper'+<%= k+1 %>+' .img_wrapper').append('<img class="append" src="../../public/images/noimage.PNG" alt="">');
-			$('.total_wrapper'+<%= k+1 %>+' .img_wrapper').append('<img class="append" src="../../public/images/noimage.PNG" alt="">');
-			$('.total_wrapper'+<%= k+1 %>+' .img_wrapper').append('<img class="append" src="../../public/images/noimage.PNG" alt="">');
+		 $('.total_wrapper'+<%= k+1 %>+' .img_wrapper').append('<div class="append">No Image</div>');
 
   <%
 		}
