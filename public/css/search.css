@@ -51,6 +51,7 @@ button.submit{
 #chartBtn0{
   background:rgba( 255, 255, 255, 0.7) !important;
   color:black !important;
+  margin-left:5px;
 }
 
 #chartBtn0:hover{

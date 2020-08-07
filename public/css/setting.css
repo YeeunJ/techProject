@@ -5,7 +5,7 @@
 }
 
 hr{
-  border:solid grey 1px;
+  //border:solid grey 1px;
 }
 
 div#setting1, div#setting, div#search{
@@ -41,7 +41,7 @@ div#info_company{
 }
 
 .info_image_left{
-  width:35%;
+  width:160px;
 }
 
 td, th{
@@ -51,6 +51,9 @@ table{
   width:100%;
   border-spacing: 10px;
   color: rgba( 255, 255, 255, 0.6);
+}
+table#info_image_table{
+  width:auto;
 }
 .info_title{
   color: white;
@@ -130,9 +133,9 @@ button.confirm{
 
 button#confirm, button#confirm_image{
   width: 100px;
+  height:25px;
   float:right;
-  margin-top:20px;
-  margin-right:50px;
+  margin-left:100px;
 }
 button#confirm_company{
   text-align: center;
@@ -167,4 +170,8 @@ input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+.info_image_right{
+  //width:180px;
 }

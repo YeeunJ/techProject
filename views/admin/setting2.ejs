@@ -54,7 +54,7 @@
         </table>
       </div>
       <div class="info" id="info_image">
-        <table>
+        <table id="info_image_table">
           <tr></tr>
           <tr class="info_title">
             <td class="info_image_left">이미지 저장 정보</td> <td><button class="edit btn" id="edit_image" type="button">수정</button><button class="cancle btn" id="cancle_image" type="button">취소</button></td>
@@ -63,26 +63,26 @@
           <tr></tr>
          <tr>
            <td class="info_image_left">저장 간격 (초)</td>
-           <td>
+           <td class="info_image_right">
              <input class="info_camera" type="number" id="saveInterval" value="<%= data.saveInterval %>" name = "saveInterval" class="input" placeholder="저장 간격 (초)" required readonly>
            </td>
          </tr>
          <tr>
            <td class="info_image_left">최대 저장 갯수 (개)</td>
-           <td>
+           <td class="info_image_right">
             <input class="info_camera" type="number" id="saveNum" value="<%= data.saveNum %>" name = "saveNum" class="input" placeholder="최대 저장 갯수 (개)" required readonly>
            </td>
          </tr>
          <tr>
            <td class="info_image_left">최대 저장 기간 (개월)</td>
-           <td>
+           <td class="info_image_right">
              <input class="info_camera" type="number" id="savePeriod" value="<%= data.savePeriod %>" name = "savePeriod" class="input" placeholder="최대 저장 기간 (개월)" required readonly>
            </td>
+          <td><button class="confirm btn submit" id="confirm_image">확인</button></td>
          </tr>
        </table>
        </div>
        <div id="space"></div>
-       <td><button class="confirm btn submit" id="confirm_image">확인</button></td>
   </div>
   </form>
 
