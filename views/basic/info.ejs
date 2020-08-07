@@ -28,6 +28,16 @@
 	          </tr>
 
 		  <%
+        var recent = new Array();
+      	for(var i=0 ; i<data1.camNum ; i++) {
+      		recent[i] = 0;
+      	}
+
+        for(var i=0 ; i<data6.length ; i++) {
+          console.log(data6[i].cameraID+": "+data6[i].peopleCNT);
+          recent[data6[i].cameraID-1] = data6[i].peopleCNT;
+          // console.log(recent[data6[i].cameraID-1]);
+        }
 		   var j = 0;
 		   for(var i = 1; i<= data1.camNum; i++){
 		   %>
@@ -38,7 +48,7 @@
 			   <tr class="table_row" align="center">
 				 <td class="last"><%= i %></td>
 				 <td class="last imageCount">30</td>
-				 <td class="last"><%= data6.length %></td>
+				 <td class="last"><%= recent[i-1] %></td>
 				 <td class="last avg"></td>
 			   </tr>
 		   <%
@@ -47,7 +57,7 @@
 			   <tr class="table_row" align="center">
    				<td><%= i %></td>
    	            <td class = "imageCount"></td>
-   	            <td><%= data6.length %></td>
+   	            <td><%= recent[i-1] %></td>
    	            <td class = "avg"></td>
      		  </tr>
 
