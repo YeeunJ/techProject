@@ -98,6 +98,7 @@ function submit(){
 $(btn0).click(function(){
   submit();
 });
+
 $(btn1).click(function(){
   //getWeekData();
   submit();
