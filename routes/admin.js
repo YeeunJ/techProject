@@ -115,6 +115,7 @@ router.post('/refresh', function(req, res){
           throw err;
         }
         res.json({"data": row1});
+        console.log(row1);
       });
   });
   // 서버에서는 JSON.stringify 필요없음
