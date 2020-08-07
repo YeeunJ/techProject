@@ -161,16 +161,6 @@ $(btn3).click(function(){
   submit();
 });
 
-//date 바꾸었을때도 input에 적용되게
-var date_change = document.querySelector('.date');
-var time_change = document.querySelector('.time');
-date_change.addEventListener('change', (event) => {
-  submit();
-});
-time_change.addEventListener('change', (event) => {
-  submit();
-});
-
 document.querySelector('#searchBtn').addEventListener('click', function(){
   var data = {"starttime": document.getElementById('result_from').value, "endtime": document.getElementById('result_to').value};
   //var data = {"starttime": '2020-07-26 12:00:22', "endtime": '2020-08-02 12:00:22'};
@@ -303,7 +293,7 @@ document.querySelector('#searchBtn').addEventListener('click', function(){
     };
 
     for(var i=0; i< dt5.length; i++){
-      var date = d.date;
+      var date = dt5[i].date;
       date = date.replace('-','/').replace('-','/');
       dateTemp = new Date(date);
       data3[dt5[i].cameraID-1][Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60))] = dt5[i].people;
