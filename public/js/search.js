@@ -161,6 +161,16 @@ $(btn3).click(function(){
   submit();
 });
 
+//date 바꾸었을때도 input에 적용되게
+var date_change = document.querySelector('.date');
+var time_change = document.querySelector('.time');
+date_change.addEventListener('change', (event) => {
+  submit();
+});
+time_change.addEventListener('change', (event) => {
+  submit();
+});
+
 document.querySelector('#searchBtn').addEventListener('click', function(){
   var data = {"starttime": document.getElementById('result_from').value, "endtime": document.getElementById('result_to').value};
   //var data = {"starttime": '2020-07-26 12:00:22', "endtime": '2020-08-02 12:00:22'};
