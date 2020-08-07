@@ -33,6 +33,7 @@ function getDefaultSetting(now){
   date = year + '-' + month + '-' + day;
 
   /*
+  교수님이 처음에 말씀하신 초기 값
   $('#date_from').val(date);
   $('#date_to').val(date);
   $('#time_from').val('08:00:00'); //시작 초기 값
@@ -43,6 +44,13 @@ function lastWeek() {
   var d = new Date();
   var dayOfMonth = d.getDate()
   d.setDate(dayOfMonth - 6)
+  return d;
+}
+
+function lastDay() {
+  var d = new Date();
+  var dayOfMonth = d.getDate()
+  d.setDate(dayOfMonth - 1)
   return d;
 }
 
@@ -92,10 +100,11 @@ $(btn1).click(function(){
 });
 
 $(btn2).click(function(){
-  $('#date_from').val(date);
-  $('#date_to').val(date);
-  $('#time_from').val('08:00:00'); //시작 초기 값
-  $('#time_to').val(time);
+  var lastday = lastDay();
+  $('#date_from').val(getDate(lastday)); //date
+  $('#date_to').val(getDate(real_now)); //date
+  $('#time_from').val(getTime(lastday)); //'08:00:00'
+  $('#time_to').val(getTime(real_now)); //time
   submit();
 });
 
