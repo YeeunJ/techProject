@@ -7,10 +7,10 @@
         ROI 설정
       </div>
       <div id="explain">
-        <b style = "color: rgb(74, 189,158)">1.</b> 영역을 지정할 카메라를 선택한다.<br>
-        <b style = "color: rgb(74, 189,158)">2.</b> 사진 위에 인원수를 셀 영역을 표시한다. <br>
-        <b style = "color: rgb(74, 189,158)">3.</b> 우측 하단의 확인 버튼을 눌러 설정을 완료한다. <br>
-        <b style = "color: rgb(74, 189,158)">4.</b> 모든 영역을 저장했다면 완료 버튼을 눌러 설정을 완료한다.
+        <b style = "color: rgb(74, 189,158)">1.</b> 영역을 지정할 카메라를 선택합니다.<br>
+        <b style = "color: rgb(74, 189,158)">2.</b> 영역 추가 버튼을 눌러 사진 위에 인원수를 셀 영역을 표시합니다. (크기 조절과 위치 변경이 가능합니다.) <br>
+        <b style = "color: rgb(74, 189,158)">3.</b> 우측 하단의 확인 버튼을 눌러 현재 카메라의 설정을 완료합니다. <br>
+        <b style = "color: rgb(74, 189,158)">4.</b> 모든 영역을 저장했다면 완료 버튼을 눌러 전체 설정을 완료합니다.<br>
       </div>
       <div id="roiTab">
         <%for(var i=0; i<data.camNum; i++){ %>
@@ -24,10 +24,12 @@
         <% for(var i =0; i<data.camNum; i++) {%>
           <% if(data2.length > i){ %>
         <div id="camera<%= data2[i].id%>" class="eachCamera">
+          <div style="display: none">0</div>
           <img src="../resources/images/conf/<%= data2[i].image%>" id="image<%= data2[i].id%>" class="image"  width = "640px" draggable="false" />
         </div>
         <% }else{ %>
           <div id="camera<%= i+1%>" class="eachCamera">
+            <div style="display: none">0</div>
             <div class = "noImage">
               아직 이미지가 존재하지 않습니다.<br>
               <button type="button" id = "refresh">새로고침</button>을 눌러주세요.
@@ -37,10 +39,10 @@
         <% }%>
       </div>
       <div class="button">
-        <button type= 'button' id="addDiv">영역 추가</button><br/>
-        <button type="button" id="cancel">리셋</button><br/>
-        <button type= 'button' id="submit">저장</button><br/>
-        <button type= 'button' id="addDiv">완료</button>
+        <button type= 'button' id="addDiv">영역 추가</button>
+        <button type="button" id="cancel">리셋</button>
+        <button type= 'button' id="save">저장</button>
+        <button type= 'button' id="submit">완료</button>
       </div>
     </div>
   </div>
@@ -61,6 +63,86 @@
   roiForm.method = 'post';
   roiForm.action = './submit';
 
+  <% for(var i =0; i<data.camNum; i++) {%>
+    <% if(data2.length > i){ %>
+      document.getElementById('cam<%= data2[i].id%>').addEventListener('click', function() {
+        if ($('#'+id).children().eq(0).text() == '1'){
+          document.getElementById(button).className = 'completeCam';
+        }else{
+          document.getElementById(button).className = 'roiCam';
+        }
+
+        console.log($("#camera<%= data2[i].id%>").children('img').length);
+        if ($('#cam<%= data2[i].id%>').children().eq(0).text() == '1'){
+          document.getElementById('save').style.display = 'none';
+          document.getElementById('submit').style.display = 'inline-block';
+          document.getElementById('addDiv').style.display = 'none';
+          document.getElementById('cancel').style.display = 'inline-block';
+        }else if ($("#camera<%= data2[i].id%>").children().length > 2){
+          document.getElementById('save').style.display = 'none';
+          document.getElementById('submit').style.display = 'inline-block';
+          document.getElementById('addDiv').style.display = 'none';
+          document.getElementById('cancel').style.display = 'inline-block';
+        }else if($("#camera<%= data2[i].id%>").children('img').length >= 1){
+          document.getElementById('save').style.display = 'none';
+          document.getElementById('submit').style.display = 'none';
+          document.getElementById('addDiv').style.display = 'inline-block';
+          document.getElementById('cancel').style.display = 'none';
+        }else {
+          document.getElementById('save').style.display = 'none';
+          document.getElementById('submit').style.display = 'none';
+          document.getElementById('addDiv').style.display = 'none';
+          document.getElementById('cancel').style.display = 'none';
+        }
+
+        document.getElementById(id).style.display = 'none';
+        document.getElementById('cam<%= data2[i].id%>').className = 'clickedCam';
+        document.getElementById('camera<%= data2[i].id%>').style.display = 'block';
+        id = "camera<%= data2[i].id%>";
+        button = "cam<%= data2[i].id%>";
+      });
+      document.getElementById('camera<%= data2[i].id%>').style.display = 'none';
+      <% }else{ %>
+        document.getElementById('cam<%= i+1%>').addEventListener('click', function() {
+          if ($('#' + id).children().eq(0).text() == '1'){
+            document.getElementById(button).className = 'completeCam';
+          }else{
+            document.getElementById(button).className = 'roiCam';
+          }
+          console.log($("#camera<%= i+1%>").children('img').length);
+          if ($('#cam<%= i+1%>').children().eq(0).text() == '1'){
+            document.getElementById('save').style.display = 'none';
+            document.getElementById('submit').style.display = 'inline-block';
+            document.getElementById('addDiv').style.display = 'none';
+            document.getElementById('cancel').style.display = 'inline-block';
+          }else if ($("#camera<%= i+1%>").children().length > 2){
+            document.getElementById('save').style.display = 'none';
+            document.getElementById('submit').style.display = 'inline-block';
+            document.getElementById('addDiv').style.display = 'none';
+            document.getElementById('cancel').style.display = 'inline-block';
+          }else if($("#camera<%= i+1%>").children('img').length >= 1){
+            document.getElementById('save').style.display = 'none';
+            document.getElementById('submit').style.display = 'none';
+            document.getElementById('addDiv').style.display = 'inline-block';
+            document.getElementById('cancel').style.display = 'none';
+          }else {
+            document.getElementById('save').style.display = 'none';
+            document.getElementById('submit').style.display = 'none';
+            document.getElementById('addDiv').style.display = 'none';
+            document.getElementById('cancel').style.display = 'none';
+          }
+          document.getElementById(id).style.display = 'none';
+          document.getElementById('cam<%= i+1%>').className = 'clickedCam';
+          document.getElementById('camera<%= i+1%>').style.display = 'block';
+          id = "camera<%= i+1%>";
+          button = "cam<%= i+1%>";
+        });
+        document.getElementById('camera<%= i+1%>').style.display = 'none';
+    <% }} %>
+  document.getElementById('camera1').style.display = 'block';
+  document.getElementById('cam1').className = 'clickedCam';
+
+  /*addDiv click*/
   document.getElementById('addDiv').addEventListener('click', function() {
     $('#'+id).append('<div class="blurRoi" id = "blur'+count+'"><div class="resize" id="resize'+count+'"></div></div>');
     $('#resize'+count).resizable();
@@ -75,92 +157,44 @@
         }
     });
     count++;
+    document.getElementById('save').style.display = 'inline-block';
+    document.getElementById('cancel').style.display = 'inline-block';
   });
-
-  <% for(var i =0; i<data.camNum; i++) {%>
-    <% if(data2.length > i){ %>
-      document.getElementById('cam<%= data2[i].id%>').addEventListener('click', function() {
-        if ($("#"+id).children().length > 1){
-          document.getElementById(button).className = 'completeCam';
-        }else{
-          document.getElementById(button).className = 'roiCam';
-        }
-        document.getElementById(id).style.display = 'none';
-        document.getElementById('cam<%= data2[i].id%>').className = 'clickedCam';
-        document.getElementById('camera<%= data2[i].id%>').style.display = 'block';
-        id = "camera<%= data2[i].id%>";
-        button = "cam<%= data2[i].id%>";
-      });
-      document.getElementById('camera<%= data2[i].id%>').style.display = 'none';
-      <% }else{ %>
-        document.getElementById('cam<%= i+1%>').addEventListener('click', function() {
-          if ($("#"+id).children().length > 1){
-            document.getElementById(button).className = 'completeCam';
-          }else{
-            document.getElementById(button).className = 'roiCam';
-          }
-          document.getElementById(id).style.display = 'none';
-          document.getElementById('cam<%= i+1%>').className = 'clickedCam';
-          document.getElementById('camera<%= i+1%>').style.display = 'block';
-          id = "camera<%= i+1%>";
-          button = "cam<%= i+1%>";
-        });
-        document.getElementById('camera<%= i+1%>').style.display = 'none';
-    <% }} %>
-  document.getElementById('camera1').style.display = 'block';
-  document.getElementById('cam1').className = 'clickedCam';
+  document.getElementById('save').addEventListener('click', function() {
+    document.getElementById('save').style.display = 'none';
+    document.getElementById('addDiv').style.display = 'none';
+    document.getElementById('submit').style.display = 'inline-block';
+    $('#'+id).children().eq(0).text('1');
+  });
 
   /*cancel button click */
   document.getElementById('cancel').addEventListener('click', function() {
-    document.getElementById(button).className = 'clickedCam';
-    $('#' + id).selectable("enable");
-    $('#roi-form #count').val(count - $('#' + id).children('div').length / 4);
     $('#' + id).children('div').remove();
-    document.getElementById('submit').style.display = 'none';
+    document.getElementById('save').style.display = 'none';
     document.getElementById('cancel').style.display = 'none';
+    document.getElementById('addDiv').style.display = 'inline-block';
   });
 
   /*submit button click*/
   document.getElementById('submit').addEventListener('click', function() {
-        document.getElementById(button).className = 'completeCam';
-        $('#' + id).selectable("disable");
-        document.getElementById(id).style.display = 'none';
-        var flag = 0;
-        var i, tid, tbutton;
-
-        for (i = 0; i < $('#roiImage').children().length; i++) {
-          console.log(i);
-          tid = $('#roiImage').children().eq(i).attr('id');
-          tbutton = "cam" + tid[tid.length - 1];;
-          console.log(tid);
-          console.log(tbutton);
-          console.log($('#' + tbutton).hasClass('completeCam'));
-          if (!($('#' + tbutton).hasClass('completeCam'))) {
-            flag = 1;
-            break;
-          }
-        }
-        if (flag == 1) {
-          id = $('#roiImage').children().eq(i).attr('id');
-          button = "cam" + id[id.length - 1];
-          document.getElementById(button).className = 'clickedCam';
-          document.getElementById(id).style.display = 'block';
-
-          if($("#"+id).children().length > 1){
-            document.getElementById('submit').style.display = 'inline-block';
-            document.getElementById('cancel').style.display = 'inline-block';
-          }else{
-            document.getElementById('submit').style.display = 'none';
-            document.getElementById('cancel').style.display = 'none';
-          }
-        } else {
-          var input = document.createElement('input');
-          input.setAttribute("type", "hidden");
-          input.setAttribute("name", "count");
-          input.setAttribute("value", count);
-          roiForm.appendChild(input);
-          document.body.appendChild(roiForm);
-          roiForm.submit();
-        }
-      });
+    var left = $("#roiImage").children().eq(0).children('img').eq(0).offset().left;
+    var top = $("#roiImage").children().eq(0).children('img').eq(0).offset().top;
+    console.log($("#roiImage").children().length);
+    for(var i=0; i < $("#roiImage").children().length; i++){
+      var id = $("#roiImage").children().eq(i).attr('id');
+      console.log(id.substring(6,id.length));
+      for(var j=0; j < $("#roiImage").children().eq(i).children('.blurRoi').length; j++){
+        console.log($("#roiImage").children().eq(i).children('.blurRoi').eq(0).children().eq(0).offset());
+        var node = $("#roiImage").children().eq(i).children('.blurRoi').eq(0).children().eq(0);
+        console.log([node.offset().left -left, node.offset().top -top, node.width(), node.height()]);
+        var input = document.createElement('input');
+        input.setAttribute("type", "hidden");
+        input.setAttribute("name", "data");
+        input.setAttribute("value", [id.substring(6,id.length), node.offset().left -left, node.offset().top -top, node.width(), node.height()]);
+        roiForm.appendChild(input);
+      }
+    }
+    document.body.appendChild(roiForm);
+    roiForm.submit();
+  });
 </script>
