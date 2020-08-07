@@ -105,10 +105,10 @@ const btn2 = document.querySelector('#chartBtn2');
 const btn3 = document.querySelector('#chartBtn3');
 
 function submit(){
-  var result_from = $('#date_from').val()+" "+$('#time_from').val();
-  $('#result_from').val(result_from);
-  var result_to = $('#date_to').val()+" "+$('#time_to').val();
-  $('#result_to').val(result_to);
+  var result_from = $('#date_from').val()+" "+$('#time_from').val()+":00";
+  $('#result_from').val(result_from.substr(0,19));
+  var result_to = $('#date_to').val()+" "+$('#time_to').val()+":00";
+  $('#result_to').val(result_to.substr(0,19));
 }
 
 $(btn0).click(function(){
@@ -130,9 +130,17 @@ $(btn1).click(function(){
       $('#date_from').val(getDate(lastweek)); //date
       $('#time_from').val(getTime(lastweek)); //'00:00:00'
     }
+    else{
+      $('#date_from').val(search_from.substr(0,10)); //date
+      $('#time_from').val(search_from.substr(11,10)); //'00:00:00'
+    }
     if(cr<search_to){
       $('#date_to').val(getDate(real_now)); // real_now
       $('#time_to').val(getTime(real_now)); //'00:00:00'
+    }
+    else{
+      $('#date_to').val(search_to.substr(0,10)); //date
+      $('#time_to').val(search_to.substr(11,10)); //'00:00:00'
     }
   }
   submit();
@@ -146,6 +154,28 @@ $(btn2).click(function(){
     $('#time_from').val(getTime(lastday)); //'08:00:00'
     $('#time_to').val(getTime(real_now)); //time
   }
+  else{
+    var ld = timeToString(lastDay());
+    var cr = timeToString(new Date());
+    //lastweek=Math.min(lastweek,result_from_c);
+    if(ld>search_from){
+      var lastday = lastDay();
+      $('#date_from').val(getDate(lastday)); //date
+      $('#time_from').val(getTime(lastday)); //'00:00:00'
+    }
+    else{
+      $('#date_from').val(search_from.substr(0,10)); //date
+      $('#time_from').val(search_from.substr(11,10)); //'00:00:00'
+    }
+    if(cr<search_to){
+      $('#date_to').val(getDate(real_now)); // real_now
+      $('#time_to').val(getTime(real_now)); //'00:00:00'
+    }
+    else{
+      $('#date_to').val(search_to.substr(0,10)); //date
+      $('#time_to').val(search_to.substr(11,10)); //'00:00:00'
+    }
+  }
   submit();
 });
 
@@ -158,16 +188,46 @@ $(btn3).click(function(){
     $('#time_from').val(getTime(lasthour)); //'08:00:00'
     $('#time_to').val(getTime(real_now)); //time
   }
+  else{
+    var lh = timeToString(lastHour());
+    var cr = timeToString(new Date());
+    //lastweek=Math.min(lastweek,result_from_c);
+    if(lh>search_from){
+      var lasthour = lastHour();
+      $('#date_from').val(getDate(lasthour)); //date
+      $('#time_from').val(getTime(lasthour)); //'00:00:00'
+    }
+    else{
+      $('#date_from').val(search_from.substr(0,10)); //date
+      $('#time_from').val(search_from.substr(11,10)); //'00:00:00'
+    }
+    if(cr<search_to){
+      $('#date_to').val(getDate(real_now)); // real_now
+      $('#time_to').val(getTime(real_now)); //'00:00:00'
+    }
+    else{
+      $('#date_to').val(search_to.substr(0,10)); //date
+      $('#time_to').val(search_to.substr(11,10)); //'00:00:00'
+    }
+  }
   submit();
 });
 
-//date 바꾸었을때도 input에 적용되게
-var date_change = document.querySelector('.date');
-var time_change = document.querySelector('.time');
+//date 바꾸었을때도 input에 적용되게 동기화
+var date_change = document.querySelector('#date_from');
+var date_change2 = document.querySelector('#date_to');
+var time_change = document.querySelector('#time_from');
+var time_change2 = document.querySelector('#time_to');
 date_change.addEventListener('change', (event) => {
   submit();
 });
 time_change.addEventListener('change', (event) => {
+  submit();
+});
+date_change2.addEventListener('change', (event) => {
+  submit();
+});
+time_change2.addEventListener('change', (event) => {
   submit();
 });
 
