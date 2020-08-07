@@ -105,4 +105,19 @@ router.post('/submit', function(req, res){
     res.redirect('/');
 })
 
+router.post('/refresh', function(req, res){
+
+  const cam_query = `select * from camera`;
+
+  db.serialize(() => {
+    db.all(cam_query, (err, row1) => {
+        if (err){
+          throw err;
+        }
+        res.json({"data": row1});
+      });
+  });
+  // 서버에서는 JSON.stringify 필요없음
+})
+
 module.exports = router;

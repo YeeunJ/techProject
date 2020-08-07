@@ -30,6 +30,7 @@
         <% }else{ %>
           <div id="camera<%= i+1%>" class="eachCamera">
             <div style="display: none">0</div>
+            <img id="image<%= i+1%>" class="image"  style = "display:none;" width = "640px" draggable="false" />
             <div class = "noImage">
               아직 이미지가 존재하지 않습니다.<br>
               <button type="button" id = "refresh">새로고침</button>을 눌러주세요.
@@ -197,4 +198,27 @@
     document.body.appendChild(roiForm);
     roiForm.submit();
   });
+
+  /*refresh button ajax*/
+  document.querySelector('#refresh').addEventListener('click', function(){
+    var data = {'update' : "setting"};
+    data = JSON.stringify(data);
+
+    // content-type을 설정하고 데이터 송신
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:10051/setting/refresh');
+    xhr.setRequestHeader('Content-type', "application/json");
+    xhr.send(data);
+
+    // 데이터 수신이 완료되면 표시
+    xhr.addEventListener('load', function(){
+      // 문자열 형식으로 변환
+      var result = JSON.parse(xhr.responseText);
+      // 데이터가 없으면 return 반환
+      if(result.result !== 'ok') return;
+      // 데이터가 있으면 결과값 표시
+      console.log(result);
+      //document.querySelector("#"+id).children('img').eq(0).attr("src", result.)
+    });
+  })
 </script>
