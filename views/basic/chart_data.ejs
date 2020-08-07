@@ -64,7 +64,7 @@ var datasets1 = [];
         borderColor: color[i],
         backgroundColor: color[i],
         fill: false,
-        data: data1[i],
+        data: data1[i].reverse(),
         yAxisID: 'y-axis-1',
       };
     datasets1.push(dataset);
@@ -75,7 +75,7 @@ var datasets1 = [];
       borderColor: color[<%=data1.camNum%>],
       backgroundColor: color[<%=data1.camNum%>],
       fill: false,
-      data: data1[<%=data1.camNum%>],
+      data: data1[<%=data1.camNum%>].reverse(),
       yAxisID: 'y-axis-1',
     };
   datasets1.push(dataset);
@@ -107,7 +107,7 @@ for(var i=0; i<= <%=data1.camNum%>; i++){
           borderColor: color[i],
           backgroundColor: color[i],
           fill: false,
-          data: data2[i],
+          data: data2[i].reverse(),
           yAxisID: 'y-axis-1',
         };
       datasets2.push(dataset);
@@ -152,7 +152,7 @@ var image_info = [];
           borderColor: color[i],
           backgroundColor: color[i],
           fill: false,
-          data: data3[i],
+          data: data3[i].reverse(),
           yAxisID: 'y-axis-1',
         };
       datasets3.push(dataset);

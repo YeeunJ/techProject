@@ -236,7 +236,7 @@ document.querySelector('#searchBtn').addEventListener('click', function(){
         borderColor: color[i],
         backgroundColor: color[i],
         fill: false,
-        data: data1[i],
+        data: data1[i].reverse(),
         yAxisID: 'y-axis-1',
       };
     datasets1.push(dataset);
@@ -247,7 +247,7 @@ document.querySelector('#searchBtn').addEventListener('click', function(){
       borderColor: color[dt1.camNum],
       backgroundColor: color[dt1.camNum],
       fill: false,
-      data: data1[dt1.camNum],
+      data: data1[dt1.camNum].reverse(),
       yAxisID: 'y-axis-1',
     };
     datasets1.push(dataset);
@@ -279,7 +279,7 @@ document.querySelector('#searchBtn').addEventListener('click', function(){
           borderColor: color[i],
           backgroundColor: color[i],
           fill: false,
-          data: data2[i],
+          data: data2[i].reverse(),
           yAxisID: 'y-axis-1',
         };
       datasets2.push(dataset);
@@ -290,7 +290,7 @@ document.querySelector('#searchBtn').addEventListener('click', function(){
         borderColor: color[dt1.camNum],
         backgroundColor: color[dt1.camNum],
         fill: false,
-        data: data2[dt1.camNum],
+        data: data2[dt1.camNum].reverse(),
         yAxisID: 'y-axis-1',
       };
     datasets2.push(dataset);
@@ -331,6 +331,7 @@ document.querySelector('#searchBtn').addEventListener('click', function(){
       labels: ['5분', '10분', '30분', '1시간'],
       datasets: datasets3
     };
+  document.getElementById('myChart1').style.display = "block";
   var ctx = document.getElementById('myChart1').getContext('2d');
   window.myLine = Chart.Line(ctx, {
     data: chart1,
@@ -372,7 +373,97 @@ document.querySelector('#searchBtn').addEventListener('click', function(){
   });
   window.myLine.update();
 
+document.getElementById('myChart3').style.display = "block";
+  var ctx = document.getElementById('myChart2').getContext('2d');
+
+  window.myLine = Chart.Line(ctx, {
+    data: chart2,
+    options: {
+      responsive: true,
+      hoverMode: 'index',
+      stacked: false,
+      title: {
+        display: false,
+      },
+      scales: {
+        yAxes: [{
+          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+          display: true,
+          position: 'left',
+          id: 'y-axis-1',
+          gridLines:{
+            color: 'rgba(255, 255, 255, 0.4)',
+            lineWidth:1
+          }
+        }],
+        ticks: {
+          stepSize: 5
+        }
+      },
+      legend: {
+               display: true,
+               position: 'top',
+               align: 'start',
+               labels: {
+                usePointStyle: 'true',
+                boxWidth: 20
+            }
+           }
+    }
+  });
+  window.myLine.update();
+  document.getElementById('myChart2').style.display = 'none';
+
+document.getElementById('myChart3').style.display = "block";
+  var ctx = document.getElementById('myChart3').getContext('2d');
+
+  window.myLine = Chart.Line(ctx, {
+    data: chart3,
+    options: {
+      responsive: true,
+      hoverMode: 'index',
+      stacked: false,
+      title: {
+        display: false,
+        text: '최근 일정 시간 평균 인원수 차트'
+      },
+      scales: {
+        yAxes: [{
+          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+          display: true,
+          position: 'left',
+          id: 'y-axis-1',
+          gridLines:{
+            color: 'rgba(255, 255, 255, 0.4)',
+            lineWidth:1
+          }
+        }],
+        ticks: {
+          stepSize: 5
+        }
+      },
+      legend: {
+               display: true,
+               position: 'top',
+               align: 'start',
+               labels: {
+                usePointStyle: 'true',
+                boxWidth: 20
+            }
+           }
+    }
+  });
+  window.myLine.update();
+  document.getElementById('myChart3').style.display = 'none';
+  document.getElementById('myChart3').style.display = 'none';
+  document.getElementById('myChart2').style.display = 'none';
+  document.getElementById('myChart1').style.display = 'block';
+  document.getElementById('chartBtn1').className = 'clickedCriteria';
+  document.getElementById('chartBtn2').className = 'criteria';
+  document.getElementById('chartBtn3').className = 'criteria';
+
   $('.img_wrapper').children().remove();
+  
   for(var i=0; i<dt2.length; i++) {
     $('.img_wrapper').eq(dt2[i].cameraID-1).append('<div class="img_date"><img src="./resources/images/original/'+dt2[i].name+'" alt="" value="'+dt2[i].cameraID+'" onclick=\'showDetail("'+dt2[i].name+'", "'+dt2[i].cameraID+'", "'+dt2[i].regDate+'", "'+dt2[i].peopleCNT+'");\' /><br><p style="display:inline-block;">'+dt2[i].regDate+'</p><p style="display: inline-block; float:right; padding-right: 20px;">'+dt2[i].peopleCNT+'명</p></div>');
   }
