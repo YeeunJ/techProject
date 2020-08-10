@@ -3,10 +3,8 @@ div#search{
   margin-bottom: 30px;
   float:left;
   width:68%;
-  //border:solid 1px red;
 }
 input, select{
-  //width:80%;
   border-radius: 5px;
   border-style: none;
   font-size: 12px;
