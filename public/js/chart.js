@@ -1,5 +1,6 @@
 //var ctx = document.getElementById('myChart1').getContext('2d');
 window.onload = function() {
+  document.getElementById('myChart4').style.display = 'none';
   var ctx = document.getElementById('myChart1').getContext('2d');
   window.myLine = Chart.Line(ctx, {
     data: chart1,

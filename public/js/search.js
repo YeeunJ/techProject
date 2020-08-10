@@ -186,33 +186,118 @@ document.querySelector('#searchBtn').addEventListener('click', function(){
     console.log(dt5);
 
     var color = ['#4abd9e', '#4097f5', '#f68645', '#dd497d', '#febe27', '#a14cfc', '#84c460', '#fa4cd7', '#3ed4de', '#fc5551'];
-    var today = new Date(document.getElementById('result_from').value.replace('-','/').replace('-','/').substring(0,10));
-    var startTime = new Date(document.getElementById('result_to').value.replace('-','/').replace('-','/').substring(0,10));
-    var endTime = new Date(document.getElementById('result_from').value.replace('-','/').replace('-','/').substring(0,10));
-    var dateD1 = new Date(document.forms[0].elements[5].value.replace('-','/').replace('-','/').substring(0,10));
-    var dateTemp = new Date(document.forms[0].elements[5].value.replace('-','/').replace('-','/').substring(0,10));
+    var startTime = new Date(document.getElementById('result_from').value.replace('-','/').replace('-','/').substring(0,10));
+    var endTime = new Date(document.getElementById('result_to').value.replace('-','/').replace('-','/').substring(0,10));
+    var sTime = new Date(document.getElementById('result_from').value.replace('-','/').replace('-','/').substring(0,10));
+    var data1 = [];
+    var data2 = [];
+    var data3 = [];
 
-
-    document.getElementById('myChart4').style.display = 'none';
-    document.getElementById('myChart3').style.display = 'none';
-    document.getElementById('myChart2').style.display = 'none';
-    document.getElementById('myChart1').style.display = 'none';
-    document.getElementById('chartBtn1').className = 'criteria';
-    document.getElementById('chartBtn2').className = 'criteria';
-    document.getElementById('chartBtn3').className = 'criteria';
-
-    $('.img_wrapper').children().remove();
-
-    for(var i=0; i<dt2.length; i++) {
-      $('.img_wrapper').eq(dt2[i].cameraID-1).append('<div class="img_date"><img src="./resources/images/original/'+dt2[i].name+'" alt="" value="'+dt2[i].cameraID+'" onclick=\'showDetail("'+dt2[i].name+'", "'+dt2[i].cameraID+'", "'+dt2[i].regDate+'", "'+dt2[i].peopleCNT+'");\' /><br><p style="display:inline-block;">'+dt2[i].regDate+'</p><p style="display: inline-block; float:right; padding-right: 20px;">'+dt2[i].peopleCNT+'명</p></div>');
-    }
-
-    for(var i=0; i<dt1.camNum; i++){
-      console.log($('.img_wrapper').eq(i).children());
-
-      if($('.img_wrapper').eq(i).children().length == 0){
-        $('.img_wrapper').eq(i).append('<div class="append">No Image</div>');
+    for(var i=0; i<= dt1.camNum; i++){
+      data1[i] = [];
+      for (var j= 0; j<= Math.floor((endTime.getTime() - startTime.getTime()) / (1000*60*60*24)); j++){
+        data1[i].push(0);
       }
     }
+    console.log(data1);
+
+    for(var i=0; i< dt3.length; i++){
+    var date = dt3[i].date;
+    date = date.replace('-','/').replace('-','/');
+    dateTemp = new Date(date);
+    data1[dt3[i].cameraID-1][Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60*24))] = dt3[i].people;
+    data1[dt1.camNum][Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60*24))] += dt3[i].people;
+    }
+    console.log(data1);
+    var label = [];
+    label[0]= sTime.format('MM월 dd일(KS)');
+    for (var i= 1; i<= Math.floor((endTime.getTime() - startTime.getTime()) / (1000*60*60*24)); i++){
+    sTime.setDate(sTime.getDate()+1);
+    console.log(sTime.format('MM월 dd일(KS)'));
+    label[i] = sTime.format('MM월 dd일(KS)');
+    }
+    console.log(label);
+    var datasets1 = [];
+    for(var i=0; i< dt1.camNum; i++){
+    var dataset = {
+        label: '카메라 ' + (i+1),
+        borderColor: color[i],
+        backgroundColor: color[i],
+        fill: false,
+        data: data1[i].reverse(),
+        yAxisID: 'y-axis-1',
+      };
+    datasets1.push(dataset);
+    }
+
+    console.log('datasets4');
+    console.log(datasets1);
+
+    var chart1 = {
+      labels: label,
+      datasets: datasets1
+    };
+
+  document.getElementById('myChart4').style.display = "block";
+  var ctx = document.getElementById('myChart4').getContext('2d');
+  window.myLine = Chart.Line(ctx, {
+    data: chart1,
+    options: {
+      responsive: true,
+      hoverMode: 'index',
+      stacked: false,
+      title: {
+        display: false,
+      },
+      scales: {
+        yAxes: [{
+          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+          display: true,
+          position: 'left',
+          id: 'y-axis-1',
+          gridLines:{
+            color: 'rgba(255, 255, 255, 0.4)',
+            lineWidth:1
+          }
+        }],
+        ticks: {
+          stepSize: 10,
+          beginAtZero: false,
+					fontSize : 16,
+          padding: '80px',
+        }
+      },
+      legend: {
+               display: true,
+               fontSize : 20,
+               position: 'top',
+               align: 'start',
+               labels: {
+                usePointStyle: 'true'
+            }
+           }
+    }
+  });
+
+  document.getElementById('myChart3').style.display = 'none';
+  document.getElementById('myChart2').style.display = 'none';
+  document.getElementById('myChart1').style.display = 'none';
+  document.getElementById('chartBtn1').className = 'criteria';
+  document.getElementById('chartBtn2').className = 'criteria';
+  document.getElementById('chartBtn3').className = 'criteria';
+
+  $('.img_wrapper').children().remove();
+
+  for(var i=0; i<dt2.length; i++) {
+    $('.img_wrapper').eq(dt2[i].cameraID-1).append('<div class="img_date"><img src="./resources/images/original/'+dt2[i].name+'" alt="" value="'+dt2[i].cameraID+'" onclick=\'showDetail("'+dt2[i].name+'", "'+dt2[i].cameraID+'", "'+dt2[i].originalDate+'", "'+dt2[i].peopleCNT+'");\' /><br><p style="display:inline-block;">'+dt2[i].originalDate+'</p><p style="display: inline-block; float:right; padding-right: 20px;">'+dt2[i].peopleCNT+'명</p></div>');
+  }
+
+  for(var i=0; i<dt1.camNum; i++){
+    console.log($('.img_wrapper').eq(i).children());
+
+    if($('.img_wrapper').eq(i).children().length == 0){
+      $('.img_wrapper').eq(i).append('<div class="append">No Image</div>');
+    }
+  }
   });
 });

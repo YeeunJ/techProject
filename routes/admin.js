@@ -66,7 +66,7 @@ router.post('/update', function (req, res, next) {
     set sizeW = ${sizeW}, sizeH = ${sizeH}, resizeW = ${resizeW}, resizeH = ${resizeH},
     camNum = ${camNum}, savePeriod = ${savePeriod}, saveInterval = ${saveInterval}, saveNum = ${saveNum}, regDate = datetime('now', 'localtime')
     where id = 1;`;
-    const cam_query = `select * from camera limit 2;`;
+    const cam_query = `select * from camera;`;
     const query2 = `select * from setting where id = 1;`;
     console.log(query);
     console.log(cam_query);
@@ -93,16 +93,30 @@ router.post('/update', function (req, res, next) {
 router.post('/submit', function(req, res){
   console.log("submit");
   console.log(req.body.data);
+  console.log(req.body.data[0].length);
   db.parallelize(() => {
-    for(var i=0; i<req.body.count; i++){
-      var arr = req.body.data[i].split(',');
+    if(req.body.data[0].length == 1){
+      var arr = req.body.data.split(',');
       var query = `insert into roi(camID, leftX, leftY, rightX, rightY)
         values (${arr[0]}, ${arr[1]}, ${arr[2]}, ${arr[3]}, ${arr[4]});`;
+        console.log(query);
       db.get(query, (err, row) => {
         if (err) {
           console.error(err.message);
         }
       });
+    }else{
+      for(var i=0; i<req.body.data.length; i++){
+        var arr = req.body.data[i].split(',');
+        var query = `insert into roi(camID, leftX, leftY, rightX, rightY)
+          values (${arr[0]}, ${arr[1]}, ${arr[2]}, ${arr[3]}, ${arr[4]});`;
+          console.log(query);
+        db.get(query, (err, row) => {
+          if (err) {
+            console.error(err.message);
+          }
+        });
+      }
     }
 });
     res.redirect('/');

@@ -7,10 +7,10 @@
         ROI 설정
       </div>
       <div id="explain">
-        <b style = "color: rgb(74, 189,158)">1.</b> 영역을 지정할 카메라를 선택합니다.<br>
-        <b style = "color: rgb(74, 189,158)">2.</b> 영역 추가 버튼을 눌러 사진 위에 인원수를 셀 영역을 표시합니다. (크기 조절과 위치 변경이 가능합니다.) <br>
-        <b style = "color: rgb(74, 189,158)">3.</b> 우측 하단의 저장 버튼을 눌러 현재 카메라의 설정을 완료합니다. <br>
-        <b style = "color: rgb(74, 189,158)">4.</b> 모든 영역을 저장했다면 완료 버튼을 눌러 전체 설정을 완료합니다.<br>
+        <b>ROI 설정방법</b><br>
+        <b style = "color: rgb(74, 189,158)">1.</b> 원하는 카메라를 선택합니다.<br>
+        <b style = "color: rgb(74, 189,158)">2.</b> 사진에서 원하는 영역을 선택하여 크기, 위치를 조절하고 [저장] 버튼 클릭합니다.<br>
+        <b style = "color: rgb(74, 189,158)">3.</b> 원하는 영역만큼 추가합니다.
       </div>
       <div id="roiTab">
         <%for(var i=0; i<data.camNum; i++){ %>
@@ -74,25 +74,22 @@
         }
 
         console.log($("#camera<%= data2[i].id%>").children('img').css("display"));
-        if ($('#cam<%= data2[i].id%>').children().eq(0).text() == '1'){
+        console.log($("#camera<%= data2[i].id%>").children().length);
+        if ($('#camera<%= data2[i].id%>').children().eq(0).text() == '1'){
           document.getElementById('save').style.display = 'none';
-          document.getElementById('submit').style.display = 'inline-block';
           document.getElementById('addDiv').style.display = 'none';
           document.getElementById('cancel').style.display = 'inline-block';
         }else if ($("#camera<%= data2[i].id%>").children().length > 2 && $("#camera<%= i+1%>").children('img').css("display") != "none"){
-          document.getElementById('save').style.display = 'none';
-          document.getElementById('submit').style.display = 'inline-block';
-          document.getElementById('addDiv').style.display = 'none';
+          document.getElementById('save').style.display = 'inline-block';
+          document.getElementById('addDiv').style.display = 'inline-block';
           document.getElementById('cancel').style.display = 'inline-block';
         }else if($("#camera<%= data2[i].id%>").children('img').css("display") != "none"){
           document.getElementById('save').style.display = 'none';
-          document.getElementById('submit').style.display = 'none';
           document.getElementById('addDiv').style.display = 'inline-block';
           document.getElementById('cancel').style.display = 'none';
         }else {
           document.getElementById('save').style.display = 'none';
-          document.getElementById('submit').style.display = 'none';
-          document.getElementById('addDiv').style.display = 'none';
+          document.getElementById('addDiv').style.display = 'inline-block';
           document.getElementById('cancel').style.display = 'none';
         }
 
@@ -111,24 +108,20 @@
             document.getElementById(button).className = 'roiCam';
           }
           console.log($("#camera<%= i+1%>").children('img').css("display"));
-          if ($('#cam<%= i+1%>').children().eq(0).text() == '1'){
+          if ($('#camera<%= i+1%>').children().eq(0).text() == '1'){
             document.getElementById('save').style.display = 'none';
-            document.getElementById('submit').style.display = 'inline-block';
             document.getElementById('addDiv').style.display = 'none';
             document.getElementById('cancel').style.display = 'inline-block';
           }else if ($("#camera<%= i+1%>").children().length > 3 && $("#camera<%= i+1%>").children('img').css("display") != "none"){
-            document.getElementById('save').style.display = 'none';
-            document.getElementById('submit').style.display = 'inline-block';
-            document.getElementById('addDiv').style.display = 'none';
+            document.getElementById('save').style.display = 'inline-block';
+            document.getElementById('addDiv').style.display = 'inline-block';
             document.getElementById('cancel').style.display = 'inline-block';
           }else if($("#camera<%= i+1%>").children('img').css("display") != "none"){
             document.getElementById('save').style.display = 'none';
-            document.getElementById('submit').style.display = 'none';
             document.getElementById('addDiv').style.display = 'inline-block';
             document.getElementById('cancel').style.display = 'none';
           }else {
             document.getElementById('save').style.display = 'none';
-            document.getElementById('submit').style.display = 'none';
             document.getElementById('addDiv').style.display = 'none';
             document.getElementById('cancel').style.display = 'none';
           }
@@ -160,7 +153,6 @@
     count++;
     document.getElementById('save').style.display = 'inline-block';
     document.getElementById('cancel').style.display = 'inline-block';
-    document.getElementById('submit').style.display = 'none';
     document.getElementById('addDiv').style.display = 'inline-block';
   });
 
@@ -175,6 +167,7 @@
   /*cancel button click */
   document.getElementById('cancel').addEventListener('click', function() {
     $('#' + id).children('div').remove();
+    $('#'+id).children().eq(0).text('0');
     document.getElementById('save').style.display = 'none';
     document.getElementById('cancel').style.display = 'none';
     document.getElementById('addDiv').style.display = 'inline-block';
@@ -184,13 +177,13 @@
   document.getElementById('submit').addEventListener('click', function() {
     var left = $("#roiImage").children().eq(0).children('img').eq(0).offset().left;
     var top = $("#roiImage").children().eq(0).children('img').eq(0).offset().top;
-    console.log($("#roiImage").children().length);
     for(var i=0; i < $("#roiImage").children().length; i++){
       var id = $("#roiImage").children().eq(i).attr('id');
       console.log(id.substring(6,id.length));
+      console.log($("#roiImage").children().eq(i));
       for(var j=0; j < $("#roiImage").children().eq(i).children('.blurRoi').length; j++){
-        console.log($("#roiImage").children().eq(i).children('.blurRoi').eq(0).children().eq(0).offset());
-        var node = $("#roiImage").children().eq(i).children('.blurRoi').eq(0).children().eq(0);
+        console.log($("#roiImage").children().eq(i).children('.blurRoi').eq(j).children().eq(0).offset());
+        var node = $("#roiImage").children().eq(i).children('.blurRoi').eq(j).children().eq(0);
         console.log([node.offset().left -left, node.offset().top -top, node.width(), node.height()]);
         var input = document.createElement('input');
         input.setAttribute("type", "hidden");
@@ -200,7 +193,7 @@
       }
     }
     document.body.appendChild(roiForm);
-    roiForm.submit();
+    //roiForm.submit();
   });
 
   /*refresh button ajax*/

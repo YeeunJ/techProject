@@ -58,7 +58,7 @@ router.post('/search', function(req, res) {
       const {starttime, endtime} = req.body;
 
       const query1 = `select * from setting where id = 1;`;
-      const query2 = `select * from cam_image where originalDate between '${starttime}' and '${endtime}';`;
+      const query2 = `select * from cam_image where originalDate between '${starttime}' and '${endtime}' order by originalDate;`;
       const query3 = `select cameraID, substr(originalDate, 1, 10) as date, sum(peopleCNT) as people from cam_image where originalDate between '${starttime}' and '${endtime}' GROUP BY strftime('%j', originalDate), cameraID;`;
       console.log(query2);
       console.log(query3);
