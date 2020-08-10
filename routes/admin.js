@@ -26,7 +26,7 @@ router.get('/reset', function(req, res){
     .run(query4);
 });
 
-  res.redirect('/first');
+  res.redirect('/setting/first');
 });
 
 router.get('/first', function(req, res){
