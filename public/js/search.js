@@ -119,97 +119,25 @@ $(btn0).click(function(){
 });
 
 $(btn1).click(function(){
-  if(!searchcheck)
-    getWeekData();
-  else{
-    var lw = timeToString(lastWeek());
-    var cr = timeToString(new Date());
-    //lastweek=Math.min(lastweek,result_from_c);
-    if(lw>search_from){
-      var lastweek = lastWeek();
-      $('#date_from').val(getDate(lastweek)); //date
-      $('#time_from').val(getTime(lastweek)); //'00:00:00'
-    }
-    else{
-      $('#date_from').val(search_from.substr(0,10)); //date
-      $('#time_from').val(search_from.substr(11,10)); //'00:00:00'
-    }
-    if(cr<search_to){
-      $('#date_to').val(getDate(real_now)); // real_now
-      $('#time_to').val(getTime(real_now)); //'00:00:00'
-    }
-    else{
-      $('#date_to').val(search_to.substr(0,10)); //date
-      $('#time_to').val(search_to.substr(11,10)); //'00:00:00'
-    }
-  }
+  getWeekData();
   submit();
 });
 
 $(btn2).click(function(){
-  if(!searchcheck){
-    var lastday = lastDay();
-    $('#date_from').val(getDate(lastday)); //date
-    $('#date_to').val(getDate(real_now)); //date
-    $('#time_from').val(getTime(lastday)); //'08:00:00'
-    $('#time_to').val(getTime(real_now)); //time
-  }
-  else{
-    var ld = timeToString(lastDay());
-    var cr = timeToString(new Date());
-    //lastweek=Math.min(lastweek,result_from_c);
-    if(ld>search_from){
-      var lastday = lastDay();
-      $('#date_from').val(getDate(lastday)); //date
-      $('#time_from').val(getTime(lastday)); //'00:00:00'
-    }
-    else{
-      $('#date_from').val(search_from.substr(0,10)); //date
-      $('#time_from').val(search_from.substr(11,10)); //'00:00:00'
-    }
-    if(cr<search_to){
-      $('#date_to').val(getDate(real_now)); // real_now
-      $('#time_to').val(getTime(real_now)); //'00:00:00'
-    }
-    else{
-      $('#date_to').val(search_to.substr(0,10)); //date
-      $('#time_to').val(search_to.substr(11,10)); //'00:00:00'
-    }
-  }
+  var lastday = lastDay();
+  $('#date_from').val(getDate(lastday)); //date
+  $('#date_to').val(getDate(real_now)); //date
+  $('#time_from').val(getTime(lastday)); //'08:00:00'
+  $('#time_to').val(getTime(real_now)); //time
   submit();
 });
 
 $(btn3).click(function(){
-  if(!searchcheck){
-    var lasthour = lastHour();
-    //alert(lasthour);
-    $('#date_from').val(getDate(lasthour)); //date
-    $('#date_to').val(getDate(real_now)); //date
-    $('#time_from').val(getTime(lasthour)); //'08:00:00'
-    $('#time_to').val(getTime(real_now)); //time
-  }
-  else{
-    var lh = timeToString(lastHour());
-    var cr = timeToString(new Date());
-    //lastweek=Math.min(lastweek,result_from_c);
-    if(lh>search_from){
-      var lasthour = lastHour();
-      $('#date_from').val(getDate(lasthour)); //date
-      $('#time_from').val(getTime(lasthour)); //'00:00:00'
-    }
-    else{
-      $('#date_from').val(search_from.substr(0,10)); //date
-      $('#time_from').val(search_from.substr(11,10)); //'00:00:00'
-    }
-    if(cr<search_to){
-      $('#date_to').val(getDate(real_now)); // real_now
-      $('#time_to').val(getTime(real_now)); //'00:00:00'
-    }
-    else{
-      $('#date_to').val(search_to.substr(0,10)); //date
-      $('#time_to').val(search_to.substr(11,10)); //'00:00:00'
-    }
-  }
+  var lasthour = lastHour();
+  $('#date_from').val(getDate(lasthour)); //date
+  $('#date_to').val(getDate(real_now)); //date
+  $('#time_from').val(getTime(lasthour)); //'08:00:00'
+  $('#time_to').val(getTime(real_now)); //time
   submit();
 });
 
