@@ -186,282 +186,33 @@ document.querySelector('#searchBtn').addEventListener('click', function(){
     console.log(dt5);
 
     var color = ['#4abd9e', '#4097f5', '#f68645', '#dd497d', '#febe27', '#a14cfc', '#84c460', '#fa4cd7', '#3ed4de', '#fc5551'];
-    var today = new Date(document.forms[0].elements[5].value.replace('-','/').replace('-','/').substring(0,10));
+    var today = new Date(document.getElementById('result_from').value.replace('-','/').replace('-','/').substring(0,10));
+    var startTime = new Date(document.getElementById('result_to').value.replace('-','/').replace('-','/').substring(0,10));
+    var endTime = new Date(document.getElementById('result_from').value.replace('-','/').replace('-','/').substring(0,10));
     var dateD1 = new Date(document.forms[0].elements[5].value.replace('-','/').replace('-','/').substring(0,10));
     var dateTemp = new Date(document.forms[0].elements[5].value.replace('-','/').replace('-','/').substring(0,10));
-    /*
-    var today = new Date('2020-08-02 12:00:22'.replace('-','/').replace('-','/').substring(0,10));
-    var dateD1 = new Date('2020-08-02 12:00:22'.replace('-','/').replace('-','/').substring(0,10));
-    var dateTemp = new Date('2020-08-02 12:00:22'.replace('-','/').replace('-','/').substring(0,10));
-*/
-    var data1 = [];
-    var data2 = [];
-    var data3 = [];
 
-    for(var i=0; i<= dt1.camNum; i++){
-    data1[i] = [0,0,0,0,0,0,0];
-    }
-    for(var i=0; i< dt3.length; i++){
-    var date = dt3[i].date;
-    date = date.replace('-','/').replace('-','/');
-    dateTemp = new Date(date);
-    data1[dt3[i].cameraID-1][Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60*24))] = dt3[i].people;
-    data1[dt1.camNum][Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60*24))] += dt3[i].people;
-    }
-    console.log(data1);
-    var label = [];
-    label[6]= dateD1.format('MM월 dd일(KS)')
-    for(var i=1; i<7; i++){
-    dateD1.setDate(dateD1.getDate()-1);
-    console.log(dateD1.format('MM월 dd일(KS)'));
-    label[7-i-1] = dateD1.format('MM월 dd일(KS)');
-    }
-    console.log(label);
-    var datasets1 = [];
-    for(var i=0; i< dt1.camNum; i++){
-    var dataset = {
-        label: '카메라 ' + (i+1),
-        borderColor: color[i],
-        backgroundColor: color[i],
-        fill: false,
-        data: data1[i].reverse(),
-        yAxisID: 'y-axis-1',
-      };
-    datasets1.push(dataset);
+
+    document.getElementById('myChart4').style.display = 'none';
+    document.getElementById('myChart3').style.display = 'none';
+    document.getElementById('myChart2').style.display = 'none';
+    document.getElementById('myChart1').style.display = 'none';
+    document.getElementById('chartBtn1').className = 'criteria';
+    document.getElementById('chartBtn2').className = 'criteria';
+    document.getElementById('chartBtn3').className = 'criteria';
+
+    $('.img_wrapper').children().remove();
+
+    for(var i=0; i<dt2.length; i++) {
+      $('.img_wrapper').eq(dt2[i].cameraID-1).append('<div class="img_date"><img src="./resources/images/original/'+dt2[i].name+'" alt="" value="'+dt2[i].cameraID+'" onclick=\'showDetail("'+dt2[i].name+'", "'+dt2[i].cameraID+'", "'+dt2[i].regDate+'", "'+dt2[i].peopleCNT+'");\' /><br><p style="display:inline-block;">'+dt2[i].regDate+'</p><p style="display: inline-block; float:right; padding-right: 20px;">'+dt2[i].peopleCNT+'명</p></div>');
     }
 
-    var dataset = {
-      label: '총인원',
-      borderColor: color[dt1.camNum],
-      backgroundColor: color[dt1.camNum],
-      fill: false,
-      data: data1[dt1.camNum].reverse(),
-      yAxisID: 'y-axis-1',
-    };
-    datasets1.push(dataset);
-    console.log('datasets1');
-    console.log(datasets1);
+    for(var i=0; i<dt1.camNum; i++){
+      console.log($('.img_wrapper').eq(i).children());
 
-    var chart1 = {
-      labels: label,
-      datasets: datasets1
-    };
-    /* 차트 2*/
-    for(var i=0; i<= dt1.camNum; i++){
-    data2[i] = [0,0,0,0,0,0,0,0];
+      if($('.img_wrapper').eq(i).children().length == 0){
+        $('.img_wrapper').eq(i).append('<div class="append">No Image</div>');
+      }
     }
-    for(var i=0; i< dt4.length; i++){
-    var date = dt4[i].date;
-    date = date.replace('-','/').replace('-','/');
-    dateTemp = new Date(date);
-    data2[dt4[i].cameraID-1][Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60*3))] = dt4[i].people;
-    data2[dt1.camNum][Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60*3))] += dt4[i].people;
-      data2.push([dt4[i].cameraID, dt4[i].date, dt4[i].people]);
-      console.log(Math.floor((today.getTime() - dateTemp.getTime())) / (1000*60*60*3));
-    };
-    var datasets2 = [];
-    for(var i=0; i< dt1.camNum; i++){
-
-      var dataset = {
-          label: '카메라 ' + (i+1),
-          borderColor: color[i],
-          backgroundColor: color[i],
-          fill: false,
-          data: data2[i].reverse(),
-          yAxisID: 'y-axis-1',
-        };
-      datasets2.push(dataset);
-    }
-
-    var dataset = {
-        label: '총인원',
-        borderColor: color[dt1.camNum],
-        backgroundColor: color[dt1.camNum],
-        fill: false,
-        data: data2[dt1.camNum].reverse(),
-        yAxisID: 'y-axis-1',
-      };
-    datasets2.push(dataset);
-    console.log('datasets2');
-    console.log(datasets2);
-
-    var chart2 = {
-      labels: ['0~3시', '3~6시', '6~9시', '9~12시', '12~15시', '15~18시', '18~21시', '21~24시'],
-      datasets:datasets2
-    };
-
-    for(var i=0; i< dt5.length; i++){
-      var date = dt5[i].date;
-      date = date.replace('-','/').replace('-','/');
-      dateTemp = new Date(date);
-      data3[dt5[i].cameraID-1][Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60))] = dt5[i].people;
-      data3[dt1.camNum][Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60))] += dt5[i].people;
-      data3.push([dt5[i].cameraID, dt5[i].date, dt5[i].people]);
-      console.log(Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60*3)));
-      image_info[dt5[i].cameraID-1] = dt5[i].count;
-    }
-    var datasets3 = [];
-    for(var i=0; i< dt1.camNum; i++){
-
-      var dataset = {
-          label: '카메라 ' + (i+1),
-          borderColor: color[i],
-          backgroundColor: color[i],
-          fill: false,
-          data: data3[i],
-          yAxisID: 'y-axis-1',
-        };
-      datasets3.push(dataset);
-    }
-
-    console.log(datasets3);
-    var chart3 = {
-      labels: ['5분', '10분', '30분', '1시간'],
-      datasets: datasets3
-    };
-  document.getElementById('myChart1').style.display = "block";
-  var ctx = document.getElementById('myChart1').getContext('2d');
-  window.myLine = Chart.Line(ctx, {
-    data: chart1,
-    options: {
-      responsive: true,
-      hoverMode: 'index',
-      stacked: false,
-      title: {
-        display: false,
-      },
-      scales: {
-        yAxes: [{
-          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-          display: true,
-          position: 'left',
-          id: 'y-axis-1',
-          gridLines:{
-            color: 'rgba(255, 255, 255, 0.4)',
-            lineWidth:1
-          }
-        }],
-        ticks: {
-          stepSize: 10,
-          beginAtZero: false,
-					fontSize : 16,
-          padding: '80px',
-        }
-      },
-      legend: {
-               display: true,
-               fontSize : 20,
-               position: 'top',
-               align: 'start',
-               labels: {
-                usePointStyle: 'true'
-            }
-           }
-    }
-  });
-  window.myLine.update();
-
-document.getElementById('myChart3').style.display = "block";
-  var ctx = document.getElementById('myChart2').getContext('2d');
-
-  window.myLine = Chart.Line(ctx, {
-    data: chart2,
-    options: {
-      responsive: true,
-      hoverMode: 'index',
-      stacked: false,
-      title: {
-        display: false,
-      },
-      scales: {
-        yAxes: [{
-          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-          display: true,
-          position: 'left',
-          id: 'y-axis-1',
-          gridLines:{
-            color: 'rgba(255, 255, 255, 0.4)',
-            lineWidth:1
-          }
-        }],
-        ticks: {
-          stepSize: 5
-        }
-      },
-      legend: {
-               display: true,
-               position: 'top',
-               align: 'start',
-               labels: {
-                usePointStyle: 'true',
-                boxWidth: 20
-            }
-           }
-    }
-  });
-  window.myLine.update();
-  document.getElementById('myChart2').style.display = 'none';
-
-document.getElementById('myChart3').style.display = "block";
-  var ctx = document.getElementById('myChart3').getContext('2d');
-
-  window.myLine = Chart.Line(ctx, {
-    data: chart3,
-    options: {
-      responsive: true,
-      hoverMode: 'index',
-      stacked: false,
-      title: {
-        display: false,
-        text: '최근 일정 시간 평균 인원수 차트'
-      },
-      scales: {
-        yAxes: [{
-          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-          display: true,
-          position: 'left',
-          id: 'y-axis-1',
-          gridLines:{
-            color: 'rgba(255, 255, 255, 0.4)',
-            lineWidth:1
-          }
-        }],
-        ticks: {
-          stepSize: 5
-        }
-      },
-      legend: {
-               display: true,
-               position: 'top',
-               align: 'start',
-               labels: {
-                usePointStyle: 'true',
-                boxWidth: 20
-            }
-           }
-    }
-  });
-  window.myLine.update();
-  document.getElementById('myChart3').style.display = 'none';
-  document.getElementById('myChart3').style.display = 'none';
-  document.getElementById('myChart2').style.display = 'none';
-  document.getElementById('myChart1').style.display = 'block';
-  document.getElementById('chartBtn1').className = 'clickedCriteria';
-  document.getElementById('chartBtn2').className = 'criteria';
-  document.getElementById('chartBtn3').className = 'criteria';
-
-  $('.img_wrapper').children().remove();
-
-  for(var i=0; i<dt2.length; i++) {
-    $('.img_wrapper').eq(dt2[i].cameraID-1).append('<div class="img_date"><img src="./resources/images/original/'+dt2[i].name+'" alt="" value="'+dt2[i].cameraID+'" onclick=\'showDetail("'+dt2[i].name+'", "'+dt2[i].cameraID+'", "'+dt2[i].regDate+'", "'+dt2[i].peopleCNT+'");\' /><br><p style="display:inline-block;">'+dt2[i].regDate+'</p><p style="display: inline-block; float:right; padding-right: 20px;">'+dt2[i].peopleCNT+'명</p></div>');
-  }
-
-  for(var i=0; i<dt1.camNum; i++){
-    console.log($('.img_wrapper').eq(i).children());
-
-    if($('.img_wrapper').eq(i).children().length == 0){
-      $('.img_wrapper').eq(i).append('<div class="append">No Image</div>');
-    }
-  }
   });
 });
