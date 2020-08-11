@@ -78,7 +78,7 @@ int Yolo_cpu::doInference(const string inputImagePath, const string outputImageP
     return peopleNum;
 }
 
-void Yolo_cpu::preProcess(Mat& frame, const int& cameID, const string& roiInfo) {
+void Yolo_cpu::preProcess(Mat& frame, const int& camID, const string& roiInfo) {
     /**
      * roiInfo에 담긴 데이터는 frame 이 640X480 일 때를 기준으로 생성된 것이므로,
      * 이 데이터를 현재 frame의 해상도에 맞게 변환해주어야함
