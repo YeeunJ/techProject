@@ -13,7 +13,7 @@
 #include <opencv2/imgcodecs.hpp>
 
 #include <napi.h>
-#include "json/json.h"
+#include <jsoncpp/json/json.h>
 
 using namespace std;
 using namespace cv;
