@@ -268,9 +268,9 @@ $(obj).$(TOOLSET)/%.o: $(srcdir)/%.cpp FORCE_DO_CMD
 	@$(call do_cmd,cxx,1)
 $(obj).$(TOOLSET)/%.o: $(srcdir)/%.cxx FORCE_DO_CMD
 	@$(call do_cmd,cxx,1)
-$(obj).$(TOOLSET)/%.o: $(srcdir)/%.S FORCE_DO_CMD
-	@$(call do_cmd,cc,1)
 $(obj).$(TOOLSET)/%.o: $(srcdir)/%.s FORCE_DO_CMD
+	@$(call do_cmd,cc,1)
+$(obj).$(TOOLSET)/%.o: $(srcdir)/%.S FORCE_DO_CMD
 	@$(call do_cmd,cc,1)
 
 # Try building from generated source, too.
@@ -282,9 +282,9 @@ $(obj).$(TOOLSET)/%.o: $(obj).$(TOOLSET)/%.cpp FORCE_DO_CMD
 	@$(call do_cmd,cxx,1)
 $(obj).$(TOOLSET)/%.o: $(obj).$(TOOLSET)/%.cxx FORCE_DO_CMD
 	@$(call do_cmd,cxx,1)
-$(obj).$(TOOLSET)/%.o: $(obj).$(TOOLSET)/%.S FORCE_DO_CMD
-	@$(call do_cmd,cc,1)
 $(obj).$(TOOLSET)/%.o: $(obj).$(TOOLSET)/%.s FORCE_DO_CMD
+	@$(call do_cmd,cc,1)
+$(obj).$(TOOLSET)/%.o: $(obj).$(TOOLSET)/%.S FORCE_DO_CMD
 	@$(call do_cmd,cc,1)
 
 $(obj).$(TOOLSET)/%.o: $(obj)/%.c FORCE_DO_CMD
@@ -295,9 +295,9 @@ $(obj).$(TOOLSET)/%.o: $(obj)/%.cpp FORCE_DO_CMD
 	@$(call do_cmd,cxx,1)
 $(obj).$(TOOLSET)/%.o: $(obj)/%.cxx FORCE_DO_CMD
 	@$(call do_cmd,cxx,1)
-$(obj).$(TOOLSET)/%.o: $(obj)/%.S FORCE_DO_CMD
-	@$(call do_cmd,cc,1)
 $(obj).$(TOOLSET)/%.o: $(obj)/%.s FORCE_DO_CMD
+	@$(call do_cmd,cc,1)
+$(obj).$(TOOLSET)/%.o: $(obj)/%.S FORCE_DO_CMD
 	@$(call do_cmd,cc,1)
 
 
@@ -308,8 +308,8 @@ ifeq ($(strip $(foreach prefix,$(NO_LOAD),\
 endif
 
 quiet_cmd_regen_makefile = ACTION Regenerating $@
-cmd_regen_makefile = cd $(srcdir); /usr/lib/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/home/ye/.cache/node-gyp/12.18.3" "-Dnode_gyp_dir=/usr/lib/node_modules/node-gyp" "-Dnode_lib_file=/home/ye/.cache/node-gyp/12.18.3/<(target_arch)/node.lib" "-Dmodule_root_dir=/home/ye/test0/techProject/resources/cpp" "-Dnode_engine=v8" "--generator-output=build" "--toplevel-dir=." "--depth=." "-Goutput_dir=." -I/home/ye/test0/techProject/resources/cpp/build/config.gypi -I/usr/lib/node_modules/node-gyp/addon.gypi -I/home/ye/.cache/node-gyp/12.18.3/include/node/common.gypi binding.gyp
-Makefile: $(srcdir)/../../../../../../usr/lib/node_modules/node-gyp/addon.gypi $(srcdir)/build/config.gypi $(srcdir)/../../../../.cache/node-gyp/12.18.3/include/node/common.gypi $(srcdir)/binding.gyp
+cmd_regen_makefile = cd $(srcdir); /usr/lib/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "--toplevel-dir=." "--depth=." "--generator-output=build" "-Goutput_dir=." "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/home/ws/.cache/node-gyp/12.18.3" "-Dnode_gyp_dir=/usr/lib/node_modules/node-gyp" "-Dnode_lib_file=/home/ws/.cache/node-gyp/12.18.3/<(target_arch)/node.lib" "-Dmodule_root_dir=/home/ws/techProject/resources/cpp" "-Dnode_engine=v8" -I/home/ws/techProject/resources/cpp/build/config.gypi -I/usr/lib/node_modules/node-gyp/addon.gypi -I/home/ws/.cache/node-gyp/12.18.3/include/node/common.gypi binding.gyp
+Makefile: $(srcdir)/../../../.cache/node-gyp/12.18.3/include/node/common.gypi $(srcdir)/build/config.gypi $(srcdir)/binding.gyp $(srcdir)/../../../../../usr/lib/node_modules/node-gyp/addon.gypi
 	$(call do_cmd,regen_makefile)
 
 # "all" is a concatenation of the "all" targets from all the included
