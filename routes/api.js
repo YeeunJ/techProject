@@ -96,16 +96,16 @@ router.post('/basic/image-info', function(req, res) {
     if (err === null) {
       db.all(query3, (err, row) => {
         console.log({"data": row});
-        /*
+
               var obj = new addon.Yolo_cpu();
-              var people = obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416);
+              var people = obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416, {"data": row});
               console.log(people); // people number
               const query1 = `insert into cam_image (name, originalDate, cameraID, peopleCNT)
                 values ("${originalDate}_${cameraID}.jpeg", "${originalDate}", ${cameraID}, ${people});`;
               db.each(query1, (err, row) => {
                 if (err) return res.json(err);
                 console.log('update success!!');
-              });*/
+              });
       });
     } else {
       console.log('fail');
