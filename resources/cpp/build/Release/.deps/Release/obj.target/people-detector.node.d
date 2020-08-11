@@ -1,1 +1,0 @@
-cmd_Release/obj.target/people-detector.node := g++ -o Release/obj.target/people-detector.node -shared -pthread -rdynamic  -Wl,-soname=people-detector.node -Wl,--start-group Release/obj.target/people-detector/src/addon.o Release/obj.target/people-detector/src/yolo_cpu.o -Wl,--end-group `pkg-config --libs opencv4`

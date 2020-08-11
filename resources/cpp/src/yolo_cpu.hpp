@@ -13,6 +13,7 @@
 #include <opencv2/imgcodecs.hpp>
 
 #include <napi.h>
+#include <jsoncpp/json/json.h>
 
 using namespace std;
 using namespace cv;
@@ -27,18 +28,20 @@ class Yolo_cpu : public Napi::ObjectWrap<Yolo_cpu> {
         float nmsThreshold = 0.5;
         Net net;
         vector<cv::String> outNames;
-
+        
     public:
         static Napi::Object Init(Napi::Env env, Napi::Object exports);
         Yolo_cpu(const Napi::CallbackInfo& info);
-
+    
     protected:
         Napi::Value start(const Napi::CallbackInfo& info);
 
+    protected:
+        int doInference(const string inputImagePath, const string outputImagePath, const int resize, const string roiInfo);
+
     private:
-        int doInference(const string inputImagePath, const string outputImagePath, const int resize);
-        int postProcess (Mat& frame, const vector<Mat>& outs);
-        void imagePadding (Mat& frame);
+        void preProcess(Mat& frame, const int& camID, const int& resize, const string& roiInfo);
+        int postProcess(Mat& frame, const vector<Mat>& outs);
 };
 
 #endif
