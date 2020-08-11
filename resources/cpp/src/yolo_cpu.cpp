@@ -56,7 +56,7 @@ int Yolo_cpu::doInference(const string inputImagePath, const string outputImageP
     int camID = inputImagePath[inputImagePath.size()-6]; // "...$(ID).jpeg"
 
 //Mark: Pre-process
-    preProcess(frame, roiInfo, camID);
+    preProcess(frame, roiInfo, resize, camID);
 
 //Mark: Go inference
     net.forward(outs, outNames);
@@ -78,7 +78,7 @@ int Yolo_cpu::doInference(const string inputImagePath, const string outputImageP
     return peopleNum;
 }
 
-void Yolo_cpu::preProcess(Mat& frame, const int& camID, const string& roiInfo) {
+void Yolo_cpu::preProcess(Mat& frame, const int& camID, const int& resize, const string& roiInfo) {
     /**
      * roiInfo에 담긴 데이터는 frame 이 640X480 일 때를 기준으로 생성된 것이므로,
      * 이 데이터를 현재 frame의 해상도에 맞게 변환해주어야함
@@ -115,12 +115,12 @@ void Yolo_cpu::preProcess(Mat& frame, const int& camID, const string& roiInfo) {
 
     int length = frame.cols > frame.rows ? frame.cols : frame.rows;
     if (frame.cols < length) {
-        Mat pad (length, length - frame.cols, frame.type(), Scalar(255, 255, 255));
-        hconcat (pad, frame, frame);
+        Mat pad(length, length - frame.cols, frame.type(), Scalar(255, 255, 255));
+        hconcat(pad, frame, frame);
     }
     else {
-        Mat pad (length - frame.rows, length, frame.type(), Scalar(255, 255, 255));
-        vconcat (pad, frame, frame);
+        Mat pad(length - frame.rows, length, frame.type(), Scalar(255, 255, 255));
+        vconcat(pad, frame, frame);
     }
 
     //Mark: Prepare for inference
