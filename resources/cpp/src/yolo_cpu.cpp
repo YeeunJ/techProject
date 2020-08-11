@@ -56,7 +56,7 @@ int Yolo_cpu::doInference(const string inputImagePath, const string outputImageP
     int camID = inputImagePath[inputImagePath.size()-6]; // "...$(ID).jpeg"
 
 //Mark: Pre-process
-    preProcess(frame, roiInfo, resize, camID);
+    preProcess(frame, camID, resize, roiInfo);
 
 //Mark: Go inference
     net.forward(outs, outNames);
