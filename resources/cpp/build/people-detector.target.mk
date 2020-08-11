@@ -28,6 +28,7 @@ CFLAGS_Debug := \
 	-Wextra \
 	-Wno-unused-parameter \
 	-std=c++11 \
+	-DJSON_IS_AMALGAMATION \
 	-g \
 	-O0
 
@@ -40,15 +41,16 @@ CFLAGS_CC_Debug := \
 	-std=gnu++1y
 
 INCS_Debug := \
-	-I/home/ye/.cache/node-gyp/12.18.3/include/node \
-	-I/home/ye/.cache/node-gyp/12.18.3/src \
-	-I/home/ye/.cache/node-gyp/12.18.3/deps/openssl/config \
-	-I/home/ye/.cache/node-gyp/12.18.3/deps/openssl/openssl/include \
-	-I/home/ye/.cache/node-gyp/12.18.3/deps/uv/include \
-	-I/home/ye/.cache/node-gyp/12.18.3/deps/zlib \
-	-I/home/ye/.cache/node-gyp/12.18.3/deps/v8/include \
-	-I/home/ye/test0/techProject/node_modules/node-addon-api \
-	-I$(srcdir)/`pkg-config --cflags opencv4`
+	-I/home/ws/.cache/node-gyp/12.18.3/include/node \
+	-I/home/ws/.cache/node-gyp/12.18.3/src \
+	-I/home/ws/.cache/node-gyp/12.18.3/deps/openssl/config \
+	-I/home/ws/.cache/node-gyp/12.18.3/deps/openssl/openssl/include \
+	-I/home/ws/.cache/node-gyp/12.18.3/deps/uv/include \
+	-I/home/ws/.cache/node-gyp/12.18.3/deps/zlib \
+	-I/home/ws/.cache/node-gyp/12.18.3/deps/v8/include \
+	-I/home/ws/techProject/node_modules/node-addon-api \
+	-I$(srcdir)/`pkg-config --cflags opencv4` \
+	-I$(srcdir)/-Isrc
 
 DEFS_Release := \
 	'-DNODE_GYP_MODULE_NAME=people-detector' \
@@ -73,6 +75,7 @@ CFLAGS_Release := \
 	-Wextra \
 	-Wno-unused-parameter \
 	-std=c++11 \
+	-DJSON_IS_AMALGAMATION \
 	-O3 \
 	-fno-omit-frame-pointer
 
@@ -85,19 +88,21 @@ CFLAGS_CC_Release := \
 	-std=gnu++1y
 
 INCS_Release := \
-	-I/home/ye/.cache/node-gyp/12.18.3/include/node \
-	-I/home/ye/.cache/node-gyp/12.18.3/src \
-	-I/home/ye/.cache/node-gyp/12.18.3/deps/openssl/config \
-	-I/home/ye/.cache/node-gyp/12.18.3/deps/openssl/openssl/include \
-	-I/home/ye/.cache/node-gyp/12.18.3/deps/uv/include \
-	-I/home/ye/.cache/node-gyp/12.18.3/deps/zlib \
-	-I/home/ye/.cache/node-gyp/12.18.3/deps/v8/include \
-	-I/home/ye/test0/techProject/node_modules/node-addon-api \
-	-I$(srcdir)/`pkg-config --cflags opencv4`
+	-I/home/ws/.cache/node-gyp/12.18.3/include/node \
+	-I/home/ws/.cache/node-gyp/12.18.3/src \
+	-I/home/ws/.cache/node-gyp/12.18.3/deps/openssl/config \
+	-I/home/ws/.cache/node-gyp/12.18.3/deps/openssl/openssl/include \
+	-I/home/ws/.cache/node-gyp/12.18.3/deps/uv/include \
+	-I/home/ws/.cache/node-gyp/12.18.3/deps/zlib \
+	-I/home/ws/.cache/node-gyp/12.18.3/deps/v8/include \
+	-I/home/ws/techProject/node_modules/node-addon-api \
+	-I$(srcdir)/`pkg-config --cflags opencv4` \
+	-I$(srcdir)/-Isrc
 
 OBJS := \
 	$(obj).target/$(TARGET)/src/addon.o \
-	$(obj).target/$(TARGET)/src/yolo_cpu.o
+	$(obj).target/$(TARGET)/src/yolo_cpu.o \
+	$(obj).target/$(TARGET)/src/jsoncpp.o
 
 # Add to the list of files we specially track dependencies for.
 all_deps += $(OBJS)
