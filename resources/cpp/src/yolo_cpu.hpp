@@ -40,7 +40,7 @@ class Yolo_cpu : public Napi::ObjectWrap<Yolo_cpu> {
         int doInference(const string inputImagePath, const string outputImagePath, const int resize, const string roiInfo);
 
     private:
-        int preProcess(Mat& frame, const int& camID, const string& roiInfo);
+        void preProcess(Mat& frame, const int& camID, const string& roiInfo);
         int postProcess(Mat& frame, const vector<Mat>& outs);
 };
 
