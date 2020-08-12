@@ -93,7 +93,8 @@ router.post('/update', function (req, res, next) {
 router.post('/submit', function(req, res){
   console.log("submit");
   console.log(req.body.data);
-  console.log(req.body.data[0].length);
+  console.log(req.body.data);
+  if(req.body.data){
   db.parallelize(() => {
     if(req.body.data[0].length == 1){
       var arr = req.body.data.split(',');
@@ -119,6 +120,7 @@ router.post('/submit', function(req, res){
       }
     }
 });
+}
     res.redirect('/');
 })
 
