@@ -110,6 +110,13 @@ body{
 .blurRoi{
   display: inline-block;
 }
+
+.sectionRoi{
+  position: absolute;
+  border: 1px solid #f84450;
+  background-color: rgba(248, 68, 80, 0.3);
+  display: inline-block;
+}
 .resize {
   border: 1px solid #f84450;
   background-color: rgba(248, 68, 80, 0.3);
@@ -184,7 +191,7 @@ body{
   border-radius: 30px;
   border: none;
   margin-bottom: 7px;
-  display: none;
+  /*display: none;*/
 }
 
 #cancel{

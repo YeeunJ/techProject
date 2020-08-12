@@ -12,6 +12,7 @@
         <b style = "color: rgb(74, 189,158)">2.</b> 사진에서 원하는 영역을 선택하여 크기, 위치를 조절하고 [저장] 버튼 클릭합니다.<br>
         <b style = "color: rgb(74, 189,158)">3.</b> 원하는 영역만큼 추가합니다.
       </div>
+      <div style = "text-align: right;"><button type= 'button' id="submit">완료</button></div>
       <div id="roiTab">
         <%for(var i=0; i<data.camNum; i++){ %>
         <% if(data2.length > i){ %>
@@ -40,10 +41,9 @@
         <% }%>
       </div>
       <div class="button">
-        <div><button type= 'button' id="addDiv">영역 추가</button></div>
+        <!--<div><button type= 'button' id="addDiv">영역 추가</button></div>-->
         <div><button type="button" id="cancel">리셋</button></div>
         <div><button type= 'button' id="save">저장</button></div>
-        <div><button type= 'button' id="submit">완료</button></div>
       </div>
     </div>
   </div>
@@ -66,6 +66,53 @@
 
   <% for(var i =0; i<data.camNum; i++) {%>
     <% if(data2.length > i){ %>
+      $("#camera<%= data2[i].id%>").selectable({
+        start: function(event, ui) {
+          var offset = $(this).offset();
+          x1 = (event.pageX - offset.left);
+          y1 = (event.pageY - offset.top);
+        },
+        stop: function(event, ui) {
+          var offset = $(this).offset();
+          x2 = (event.pageX - offset.left);
+          y2 = (event.pageY - offset.top);
+          console.log("X1: " + x1 + "  Y1: " + y1);
+          console.log("X2: " + x2 + "  Y2: " + y2);
+          count++;
+          if($("#camera<%= data2[i].id %>").children().length >= 1){
+            document.getElementById('save').style.display = 'inline-block';
+            document.getElementById('cancel').style.display = 'inline-block';
+          }
+          var input = document.createElement('input');
+          input.setAttribute("type", "hidden");
+          input.setAttribute("name", "data");
+          input.setAttribute("value", [<%= data2[i].id %>,x1,x2,y1,y2]);
+          roiForm.appendChild(input);
+
+          if (y1 <= y2 && x1 <= x2)
+            $("#camera<%= data2[i].id %>").append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x1 + 'px;top: ' + (y1-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
+          else if (y1 <= y2) {
+            $("#camera<%= data2[i].id %>").append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x2 + 'px;top: ' + (y1-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
+          } else if (x1 > x2) {
+            $("#camera<%= data2[i].id %>").append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x2 + 'px;top: ' + (y2-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
+          } else
+            $("#camera<%= data2[i].id %>").append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x1 + 'px;top: ' + (y2-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
+
+          $('#section'+count).resizable();
+          $('#blur'+count).draggable({
+              appendTo: 'body',
+              start: function(event, ui) {
+                  isDraggingMedia = true;
+              },
+              stop: function(event, ui) {
+                  isDraggingMedia = false;
+                  // blah
+              }
+          });
+          count++;
+        }
+      });
+
       document.getElementById('cam<%= data2[i].id%>').addEventListener('click', function() {
         if ($('#'+id).children().eq(0).text() == '1'){
           document.getElementById(button).className = 'completeCam';
@@ -77,19 +124,19 @@
         console.log($("#camera<%= data2[i].id%>").children().length);
         if ($('#camera<%= data2[i].id%>').children().eq(0).text() == '1'){
           document.getElementById('save').style.display = 'none';
-          document.getElementById('addDiv').style.display = 'none';
+          //document.getElementById('addDiv').style.display = 'none';
           document.getElementById('cancel').style.display = 'inline-block';
         }else if ($("#camera<%= data2[i].id%>").children().length > 2 && $("#camera<%= i+1%>").children('img').css("display") != "none"){
           document.getElementById('save').style.display = 'inline-block';
-          document.getElementById('addDiv').style.display = 'inline-block';
+          //document.getElementById('addDiv').style.display = 'inline-block';
           document.getElementById('cancel').style.display = 'inline-block';
         }else if($("#camera<%= data2[i].id%>").children('img').css("display") != "none"){
           document.getElementById('save').style.display = 'none';
-          document.getElementById('addDiv').style.display = 'inline-block';
+          //document.getElementById('addDiv').style.display = 'inline-block';
           document.getElementById('cancel').style.display = 'none';
         }else {
           document.getElementById('save').style.display = 'none';
-          document.getElementById('addDiv').style.display = 'inline-block';
+          //document.getElementById('addDiv').style.display = 'inline-block';
           document.getElementById('cancel').style.display = 'none';
         }
 
@@ -110,19 +157,19 @@
           console.log($("#camera<%= i+1%>").children('img').css("display"));
           if ($('#camera<%= i+1%>').children().eq(0).text() == '1'){
             document.getElementById('save').style.display = 'none';
-            document.getElementById('addDiv').style.display = 'none';
+            //document.getElementById('addDiv').style.display = 'none';
             document.getElementById('cancel').style.display = 'inline-block';
           }else if ($("#camera<%= i+1%>").children().length > 3 && $("#camera<%= i+1%>").children('img').css("display") != "none"){
             document.getElementById('save').style.display = 'inline-block';
-            document.getElementById('addDiv').style.display = 'inline-block';
+            //document.getElementById('addDiv').style.display = 'inline-block';
             document.getElementById('cancel').style.display = 'inline-block';
           }else if($("#camera<%= i+1%>").children('img').css("display") != "none"){
             document.getElementById('save').style.display = 'none';
-            document.getElementById('addDiv').style.display = 'inline-block';
+          //  document.getElementById('addDiv').style.display = 'inline-block';
             document.getElementById('cancel').style.display = 'none';
           }else {
             document.getElementById('save').style.display = 'none';
-            document.getElementById('addDiv').style.display = 'none';
+          //  document.getElementById('addDiv').style.display = 'none';
             document.getElementById('cancel').style.display = 'none';
           }
           document.getElementById(id).style.display = 'none';
@@ -137,6 +184,7 @@
   document.getElementById('cam1').className = 'clickedCam';
 
   /*addDiv click*/
+  /*
   document.getElementById('addDiv').addEventListener('click', function() {
     $('#'+id).append('<div class="blurRoi" id = "blur'+count+'"><div class="resize" id="resize'+count+'"></div></div>');
     $('#resize'+count).resizable();
@@ -155,12 +203,12 @@
     document.getElementById('cancel').style.display = 'inline-block';
     document.getElementById('addDiv').style.display = 'inline-block';
   });
-
+*/
   document.getElementById('save').addEventListener('click', function() {
     document.getElementById('save').style.display = 'none';
-    document.getElementById('addDiv').style.display = 'none';
+    //document.getElementById('addDiv').style.display = 'none';
     document.getElementById('cancel').style.display = 'inline-block';
-    document.getElementById('submit').style.display = 'inline-block';
+    //document.getElementById('submit').style.display = 'inline-block';
     $('#'+id).children().eq(0).text('1');
   });
 
@@ -170,7 +218,7 @@
     $('#'+id).children().eq(0).text('0');
     document.getElementById('save').style.display = 'none';
     document.getElementById('cancel').style.display = 'none';
-    document.getElementById('addDiv').style.display = 'inline-block';
+    //document.getElementById('addDiv').style.display = 'inline-block';
   });
 
   /*submit button click*/
@@ -216,7 +264,7 @@
       $("#"+id).children('img').eq(0).attr("src", "../resources/images/conf/" +  result.data[Number(id.substring(6,id.length))-1].image);
       $("#"+id).children('img').eq(0).css("display", "inline");
       $("#"+id).children('div').eq(1).css("display", "none");
-      document.getElementById('addDiv').style.display = 'inline-block';
+      //document.getElementById('addDiv').style.display = 'inline-block';
     });
   });
 

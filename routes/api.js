@@ -96,7 +96,7 @@ router.post('/basic/image-info', function(req, res) {
     if (err === null) {
       db.all(query3, (err, row) => {
         console.log({"data": row});
-
+/*
               var obj = new addon.Yolo_cpu();
               var people = obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416, {"data": row});
               console.log(people); // people number
@@ -105,7 +105,7 @@ router.post('/basic/image-info', function(req, res) {
               db.each(query1, (err, row) => {
                 if (err) return res.json(err);
                 console.log('update success!!');
-              });
+              });*/
       });
     } else {
       console.log('fail');
