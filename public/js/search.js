@@ -147,12 +147,14 @@ var date_change2 = document.querySelector('#date_to');
 var time_change = document.querySelector('#time_from');
 var time_change2 = document.querySelector('#time_to');
 date_change.addEventListener('change', (event) => {
+  $('#time_from').val('00:00:00');
   submit();
 });
 time_change.addEventListener('change', (event) => {
   submit();
 });
 date_change2.addEventListener('change', (event) => {
+  $('#time_to').val('00:00:00');
   submit();
 });
 time_change2.addEventListener('change', (event) => {
