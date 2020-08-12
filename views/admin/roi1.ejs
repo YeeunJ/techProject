@@ -125,21 +125,17 @@
         console.log($("#camera<%= data2[i].id%>").children().length);
         if ($('#camera<%= data2[i].id%>').children().eq(0).text() == '1'){
           document.getElementById('save').style.display = 'none';
-          //document.getElementById('addDiv').style.display = 'none';
           document.getElementById('reset').style.display = 'inline-block';
         }else if ($("#camera<%= data2[i].id%>").children().length > 2 && $("#camera<%= i+1%>").children('img').css("display") != "none"){
           document.getElementById('save').style.display = 'inline-block';
-          //document.getElementById('addDiv').style.display = 'inline-block';
           document.getElementById('cancel').style.display = 'inline-block';
           document.getElementById('reset').style.display = 'none';
         }else if($("#camera<%= data2[i].id%>").children('img').css("display") != "none"){
           document.getElementById('save').style.display = 'none';
-          //document.getElementById('addDiv').style.display = 'inline-block';
           document.getElementById('cancel').style.display = 'none';
           document.getElementById('reset').style.display = 'none';
         }else {
           document.getElementById('save').style.display = 'none';
-          //document.getElementById('addDiv').style.display = 'inline-block';
           document.getElementById('cancel').style.display = 'none';
           document.getElementById('reset').style.display = 'none';
         }
@@ -161,20 +157,19 @@
           console.log($("#camera<%= i+1%>").children('img').css("display"));
           if ($('#camera<%= i+1%>').children().eq(0).text() == '1'){
             document.getElementById('save').style.display = 'none';
-            //document.getElementById('addDiv').style.display = 'none';
-            document.getElementById('cancel').style.display = 'inline-block';
+            document.getElementById('reset').style.display = 'inline-block';
           }else if ($("#camera<%= i+1%>").children().length > 3 && $("#camera<%= i+1%>").children('img').css("display") != "none"){
             document.getElementById('save').style.display = 'inline-block';
-            //document.getElementById('addDiv').style.display = 'inline-block';
             document.getElementById('cancel').style.display = 'inline-block';
+            document.getElementById('reset').style.display = 'none';
           }else if($("#camera<%= i+1%>").children('img').css("display") != "none"){
             document.getElementById('save').style.display = 'none';
-          //  document.getElementById('addDiv').style.display = 'inline-block';
             document.getElementById('cancel').style.display = 'none';
+            document.getElementById('reset').style.display = 'none';
           }else {
             document.getElementById('save').style.display = 'none';
-          //  document.getElementById('addDiv').style.display = 'none';
             document.getElementById('cancel').style.display = 'none';
+            document.getElementById('reset').style.display = 'none';
           }
           document.getElementById(id).style.display = 'none';
           document.getElementById('cam<%= i+1%>').className = 'clickedCam';
@@ -187,33 +182,10 @@
   document.getElementById('camera1').style.display = 'block';
   document.getElementById('cam1').className = 'clickedCam';
 
-  /*addDiv click*/
-  /*
-  document.getElementById('addDiv').addEventListener('click', function() {
-    $('#'+id).append('<div class="blurRoi" id = "blur'+count+'"><div class="resize" id="resize'+count+'"></div></div>');
-    $('#resize'+count).resizable();
-    $('#blur'+count).draggable({
-        appendTo: 'body',
-        start: function(event, ui) {
-            isDraggingMedia = true;
-        },
-        stop: function(event, ui) {
-            isDraggingMedia = false;
-            // blah
-        }
-    });
-    count++;
-    document.getElementById('save').style.display = 'inline-block';
-    document.getElementById('cancel').style.display = 'inline-block';
-    document.getElementById('addDiv').style.display = 'inline-block';
-  });
-*/
   document.getElementById('save').addEventListener('click', function() {
     document.getElementById('save').style.display = 'none';
-    //document.getElementById('addDiv').style.display = 'none';
     document.getElementById('reset').style.display = 'inline-block';
     document.getElementById('cancel').style.display = 'none';
-    //document.getElementById('submit').style.display = 'inline-block';
     $('#'+id).children().eq(0).text('1');
   });
 
@@ -224,20 +196,15 @@
     document.getElementById('save').style.display = 'none';
     document.getElementById('cancel').style.display = 'none';
     document.getElementById('reset').style.display = 'none';
-    //document.getElementById('addDiv').style.display = 'inline-block';
   });
+
   /*cancel button click */
   document.getElementById('cancel').addEventListener('click', function() {
-    //$('#' + id).children('div').remove();
     $('#'+id).children().eq($('#'+id).children().length-1).remove();
     $('#'+id).children().eq(0).text('0');
-    //console.log($('#'+id).children().length);
     if($('#'+id).children().length <= 2){
       document.getElementById('cancel').style.display = 'none';
     }
-    //document.getElementById('save').style.display = 'none';
-    //document.getElementById('cancel').style.display = 'none';
-    //document.getElementById('addDiv').style.display = 'inline-block';
   });
 
   /*submit button click*/

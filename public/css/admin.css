@@ -4,7 +4,9 @@ body{
   margin:0;
   text-align: center;
 }
-
+html {
+  max-width: 1440px;
+}
 #header {
   text-align: center;
 }
