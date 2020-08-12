@@ -42,7 +42,8 @@
       </div>
       <div class="button">
         <!--<div><button type= 'button' id="addDiv">영역 추가</button></div>-->
-        <div><button type="button" id="cancel">리셋</button></div>
+        <div><button type="button" id="cancel">취소</button></div>
+        <div><button type="button" id="reset">리셋</button></div>
         <div><button type= 'button' id="save">저장</button></div>
       </div>
     </div>
@@ -125,19 +126,22 @@
         if ($('#camera<%= data2[i].id%>').children().eq(0).text() == '1'){
           document.getElementById('save').style.display = 'none';
           //document.getElementById('addDiv').style.display = 'none';
-          document.getElementById('cancel').style.display = 'inline-block';
+          document.getElementById('reset').style.display = 'inline-block';
         }else if ($("#camera<%= data2[i].id%>").children().length > 2 && $("#camera<%= i+1%>").children('img').css("display") != "none"){
           document.getElementById('save').style.display = 'inline-block';
           //document.getElementById('addDiv').style.display = 'inline-block';
           document.getElementById('cancel').style.display = 'inline-block';
+          document.getElementById('reset').style.display = 'none';
         }else if($("#camera<%= data2[i].id%>").children('img').css("display") != "none"){
           document.getElementById('save').style.display = 'none';
           //document.getElementById('addDiv').style.display = 'inline-block';
           document.getElementById('cancel').style.display = 'none';
+          document.getElementById('reset').style.display = 'none';
         }else {
           document.getElementById('save').style.display = 'none';
           //document.getElementById('addDiv').style.display = 'inline-block';
           document.getElementById('cancel').style.display = 'none';
+          document.getElementById('reset').style.display = 'none';
         }
 
         document.getElementById(id).style.display = 'none';
@@ -207,17 +211,32 @@
   document.getElementById('save').addEventListener('click', function() {
     document.getElementById('save').style.display = 'none';
     //document.getElementById('addDiv').style.display = 'none';
-    document.getElementById('cancel').style.display = 'inline-block';
+    document.getElementById('reset').style.display = 'inline-block';
+    document.getElementById('cancel').style.display = 'none';
     //document.getElementById('submit').style.display = 'inline-block';
     $('#'+id).children().eq(0).text('1');
   });
 
   /*cancel button click */
-  document.getElementById('cancel').addEventListener('click', function() {
+  document.getElementById('reset').addEventListener('click', function() {
     $('#' + id).children('div').remove();
     $('#'+id).children().eq(0).text('0');
     document.getElementById('save').style.display = 'none';
     document.getElementById('cancel').style.display = 'none';
+    document.getElementById('reset').style.display = 'none';
+    //document.getElementById('addDiv').style.display = 'inline-block';
+  });
+  /*cancel button click */
+  document.getElementById('cancel').addEventListener('click', function() {
+    //$('#' + id).children('div').remove();
+    $('#'+id).children().eq($('#'+id).children().length-1).remove();
+    $('#'+id).children().eq(0).text('0');
+    //console.log($('#'+id).children().length);
+    if($('#'+id).children().length <= 2){
+      document.getElementById('cancel').style.display = 'none';
+    }
+    //document.getElementById('save').style.display = 'none';
+    //document.getElementById('cancel').style.display = 'none';
     //document.getElementById('addDiv').style.display = 'inline-block';
   });
 
