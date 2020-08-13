@@ -40,20 +40,22 @@ router.get('/first', function(req, res){
   });
 
 });
-/*update에서 cam_query를 camNum이랑 같이 join!!! left join써보자!!*/
+
+
 router.get('/update', function (req, res, next) {
-    const cam_query = `select * from camera limit 2;`;
+    const cam_query = `select * from camera;`;
     const query2 = `select * from setting where id = 1;`;
+    const roi_query = `select * from roi order by camID;`;
 
     db.serialize(() => {
       db.all(cam_query, (err, row1) => {
-          if (err){
-            throw err;
-          }
-          db.each(query2, function(err, row){
+          if (err){throw err;}
+          db.each(query2, function(err, row2){
             if(err) return res.json(err);
-            res.render('admin/index', {data: row, data2: row1});
-            console.log(row1);
+            db.all (roi_query, (err, row3) => {
+              res.render('admin/index', {data: row2, data2: row1, data3: row3});
+              console.log(row3);
+            });
           });
         });
     });
@@ -68,6 +70,7 @@ router.post('/update', function (req, res, next) {
     where id = 1;`;
     const cam_query = `select * from camera;`;
     const query2 = `select * from setting where id = 1;`;
+    const roi_query = `select * from roi;`;
     console.log(query);
     console.log(cam_query);
 
@@ -78,10 +81,12 @@ router.post('/update', function (req, res, next) {
           if (err){
             throw err;
           }
-          db.each(query2, function(err, row){
+          db.each(query2, function(err, row2){
             if(err) return res.json(err);
-            res.render('admin/index', {data: row, data2: row1});
-            console.log(row1);
+            db.all (roi_query, (err, row3) => {
+              res.render('admin/index', {data: row2, data2: row1, data3: row3});
+              console.log(row1);
+            });
           });
         });
     });
@@ -94,6 +99,10 @@ router.post('/submit', function(req, res){
   console.log("submit");
   console.log(req.body.data);
   console.log(req.body.data);
+  const roi_setup = `delete from roi;`;
+
+  db.run(roi_setup);
+
   if(req.body.data){
   db.parallelize(() => {
     if(req.body.data[0].length == 1){

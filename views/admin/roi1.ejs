@@ -65,6 +65,7 @@
   roiForm.method = 'post';
   roiForm.action = './submit';
 
+  <% var j = 0; %>
   <% for(var i =0; i<data.camNum; i++) {%>
     <% if(data2.length > i){ %>
       $("#camera<%= data2[i].id%>").selectable({
@@ -84,12 +85,13 @@
             document.getElementById('save').style.display = 'inline-block';
             document.getElementById('cancel').style.display = 'inline-block';
           }
+          /*
           var input = document.createElement('input');
           input.setAttribute("type", "hidden");
           input.setAttribute("name", "data");
           input.setAttribute("value", [<%= data2[i].id %>,x1,x2,y1,y2]);
           roiForm.appendChild(input);
-
+*/
           if (y1 <= y2 && x1 <= x2)
             $("#camera<%= data2[i].id %>").append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x1 + 'px;top: ' + (y1-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
           else if (y1 <= y2) {
@@ -113,6 +115,35 @@
           count++;
         }
       });
+
+      <% for (j ;j < data3.length; j++) { %>
+        <%if(data2[i].id == data3[j].camID){ %>
+          var x1 = <%= data3[j].leftX %>;
+          console.log(x1);
+          var width = <%= data3[j].rightX %>;
+          var y1 = <%= data3[j].leftY %>;
+          var height = <%= data3[j].rightY %>;
+          console.log(y1);
+
+          $("#camera<%= data2[i].id %>").append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x1 + 'px;top: ' + (y1-500) + 'px;width: ' + width + 'px;height: ' + height + 'px;"></div></div>');
+
+          $('#section'+count).resizable();
+          $('#blur'+count).draggable({
+              appendTo: 'body',
+              start: function(event, ui) {
+                  isDraggingMedia = true;
+              },
+              stop: function(event, ui) {
+                  isDraggingMedia = false;
+                  // blah
+              }
+          });
+
+          count++;
+        <% }else {%>
+          <% break; %>
+          <% }%>
+      <% }%>
 
       document.getElementById('cam<%= data2[i].id%>').addEventListener('click', function() {
         if ($('#'+id).children().eq(0).text() == '1'){
