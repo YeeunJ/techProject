@@ -154,7 +154,7 @@ time_change.addEventListener('change', (event) => {
   submit();
 });
 date_change2.addEventListener('change', (event) => {
-  $('#time_to').val('00:00:00');
+  $('#time_to').val('23:59:00');
   submit();
 });
 time_change2.addEventListener('change', (event) => {
