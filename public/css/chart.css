@@ -19,6 +19,7 @@ body{
   width: 80%;
   min-width: 1000px;
   box-shadow: 2px 2px 5px 0.5px rgba(0, 0,0,0.4);
+  max-width: 1159px;
 }
 
 /*chart*/
@@ -36,6 +37,7 @@ body{
   border-radius: 20px;
   margin-bottom: -23px;
   box-shadow: 2px 2px 5px 0.5px rgba(0, 0,0,0.4);
+  max-width: 1159px;
 }
 .chartTab{
   width: 100%;
@@ -101,6 +103,7 @@ body{
   display: inline-block;
   width: 83%;
   min-width: 1041px;
+  max-width: 1202px;
 }
 
 #copyright{

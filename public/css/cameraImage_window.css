@@ -16,6 +16,7 @@ body,div,ul,li,dl,dd,dt,ol,h1,h2,h3,h4,h5,h6,input,fieldset,legend,p,select,tabl
 	border-radius: 0 0 15px 15px;
 	box-shadow: 2px 2px 5px 0.5px rgba(0, 0,0,0.4);
 	text-align: left;
+  max-width: 1159px;
   }
 
 

@@ -24,6 +24,8 @@ div#setting1, div#setting, div#search{
 
 div#setting1, div#setting{
   box-shadow: 2px 2px 5px 0.5px rgba(0, 0,0,0.4);
+  display: inline-block;
+  max-width: 1159px;
 }
 
 div#info_company{
