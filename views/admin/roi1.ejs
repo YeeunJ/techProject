@@ -144,7 +144,6 @@
           <% break; %>
           <% }%>
       <% }%>
-
       document.getElementById('cam<%= data2[i].id%>').addEventListener('click', function() {
         if ($('#'+id).children().eq(0).text() == '1'){
           document.getElementById(button).className = 'completeCam';
@@ -218,8 +217,24 @@
     document.getElementById('reset').style.display = 'inline-block';
     document.getElementById('cancel').style.display = 'none';
     $('#'+id).children().eq(0).text('1');
+    $( "#" + id).selectable( "destroy" );
+
+    for(var i =0; i< $('#' + id).children('.blurRoi').length; i++){
+      console.log($('#' + id).children('.blurRoi').eq(i));
+      console.log($('#' + id).children('.blurRoi').eq(i).children('.sectionRoi').eq(0));
+      $('#' + id).children('.blurRoi').eq(i).draggable( "option", "disabled", true );
+      $('#' + id).children('.blurRoi').eq(i).children('.sectionRoi').eq(0).resizable( "option", "disabled", true );
+      //$('#' + id).children('div').eq(i).draggable("disable");
+      //$('#' + id).children('div').eq(i).children('div').eq(0)
+
+    }
   });
 
+  if ($("#camera1").children().length > 2 && $("#camera1").children('img').css("display") != "none"){
+    document.getElementById('save').style.display = 'inline-block';
+    document.getElementById('cancel').style.display = 'inline-block';
+    document.getElementById('reset').style.display = 'none';
+  }
   /*cancel button click */
   document.getElementById('reset').addEventListener('click', function() {
     $('#' + id).children('div').remove();
@@ -227,6 +242,46 @@
     document.getElementById('save').style.display = 'none';
     document.getElementById('cancel').style.display = 'none';
     document.getElementById('reset').style.display = 'none';
+    $( "#" + id).selectable({
+      start: function(event, ui) {
+        var offset = $(this).offset();
+        x1 = (event.pageX - offset.left);
+        y1 = (event.pageY - offset.top);
+      },
+      stop: function(event, ui) {
+        var offset = $(this).offset();
+        x2 = (event.pageX - offset.left);
+        y2 = (event.pageY - offset.top);
+        console.log("X1: " + x1 + "  Y1: " + y1);
+        console.log("X2: " + x2 + "  Y2: " + y2);
+        count++;
+        if($("#"+id).children().length >= 1){
+          document.getElementById('save').style.display = 'inline-block';
+          document.getElementById('cancel').style.display = 'inline-block';
+        }
+        if (y1 <= y2 && x1 <= x2)
+          $("#"+id).append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x1 + 'px;top: ' + (y1-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
+        else if (y1 <= y2) {
+          $("#"+id).append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x2 + 'px;top: ' + (y1-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
+        } else if (x1 > x2) {
+          $("#"+id).append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x2 + 'px;top: ' + (y2-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
+        } else
+          $("#"+id).append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x1 + 'px;top: ' + (y2-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
+
+        $('#section'+count).resizable();
+        $('#blur'+count).draggable({
+            appendTo: 'body',
+            start: function(event, ui) {
+                isDraggingMedia = true;
+            },
+            stop: function(event, ui) {
+                isDraggingMedia = false;
+                // blah
+            }
+        });
+        count++;
+      }
+    });
   });
 
   /*cancel button click */
@@ -258,7 +313,7 @@
       }
     }
     document.body.appendChild(roiForm);
-    roiForm.submit();
+    //roiForm.submit();
   });
 
   /*refresh button ajax*/
