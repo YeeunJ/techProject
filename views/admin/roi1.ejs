@@ -220,12 +220,8 @@
     $( "#" + id).selectable( "destroy" );
 
     for(var i =0; i< $('#' + id).children('.blurRoi').length; i++){
-      console.log($('#' + id).children('.blurRoi').eq(i));
-      console.log($('#' + id).children('.blurRoi').eq(i).children('.sectionRoi').eq(0));
       $('#' + id).children('.blurRoi').eq(i).draggable( "option", "disabled", true );
       $('#' + id).children('.blurRoi').eq(i).children('.sectionRoi').eq(0).resizable( "option", "disabled", true );
-      //$('#' + id).children('div').eq(i).draggable("disable");
-      //$('#' + id).children('div').eq(i).children('div').eq(0)
 
     }
   });
@@ -297,11 +293,16 @@
   document.getElementById('submit').addEventListener('click', function() {
     var left = $("#roiImage").children().eq(0).children('img').eq(0).offset().left;
     var top = $("#roiImage").children().eq(0).children('img').eq(0).offset().top;
+
     for(var i=0; i < $("#roiImage").children().length; i++){
       var id = $("#roiImage").children().eq(i).attr('id');
       console.log(id.substring(6,id.length));
       console.log($("#roiImage").children().eq(i));
+
       for(var j=0; j < $("#roiImage").children().eq(i).children('.blurRoi').length; j++){
+        console.log(left);
+        console.log(top);
+        console.log($("#roiImage").children().eq(i).children('.blurRoi').eq(j).offset());
         console.log($("#roiImage").children().eq(i).children('.blurRoi').eq(j).children().eq(0).offset());
         var node = $("#roiImage").children().eq(i).children('.blurRoi').eq(j).children().eq(0);
         console.log([node.offset().left -left, node.offset().top -top, node.width(), node.height()]);
@@ -313,7 +314,7 @@
       }
     }
     document.body.appendChild(roiForm);
-    //roiForm.submit();
+    roiForm.submit();
   });
 
   /*refresh button ajax*/
