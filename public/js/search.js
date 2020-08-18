@@ -1,9 +1,5 @@
-const search = document.querySelector('#search_btn');
-$(search).click(function (){
-   alert("검색..");
-});
+const search = $('#search_btn');
 
-//Time 지정 검색
 var now = new Date();
 var real_now = new Date();
 getDefaultSetting(now);
@@ -11,7 +7,7 @@ var hour, minute, second, time, year, month, day, date;
 var searchcheck=false;
 var search_from;
 var search_to;
-//지난 7일 총인원이 default
+
 getWeekData();
 submit();
 
@@ -24,7 +20,7 @@ function getDefaultSetting(now){
   if(hour<8){
       var yesterDate = now.getTime() - (1 * 24 * 60 * 60 *1000);
       now.setTime(yesterDate);
-      time="20:00:00"; //전날 끝 시간 초기 값
+      time="20:00:00";
   }
   if(hour>=20){
     time="20:00:00";
@@ -34,12 +30,6 @@ function getDefaultSetting(now){
   day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
   date = year + '-' + month + '-' + day;
 
-  /*
-  교수님이 처음에 말씀하신 초기 값
-  $('#date_from').val(date);
-  $('#date_to').val(date);
-  $('#time_from').val('08:00:00'); //시작 초기 값
-  $('#time_to').val(time);*/
 }
 
 function timeToString(now){
@@ -93,16 +83,16 @@ function getTime(d){
 
 function getWeekData(){
   var lastweek = lastWeek();
-  $('#date_from').val(getDate(lastweek)); //date
-  $('#date_to').val(getDate(real_now)); // real_now
-  $('#time_from').val(getTime(lastweek)); //'00:00:00'
-  $('#time_to').val(getTime(real_now)); //'00:00:00'
+  $('#date_from').val(getDate(lastweek));
+  $('#date_to').val(getDate(real_now));
+  $('#time_from').val(getTime(lastweek));
+  $('#time_to').val(getTime(real_now));
 }
 
-const btn0 = document.querySelector('#chartBtn0');
-const btn1 = document.querySelector('#chartBtn1');
-const btn2 = document.querySelector('#chartBtn2');
-const btn3 = document.querySelector('#chartBtn3');
+const btn0 = $('#chartBtn0');
+const btn1 = $('#chartBtn1');
+const btn2 = $('#chartBtn2');
+const btn3 = $('#chartBtn3');
 
 function submit(){
   var result_from = $('#date_from').val()+" "+$('#time_from').val()+":00";
@@ -141,23 +131,26 @@ $(btn3).click(function(){
   submit();
 });
 
-//date 바꾸었을때도 input에 적용되게 동기화
-var date_change = document.querySelector('#date_from');
-var date_change2 = document.querySelector('#date_to');
-var time_change = document.querySelector('#time_from');
-var time_change2 = document.querySelector('#time_to');
-date_change.addEventListener('change', (event) => {
+var date_change = $('#date_from');
+var date_change2 = $('#date_to');
+var time_change = $('#time_from');
+var time_change2 = $('#time_to');
+
+date_change.change(function(){
   $('#time_from').val('00:00:00');
   submit();
 });
-time_change.addEventListener('change', (event) => {
+
+time_change.change(function(){
   submit();
 });
-date_change2.addEventListener('change', (event) => {
+
+date_change2.change(function(){
   $('#time_to').val('23:59:00');
   submit();
 });
-time_change2.addEventListener('change', (event) => {
+
+time_change2.change(function(){
   submit();
 });
 
