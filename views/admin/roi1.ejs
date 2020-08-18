@@ -41,7 +41,6 @@
         <% }%>
       </div>
       <div class="button">
-        <!--<div><button type= 'button' id="addDiv">영역 추가</button></div>-->
         <div><button type="button" id="cancel">취소</button></div>
         <div><button type="button" id="reset">리셋</button></div>
         <div><button type= 'button' id="save">저장</button></div>
@@ -84,16 +83,8 @@
           if($("#camera<%= data2[i].id %>").children().length >= 1){
             $('#save').show();
             $('#cancel').show();
-            //document.getElementById('save').style.display = 'inline-block';
-            //document.getElementById('cancel').style.display = 'inline-block';
           }
-          /*
-          var input = document.createElement('input');
-          input.setAttribute("type", "hidden");
-          input.setAttribute("name", "data");
-          input.setAttribute("value", [<%= data2[i].id %>,x1,x2,y1,y2]);
-          roiForm.appendChild(input);
-*/
+
           if (y1 <= y2 && x1 <= x2)
             $("#camera<%= data2[i].id %>").append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x1 + 'px;top: ' + (y1-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
           else if (y1 <= y2) {
@@ -158,29 +149,18 @@
         if ($('#camera<%= data2[i].id%>').children().eq(0).text() == '1'){
           $('#save').hide();
           $('#reset').show();
-          //document.getElementById('save').style.display = 'none';
-          //document.getElementById('reset').style.display = 'inline-block';
         }else if ($("#camera<%= data2[i].id%>").children().length > 2 && $("#camera<%= i+1%>").children('img').css("display") != "none"){
           $('#save').show();
           $('#cancel').show();
           $('#reset').hide();
-          //document.getElementById('save').style.display = 'inline-block';
-          //document.getElementById('cancel').style.display = 'inline-block';
-          //document.getElementById('reset').style.display = 'none';
         }else if($("#camera<%= data2[i].id%>").children('img').css("display") != "none"){
           $('#save').hide();
           $('#cancel').hide();
           $('#reset').hide();
-          //document.getElementById('save').style.display = 'none';
-          //document.getElementById('cancel').style.display = 'none';
-          //document.getElementById('reset').style.display = 'none';
         }else {
           $('#save').hide();
           $('#cancel').hide();
           $('#reset').hide();
-          //document.getElementById('save').style.display = 'none';
-          //document.getElementById('cancel').style.display = 'none';
-          //document.getElementById('reset').style.display = 'none';
         }
         $('#'+id).hide();
         //document.getElementById(id).style.display = 'none';
@@ -189,7 +169,7 @@
         id = "camera<%= data2[i].id%>";
         button = "cam<%= data2[i].id%>";
       });
-      $('camera<%= data2[i].id%>').hide();
+      $('#camera<%= data2[i].id%>').hide();
       //document.getElementById('camera<%= data2[i].id%>').style.display = 'none';
       <% }else{ %>
         document.getElementById('cam<%= i+1%>').addEventListener('click', function() {
@@ -314,16 +294,20 @@
       console.log($("#roiImage").children().eq(i));
 
       for(var j=0; j < $("#roiImage").children().eq(i).children('.blurRoi').length; j++){
-        console.log(left);
-        console.log(top);
-        console.log($("#roiImage").children().eq(i).children('.blurRoi').eq(j).offset());
+        console.log($("#roiImage").children().eq(j).children('img').eq(0));
+        console.log($("#roiImage").children().eq(j).children('img').eq(0).offset());
+
+        console.log($("#roiImage").children().eq(i).children('.blurRoi').eq(j).position());
+        console.log($("#roiImage").children().eq(i).children('.blurRoi').eq(j).children().eq(0).position());
+        console.log($("#roiImage").children().eq(i).children('.blurRoi').eq(j).children().eq(0));
         console.log($("#roiImage").children().eq(i).children('.blurRoi').eq(j).children().eq(0).offset());
         var node = $("#roiImage").children().eq(i).children('.blurRoi').eq(j).children().eq(0);
-        console.log([node.offset().left -left, node.offset().top -top, node.width(), node.height()]);
+        console.log([id.substring(6,id.length), node.offset().left -left, node.offset().top -top, node.width(), node.height()]);
         var input = document.createElement('input');
         input.setAttribute("type", "hidden");
         input.setAttribute("name", "data");
-        input.setAttribute("value", [id.substring(6,id.length), node.offset().left -left, node.offset().top -top, node.width(), node.height()]);
+        input.setAttribute("value", [id.substring(6,id.length), 300, 100, 50, 50]);
+        //input.setAttribute("value", [id.substring(6,id.length), node.offset().left -left, node.offset().top -top, node.width(), node.height()]);
         roiForm.appendChild(input);
       }
     }
