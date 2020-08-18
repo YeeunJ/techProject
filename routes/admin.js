@@ -22,8 +22,8 @@ router.get('/reset', function(req, res){
   // Queries scheduled here will be serialized.
   db.run(query1)
     .run(query2)
-    .run(query3)
-    .run(query4);
+    .run(query3);
+    //.run(query4);
 });
 
   res.redirect('/setting/first');
