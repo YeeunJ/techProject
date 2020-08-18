@@ -46,6 +46,7 @@ router.post('/admin/roi-image', function(req, res) {
         if (err) {
           throw err;
         }
+        console.log(row);
         res.status(201).json({
           "cameraID": row.id,
           "originalDate": row.date
@@ -83,12 +84,14 @@ router.post('/basic/image-info', function(req, res) {
   filename = filename.replace(/-/g,"");
   console.log(filename);
 
-  const query2 = `select datetime('${originalDate}', (select saveInterval || ' seconds' from setting)) as date;`;
+  const query2 = `select datetime('${originalDate}', (select '+' || saveInterval || ' seconds' from setting)) as date, sizeW, sizeH from setting;`;
   const query3 = `select leftX, leftY, rightX as width, rightY as height from roi where camID = ${cameraID}`;
   db.each(query2, (err, row) => {
     if (err) return res.json(err);
     res.status(201).json({
-      "originalDate": row.date
+      "originalDate": row.date,
+      "sizeW": row.sizeW,
+      "sizeH": row.sizeH,
     });
   });
 
