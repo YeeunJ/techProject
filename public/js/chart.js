@@ -120,6 +120,7 @@ window.onload = function() {
   document.getElementById('chartBtn1').addEventListener('click', function() {
     document.getElementById('myChart3').style.display = 'none';
     document.getElementById('myChart2').style.display = 'none';
+    document.getElementById('myChart4').style.display = 'none';
     document.getElementById('myChart1').style.display = 'block';
     document.getElementById('chartBtn1').className = 'clickedCriteria';
     document.getElementById('chartBtn2').className = 'criteria';
@@ -128,6 +129,7 @@ window.onload = function() {
   document.getElementById('chartBtn2').addEventListener('click', function() {
     document.getElementById('myChart1').style.display = 'none';
     document.getElementById('myChart3').style.display = 'none';
+    document.getElementById('myChart4').style.display = 'none';
     document.getElementById('myChart2').style.display = 'block';
     document.getElementById('chartBtn2').className = 'clickedCriteria';
     document.getElementById('chartBtn1').className = 'criteria';
@@ -136,6 +138,7 @@ window.onload = function() {
   document.getElementById('chartBtn3').addEventListener('click', function() {
       document.getElementById('myChart1').style.display = 'none';
       document.getElementById('myChart2').style.display = 'none';
+      document.getElementById('myChart4').style.display = 'none';
       document.getElementById('myChart3').style.display = 'block';
       document.getElementById('chartBtn3').className = 'clickedCriteria';
       document.getElementById('chartBtn1').className = 'criteria';

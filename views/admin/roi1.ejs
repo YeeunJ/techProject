@@ -82,8 +82,10 @@
           console.log("X2: " + x2 + "  Y2: " + y2);
           count++;
           if($("#camera<%= data2[i].id %>").children().length >= 1){
-            document.getElementById('save').style.display = 'inline-block';
-            document.getElementById('cancel').style.display = 'inline-block';
+            $('#save').show();
+            $('#cancel').show();
+            //document.getElementById('save').style.display = 'inline-block';
+            //document.getElementById('cancel').style.display = 'inline-block';
           }
           /*
           var input = document.createElement('input');
@@ -154,29 +156,41 @@
         console.log($("#camera<%= data2[i].id%>").children('img').css("display"));
         console.log($("#camera<%= data2[i].id%>").children().length);
         if ($('#camera<%= data2[i].id%>').children().eq(0).text() == '1'){
-          document.getElementById('save').style.display = 'none';
-          document.getElementById('reset').style.display = 'inline-block';
+          $('#save').hide();
+          $('#reset').show();
+          //document.getElementById('save').style.display = 'none';
+          //document.getElementById('reset').style.display = 'inline-block';
         }else if ($("#camera<%= data2[i].id%>").children().length > 2 && $("#camera<%= i+1%>").children('img').css("display") != "none"){
-          document.getElementById('save').style.display = 'inline-block';
-          document.getElementById('cancel').style.display = 'inline-block';
-          document.getElementById('reset').style.display = 'none';
+          $('#save').show();
+          $('#cancel').show();
+          $('#reset').hide();
+          //document.getElementById('save').style.display = 'inline-block';
+          //document.getElementById('cancel').style.display = 'inline-block';
+          //document.getElementById('reset').style.display = 'none';
         }else if($("#camera<%= data2[i].id%>").children('img').css("display") != "none"){
-          document.getElementById('save').style.display = 'none';
-          document.getElementById('cancel').style.display = 'none';
-          document.getElementById('reset').style.display = 'none';
+          $('#save').hide();
+          $('#cancel').hide();
+          $('#reset').hide();
+          //document.getElementById('save').style.display = 'none';
+          //document.getElementById('cancel').style.display = 'none';
+          //document.getElementById('reset').style.display = 'none';
         }else {
-          document.getElementById('save').style.display = 'none';
-          document.getElementById('cancel').style.display = 'none';
-          document.getElementById('reset').style.display = 'none';
+          $('#save').hide();
+          $('#cancel').hide();
+          $('#reset').hide();
+          //document.getElementById('save').style.display = 'none';
+          //document.getElementById('cancel').style.display = 'none';
+          //document.getElementById('reset').style.display = 'none';
         }
-
-        document.getElementById(id).style.display = 'none';
+        $('#'+id).hide();
+        //document.getElementById(id).style.display = 'none';
         document.getElementById('cam<%= data2[i].id%>').className = 'clickedCam';
         document.getElementById('camera<%= data2[i].id%>').style.display = 'block';
         id = "camera<%= data2[i].id%>";
         button = "cam<%= data2[i].id%>";
       });
-      document.getElementById('camera<%= data2[i].id%>').style.display = 'none';
+      $('camera<%= data2[i].id%>').hide();
+      //document.getElementById('camera<%= data2[i].id%>').style.display = 'none';
       <% }else{ %>
         document.getElementById('cam<%= i+1%>').addEventListener('click', function() {
           if ($('#' + id).children().eq(0).text() == '1'){
