@@ -36,8 +36,8 @@ router.post('/admin/roi-image', function(req, res) {
   });
 
   const query1 = `insert into camera(ip, image) values ("${req.body.ip}", "${req.body.ip}_out.jpeg");`;
-  const query2 = `select id, datetime('now', 'localtime', '+10 seconds') as date from camera  where ip = "${req.body.ip}";`;
-  console.log(req);
+  const query2 = `select id, datetime('now', 'localtime', '+10 seconds') as date from camera  where ip = "${req.body.ip} limit 1";`;
+  //console.log(req);
   //const query = `insert into camera(ip, image) values ("hello", "hello_out.png");`;
   db.serialize(() => {
     // Queries scheduled here will be serialized.
@@ -103,6 +103,7 @@ router.post('/basic/image-info', function(req, res) {
               var obj = new addon.Yolo_cpu();
               var people = obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416, {"data": row});
               console.log(people); // people number
+
               const query1 = `insert into cam_image (name, originalDate, cameraID, peopleCNT)
                 values ("${originalDate}_${cameraID}.jpeg", "${originalDate}", ${cameraID}, ${people});`;
               db.each(query1, (err, row) => {
