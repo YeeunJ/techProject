@@ -14,11 +14,14 @@ div#setting1, div#setting, div#search{
   display: inline-block;
   width: 80%;
   padding: 30px;
-  min-width: 1000px;
+  min-width: 980px;
   border-radius: 5px;
   background-color: #1b1b21;
   margin-top: 10px;
   color: white;
+  margin-bottom: 0px;
+}
+div#setting1{
   margin-bottom: 0px;
 }
 
