@@ -29,7 +29,7 @@ body{
 }
 .roi{
   display: inline-block;
-  width: 80%;
+  width: 1150px;
   height: 645px;
   padding: 30px;
   border-radius: 0 0 20px 20px;
