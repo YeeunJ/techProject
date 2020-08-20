@@ -1,50 +1,12 @@
 const search = $('#search_btn');
-
 var now = new Date();
 var real_now = new Date();
-getDefaultSetting(now);
+
 var hour, minute, second, time, year, month, day, date;
-var searchcheck=false;
 var search_from;
 var search_to;
-
 getWeekData();
 submit();
-
-
-function getDefaultSetting(now){
-  hour = now.getHours()>9 ? ''+now.getHours() : '0'+now.getHours();
-  minute = now.getMinutes()>9 ? ''+now.getMinutes() : '0'+now.getMinutes();
-  second = '00';
-  time = hour + ":" + minute + ":" + second;
-  if(hour<8){
-      var yesterDate = now.getTime() - (1 * 24 * 60 * 60 *1000);
-      now.setTime(yesterDate);
-      time="20:00:00";
-  }
-  if(hour>=20){
-    time="20:00:00";
-  }
-  year = now.getFullYear();
-  month = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
-  day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
-  date = year + '-' + month + '-' + day;
-
-}
-
-function timeToString(now){
-  var h1 = now.getHours()>9 ? ''+now.getHours() : '0'+now.getHours();
-  var m1 = now.getMinutes()>9 ? ''+now.getMinutes() : '0'+now.getMinutes();
-  var s1 = '00';
-  var t1 = h1 + ":" + m1 + ":" + s1;
-
-  var y1 = now.getFullYear();
-  var m2 = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
-  var d1 = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
-  var d = y1 + '-' + m2 + '-' + d1;
-
-  return d+" "+t1;
-}
 
 function lastWeek() {
   var d = new Date();
@@ -102,7 +64,6 @@ function submit(){
 }
 
 $(btn0).click(function(){
-  searchcheck=true;
   submit();
   search_from=$('#result_from').val();
   search_to=$('#result_to').val();
@@ -140,16 +101,13 @@ date_change.change(function(){
   $('#time_from').val('00:00:00');
   submit();
 });
-
 time_change.change(function(){
   submit();
 });
-
 date_change2.change(function(){
   $('#time_to').val('23:59:00');
   submit();
 });
-
 time_change2.change(function(){
   submit();
 });

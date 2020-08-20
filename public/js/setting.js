@@ -1,81 +1,58 @@
-/*
-document.querySelector('#confirm1').addEventListener('click', function(){
-  var s1 = document.getElementById("setting1");
-  s1.style.display = "none";
-  var s2 = document.getElementById("setting3");
-  s2.style.display = "inline-block";
-});*/
+$('#edit_camera').click(function(){
+  $("#confirm_camera").css("display","inline-block");
+  $("#cancle_camera").css("display","inline-block");
+  $("#edit_camera").css("display","none");
+  $("#edit_image").css("display","none");
+  $("#edit_company").css("display","none");
 
-document.querySelector('#edit_camera').addEventListener('click', function(){
-  var btn = document.getElementById("confirm_camera");
-  btn.style.display = "inline-block";
-  var cancle = document.getElementById("cancle_camera");
-  cancle.style.display = "inline-block";
-  var edit_camera = document.getElementById("edit_camera");
-  edit_camera.style.display = "none";
-  var edit_image = document.getElementById("edit_image");
-  edit_image.style.display = "none";
-  var edit_company = document.getElementById("edit_company");
-  edit_company.style.display = "none";
-  var f=document.getElementById("form_setting");
-  f.sizeW.readOnly = false;
-  f.sizeH.readOnly = false;
-  f.resizeW.readOnly = false;
-  f.resizeH.readOnly = false;
-  f.camNum.readOnly = false;
-  f.sizeW.style.color= "white";
-  f.sizeH.style.color= "white";
-  f.resizeW.style.color= "white";
-  f.resizeH.style.color= "white";
-  f.camNum.style.color= "white";
+  $("#sizeW").attr("readonly", false);
+  $("#sizeH").attr("readonly", false);
+  $("#resizeW").attr("readonly", false);
+  $("#resizeH").attr("readonly", false);
+  $("#camNum").attr("readonly", false);
+  $("#sizeW").css("color", "white");
+  $("#sizeH").css("color", "white");
+  $("#resizeW").css("color", "white");
+  $("#resizeH").css("color", "white");
+  $("#camNum").css("color", "white");
 });
 
-document.querySelector('#edit_image').addEventListener('click', function(){
-  var btn = document.getElementById("confirm_image");
-  btn.style.display = "inline-block";
-  var cancle = document.getElementById("cancle_image");
-  cancle.style.display = "inline-block";
-  var edit_camera = document.getElementById("edit_camera");
-  edit_camera.style.display = "none";
-  var edit_image = document.getElementById("edit_image");
-  edit_image.style.display = "none";
-  var edit_company = document.getElementById("edit_company");
-  edit_company.style.display = "none";
-  var f=document.getElementById("form_setting");
-  f.saveNum.readOnly = false;
-  f.savePeriod.readOnly = false;
-  f.saveInterval.readOnly = false;
-  f.saveNum.style.color= "white";
-  f.savePeriod.style.color= "white";
-  f.saveInterval.style.color= "white";
+$('#edit_image').click(function(){
+  $("#confirm_image").css("display","inline-block");
+  $("#cancle_image").css("display","inline-block");
+  $("#edit_camera").css("display","none");
+  $("#edit_image").css("display","none");
+  $("#edit_company").css("display","none");
+
+  $("#saveNum").attr("readonly", false);
+  $("#savePeriod").attr("readonly", false);
+  $("#saveInterval").attr("readonly", false);
+  $("#saveNum").css("color", "white");
+  $("#savePeriod").css("color", "white");
+  $("#saveInterval").css("color", "white");
 });
 
-document.querySelector('#edit_company').addEventListener('click', function(){
-  var btn = document.getElementById("confirm_company");
-  btn.style.display = "inline-block";
-  var cancle = document.getElementById("cancle_company");
-  cancle.style.display = "inline-block";
-  var edit_camera = document.getElementById("edit_camera");
-  edit_camera.style.display = "none";
-  var edit_image = document.getElementById("edit_image");
-  edit_image.style.display = "none";
-  var edit_company = document.getElementById("edit_company");
-  edit_company.style.display = "none";
-  var f=document.getElementById("form_setting");
-  f.companyName.readOnly = false;
-  f.phone.readOnly = false;
-  f.location.readOnly = false;
-  f.companyName.style.color= "white";
-  f.phone.style.color= "white";
-  f.location.style.color= "white";
+$('#edit_company').click(function(){
+  $("#confirm_company").css("display","inline-block");
+  $("#cancle_company").css("display","inline-block");
+  $("#edit_camera").css("display","none");
+  $("#edit_image").css("display","none");
+  $("#edit_company").css("display","none");
+
+  $("#companyName").attr("readonly", false);
+  $("#phone").attr("readonly", false);
+  $("#location").attr("readonly", false);
+  $("#companyName").css("color", "white");
+  $("#phone").css("color", "white");
+  $("#location").css("color", "white");
 });
 
-document.querySelector('#cancle_company').addEventListener('click', function(){
-  window.location.href = './update';
+$('#cancle_company').click(function(){
+  $(location).attr('href', './update');
 });
-document.querySelector('#cancle_camera').addEventListener('click', function(){
-  window.location.href = './update';
+$('#cancle_camera').click(function(){
+  $(location).attr('href', './update');
 });
-document.querySelector('#cancle_image').addEventListener('click', function(){
-  window.location.href = './update';
+$('#cancle_image').click(function(){
+  $(location).attr('href', './update');
 });
