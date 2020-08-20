@@ -115,19 +115,19 @@ $(btn1).click(function(){
 
 $(btn2).click(function(){
   var lastday = lastDay();
-  $('#date_from').val(getDate(lastday)); //date
-  $('#date_to').val(getDate(real_now)); //date
-  $('#time_from').val(getTime(lastday)); //'08:00:00'
-  $('#time_to').val(getTime(real_now)); //time
+  $('#date_from').val(getDate(lastday));
+  $('#date_to').val(getDate(real_now));
+  $('#time_from').val(getTime(lastday));
+  $('#time_to').val(getTime(real_now));
   submit();
 });
 
 $(btn3).click(function(){
   var lasthour = lastHour();
-  $('#date_from').val(getDate(lasthour)); //date
-  $('#date_to').val(getDate(real_now)); //date
-  $('#time_from').val(getTime(lasthour)); //'08:00:00'
-  $('#time_to').val(getTime(real_now)); //time
+  $('#date_from').val(getDate(lasthour));
+  $('#date_to').val(getDate(real_now));
+  $('#time_from').val(getTime(lasthour));
+  $('#time_to').val(getTime(real_now));
   submit();
 });
 
