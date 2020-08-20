@@ -57,6 +57,31 @@
   roiForm.attr("method", "post");
   roiForm.attr("action", "./submit");
   roiForm.appendTo('body');
+  document.getElementById('save').addEventListener('click', function() {
+    $('#save').hide();
+    $('#cancel').hide();
+    $('#reset').show();
+
+    var div = $('<div></div>');
+    div.attr("id", "d"+id);
+
+    for(var i =0; i< $('#' + id).children('.blurRoi').length; i++){
+      $('#' + id).children('.blurRoi').eq(i).draggable( "option", "disabled", true );
+      $('#' + id).children('.blurRoi').eq(i).children('.sectionRoi').eq(0).resizable( "option", "disabled", true );
+
+      var node = $('#' + id).children('.blurRoi').eq(i).children().eq(0);
+      var left = $('#' + id).children('.blurRoi').eq(i).position().left;
+      var top = $('#' + id).children('.blurRoi').eq(i).position().top;
+
+      var input = $('<input/>');
+      input.attr('type', 'hidden');
+      input.attr('name', 'data');
+      input.attr('value', [id.substring(6,id.length), node.position().left +left, node.position().top +top, node.width(), node.height()]);
+
+      div.append(input);
+    }
+    roiForm.append(div);
+  });
 
   <% var j = 0; %>
   <% for(var i =0; i<data.camNum; i++) {%>
@@ -81,13 +106,23 @@
                   isDraggingMedia = false;
               }
           });
+          $("#camera<%= i+1%>").children().eq(0).text('1');
+          $("#cam<%= i+1%>").attr('class', 'completeCam');
+          $('#blur'+count).draggable( "option", "disabled", true );
+          $('#section'+count).resizable( "option", "disabled", true );
+          $('#reset').show();
+
           count++;
         <% }else {%>
           <% break; %>
           <% }%>
       <% }%>
+      if($("#camera<%= i+1%>").children().length > 2 && $("#camera<%= i+1%>").children('img').css("display") != "none"){
+        id = "camera<%= i+1%>";
+        button = "cam<%= i+1%>";
+        $('#save').trigger("click");
+      }
     <% } %>
-
     $("#camera<%= i+1%>").selectable({
       start: function(event, ui) {
         var offset = $(this).offset();
@@ -119,6 +154,9 @@
             }
         });
         count++;
+        $('#save').show();
+        $('#cancel').show();
+        $('#reset').hide();
       }
     });
 
@@ -136,6 +174,7 @@
       button = "cam<%= i+1%>";
 
       if ($('#camera<%= i+1%>').children().eq(0).text() == '1'){
+        $('#cancel').hide();
         $('#save').hide();
         $('#reset').show();
       }else if ($("#camera<%= i+1%>").children().length > 2 && $("#camera<%= i+1%>").children('img').css("display") != "none"){
@@ -158,6 +197,8 @@
 
   $('#camera1').show();
   $('#cam1').attr('class', 'clickedCam');
+  id = "camera1";
+  button = "cam1";
 
   document.getElementById('save').addEventListener('click', function() {
     $('#save').hide();
@@ -166,25 +207,6 @@
 
     $('#'+id).children().eq(0).text('1');
     $( "#" + id).selectable( "destroy" );
-
-    var div = $('<div></div>');
-    div.attr("id", "d"+id);
-
-    for(var i =0; i< $('#' + id).children('.blurRoi').length; i++){
-      $('#' + id).children('.blurRoi').eq(i).draggable( "option", "disabled", true );
-      $('#' + id).children('.blurRoi').eq(i).children('.sectionRoi').eq(0).resizable( "option", "disabled", true );
-
-      var node = $('#' + id).children('.blurRoi').eq(i).children().eq(0);
-      var left = $('#' + id).children('.blurRoi').eq(i).position().left;
-      var top = $('#' + id).children('.blurRoi').eq(i).position().top;
-
-      var input = $('<input/>');
-      input.attr('type', 'hidden');
-      input.attr('name', 'data');
-      input.attr('value', [id.substring(6,id.length), node.position().left +left, node.position().top +top, node.width(), node.height()]);
-      div.append(input);
-    }
-    roiForm.append(div);
   });
 
   document.getElementById('reset').addEventListener('click', function() {
@@ -226,6 +248,9 @@
             }
         });
         count++;
+        $('#save').show();
+        $('#cancel').show();
+        $('#reset').hide();
       }
     });
   });
@@ -235,6 +260,7 @@
     $('#'+id).children().eq(0).text('0');
     if($('#'+id).children().length <= 2){
       $('#cancel').hide();
+      $('#save').hide();
     }
   });
 
