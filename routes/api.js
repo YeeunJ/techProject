@@ -36,19 +36,19 @@ router.post('/admin/roi-image', function(req, res) {
   });
 
   const query1 = `insert into camera(ip, image) values ("${req.body.ip}", "${req.body.ip}_out.jpeg");`;
-  const query2 = `select id, datetime('now', 'localtime', '+10 seconds') as date from camera  where ip = "${req.body.ip}" limit 1;`;
-  //console.log(req);
-  //const query = `insert into camera(ip, image) values ("hello", "hello_out.png");`;
+  const query2 = `select id, datetime('now', 'localtime', '+10 seconds') as date from camera  where ip = "${req.body.ip}" limit 1;`
+  const query3 = `select SEQ, datetime('now', 'localtime', '+10 seconds') as date from SQLITE_SEQUENCE WHERE NAME = 'camera';`;
+
   db.serialize(() => {
     // Queries scheduled here will be serialized.
     db.run(query1)
-      .each(query2, (err, row) => {
+      .each(query3, (err, row) => {
         if (err) {
           throw err;
         }
         console.log(row);
         res.status(201).json({
-          "cameraID": row.id,
+          "cameraID": row.SEQ,
           "originalDate": row.date
         });
       });
