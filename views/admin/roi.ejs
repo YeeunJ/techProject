@@ -117,11 +117,6 @@
           <% break; %>
           <% }%>
       <% }%>
-      if($("#camera<%= i+1%>").children().length > 2 && $("#camera<%= i+1%>").children('img').css("display") != "none"){
-        id = "camera<%= i+1%>";
-        button = "cam<%= i+1%>";
-        $('#save').trigger("click");
-      }
     <% } %>
     $("#camera<%= i+1%>").selectable({
       start: function(event, ui) {
@@ -159,7 +154,12 @@
         $('#reset').hide();
       }
     });
-
+    if($("#camera<%= i+1%>").children().length > 2 && $("#camera<%= i+1%>").children('img').css("display") != "none"){
+      id = "camera<%= i+1%>";
+      button = "cam<%= i+1%>";
+      $('#save').trigger("click");
+      $("#camera<%= i+1%>").selectable( "destroy" );
+    }
     document.getElementById('cam<%= i+1%>').addEventListener('click', function() {
       $('#'+id).hide();
       $('#camera<%= i+1%>').show();
@@ -258,7 +258,7 @@
   document.getElementById('cancel').addEventListener('click', function() {
     $('#'+id).children().eq($('#'+id).children().length-1).remove();
     $('#'+id).children().eq(0).text('0');
-    if($('#'+id).children().length <= 2){
+    if($('#'+id).children().length < 2){
       $('#cancel').hide();
       $('#save').hide();
     }
