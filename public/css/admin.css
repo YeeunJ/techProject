@@ -11,14 +11,15 @@ body{
 #logo{
   background-color: rgba( 255, 255, 255, 0.05);
   border-radius: 0 0 15px 15px;
-  padding: 20px;
+  padding: 25px 30px 20px 30px;
   margin-bottom: 10px;
   text-align: left;
   display: inline-block;
-  width: 80%;
-  min-width: 1000px;
+  width: 1155px;
+  //min-width: 1000px;
   box-shadow: 2px 2px 5px 0.5px rgba(0, 0,0,0.4);
-  max-width: 1159px;
+  display: inline-block;
+  //max-width: 1155px;
 }
 
 /*roi section*/
@@ -29,7 +30,7 @@ body{
 }
 .roi{
   display: inline-block;
-  width: 80%;
+  width: 1150px;
   height: 645px;
   padding: 30px;
   border-radius: 0 0 20px 20px;

@@ -16,11 +16,11 @@ body{
   margin-bottom: 10px;
   text-align: left;
   display: inline-block;
-  width: 80%;
-  min-width: 1000px;
+  width: 1155px;
+  //min-width: 1000px;
   box-shadow: 2px 2px 5px 0.5px rgba(0, 0,0,0.4);
   display: inline-block;
-  max-width: 1159px;
+  //max-width: 1155px;
 }
 
 /*chart*/
