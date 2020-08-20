@@ -1,6 +1,6 @@
 <form action="./update" method="post" id="form_setting">
 
-<div id="setting"> <!-- view -->
+<div id="setting">
     <div class="info" id="info_company">
       <table>
         <tr class="info_title">
@@ -41,13 +41,6 @@
           <td class="info_left">카메라 숫자</td>
           <td class="info_camera_middle">
             <input type="number" id="camNum" value="<%= data.camNum %>" name = "camNum" class="input" placeholder="카메라 개수" required readonly>
-            <!--
-            <select id="camNum" name="camNum" disabled>
-              <option selected value="<%= data.camNum %>" class="input"><%= data.camNum %></option>
-              <option value="1" class="input">1</option>
-              <option value="2" class="input">2</option>
-              <option value="3" class="input">3</option>
-            </select> -->
           </td>
           <td><button class="confirm btn submit" id="confirm_camera">확인</button></td>
         </tr>
