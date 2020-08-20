@@ -12,13 +12,14 @@ body{
 #logo{
   background-color: rgba( 255, 255, 255, 0.05);
   border-radius: 0 0 15px 15px;
-  padding: 20px;
+  padding: 25px 30px 20px 30px;
   margin-bottom: 10px;
   text-align: left;
   display: inline-block;
   width: 80%;
   min-width: 1000px;
   box-shadow: 2px 2px 5px 0.5px rgba(0, 0,0,0.4);
+  display: inline-block;
   max-width: 1159px;
 }
 
@@ -31,13 +32,13 @@ body{
 .chartContent{
   display: inline-block;
   background-color: #1b1b21;
-  width: 80%;
+  width: 1170px;
   padding: 20px;
   min-width: 1000px;
   border-radius: 20px;
   margin-bottom: -23px;
   box-shadow: 2px 2px 5px 0.5px rgba(0, 0,0,0.4);
-  max-width: 1159px;
+  //max-width: 1200px;
 }
 .chartTab{
   width: 100%;
@@ -102,8 +103,8 @@ body{
   margin-bottom: 10px;
   display: inline-block;
   width: 83%;
-  min-width: 1041px;
-  max-width: 1202px;
+  min-width: 1060px;
+  max-width: 1217px;
 }
 
 #copyright{
