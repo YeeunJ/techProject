@@ -23,7 +23,7 @@
       <table>
         <tr></tr>
         <tr class="info_title">
-          <td class="info_left">카메라 정보</td> <td><button class="edit btn" id="edit_camera" type="button">수정</button><button class="cancle btn" id="cancle_camera" type="button">취소</button></td>
+          <td class="info_left">카메라 정보</td> <td colspan="2"><button class="edit btn" id="edit_camera" type="button">수정</button><button class="cancle btn" id="cancle_camera" type="button">취소</button><button class="confirm btn submit" id="confirm_camera">확인</button></td>
         </tr>
         <tr></tr>
         <tr></tr>
@@ -42,7 +42,6 @@
           <td class="info_camera_middle">
             <input type="number" id="camNum" value="<%= data.camNum %>" name = "camNum" class="input" placeholder="카메라 개수" required readonly>
           </td>
-          <td><button class="confirm btn submit" id="confirm_camera">확인</button></td>
         </tr>
         </table>
       </div>
@@ -50,7 +49,7 @@
         <table id="info_image_table">
           <tr></tr>
           <tr class="info_title">
-            <td class="info_image_left">이미지 저장 정보</td> <td><button class="edit btn" id="edit_image" type="button">수정</button><button class="cancle btn" id="cancle_image" type="button">취소</button></td>
+            <td class="info_image_left">이미지 저장 정보</td> <td colspan="2"><button class="edit btn" id="edit_image" type="button">수정</button><button class="cancle btn" id="cancle_image" type="button">취소</button><button class="confirm btn submit" id="confirm_image">확인</button></td>
           </tr>
           <tr></tr>
           <tr></tr>
@@ -71,7 +70,6 @@
            <td class="info_image_right">
              <input class="info_camera" type="number" id="savePeriod" value="<%= data.savePeriod %>" name = "savePeriod" class="input" placeholder="최대 저장 기간 (개월)" required readonly>
            </td>
-          <td><button class="confirm btn submit" id="confirm_image">확인</button></td>
          </tr>
        </table>
        </div>
