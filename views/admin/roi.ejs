@@ -178,7 +178,11 @@
       var left = $('#' + id).children('.blurRoi').eq(i).position().left;
       var top = $('#' + id).children('.blurRoi').eq(i).position().top;
 
-      div.append('<input/>', {type: 'hidden', name: 'data', value: [id.substring(6,id.length), node.position().left +left, node.position().top +top, node.width(), node.height()]});
+      var input = $('<input/>');
+      input.attr('type', 'hidden');
+      input.attr('name', 'data');
+      input.attr('value', [id.substring(6,id.length), node.position().left +left, node.position().top +top, node.width(), node.height()]);
+      div.append(input);
     }
     roiForm.append(div);
   });
@@ -186,11 +190,10 @@
   document.getElementById('reset').addEventListener('click', function() {
     $('#' + id).children('div').remove();
     $('#'+id).children().eq(0).text('0');
-    document.getElementById('save').style.display = 'none';
-    document.getElementById('cancel').style.display = 'none';
-    document.getElementById('reset').style.display = 'none';
-    var div = document.getElementById("d"+id);
-    roiForm.removeChild(div);
+    $('#save').hide();
+    $('#cancel').hide();
+    $('#reset').hide();
+    $("#d"+id).remove();
 
     $("#" + id).selectable({
       start: function(event, ui) {
