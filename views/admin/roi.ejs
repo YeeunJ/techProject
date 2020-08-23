@@ -57,7 +57,8 @@
   roiForm.attr("method", "post");
   roiForm.attr("action", "./submit");
   roiForm.appendTo('body');
-  document.getElementById('save').addEventListener('click', function() {
+
+  $('#save').click(function(){
     $('#save').hide();
     $('#cancel').hide();
     $('#reset').show();
@@ -117,50 +118,50 @@
           <% break; %>
           <% }%>
       <% }%>
+      $("#camera<%= i+1%>").selectable({
+        start: function(event, ui) {
+          var offset = $(this).offset();
+          x1 = (event.pageX - offset.left);
+          y1 = (event.pageY - offset.top);
+        },
+        stop: function(event, ui) {
+          var offset = $(this).offset();
+          x2 = (event.pageX - offset.left);
+          y2 = (event.pageY - offset.top);
+
+          if (y1 <= y2 && x1 <= x2)
+            $("#camera<%= i+1%>").append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x1 + 'px;top: ' + (y1-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
+          else if (y1 <= y2)
+            $("#camera<%= i+1%>").append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x2 + 'px;top: ' + (y1-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
+          else if (x1 > x2)
+            $("#camera<%= i+1%>").append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x2 + 'px;top: ' + (y2-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
+          else
+            $("#camera<%= i+1%>").append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x1 + 'px;top: ' + (y2-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
+
+          $('#section'+count).resizable();
+          $('#blur'+count).draggable({
+              appendTo: 'body',
+              start: function(event, ui) {
+                  isDraggingMedia = true;
+              },
+              stop: function(event, ui) {
+                  isDraggingMedia = false;
+              }
+          });
+          count++;
+          $('#save').show();
+          $('#cancel').show();
+          $('#reset').hide();
+        }
+      });
     <% } %>
-    $("#camera<%= i+1%>").selectable({
-      start: function(event, ui) {
-        var offset = $(this).offset();
-        x1 = (event.pageX - offset.left);
-        y1 = (event.pageY - offset.top);
-      },
-      stop: function(event, ui) {
-        var offset = $(this).offset();
-        x2 = (event.pageX - offset.left);
-        y2 = (event.pageY - offset.top);
-
-        if (y1 <= y2 && x1 <= x2)
-          $("#camera<%= i+1%>").append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x1 + 'px;top: ' + (y1-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
-        else if (y1 <= y2)
-          $("#camera<%= i+1%>").append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x2 + 'px;top: ' + (y1-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
-        else if (x1 > x2)
-          $("#camera<%= i+1%>").append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x2 + 'px;top: ' + (y2-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
-        else
-          $("#camera<%= i+1%>").append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x1 + 'px;top: ' + (y2-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
-
-        $('#section'+count).resizable();
-        $('#blur'+count).draggable({
-            appendTo: 'body',
-            start: function(event, ui) {
-                isDraggingMedia = true;
-            },
-            stop: function(event, ui) {
-                isDraggingMedia = false;
-            }
-        });
-        count++;
-        $('#save').show();
-        $('#cancel').show();
-        $('#reset').hide();
-      }
-    });
     if($("#camera<%= i+1%>").children().length > 2 && $("#camera<%= i+1%>").children('img').css("display") != "none"){
       id = "camera<%= i+1%>";
       button = "cam<%= i+1%>";
       $('#save').trigger("click");
       $("#camera<%= i+1%>").selectable( "destroy" );
     }
-    document.getElementById('cam<%= i+1%>').addEventListener('click', function() {
+    $('#cam<%= i+1%>').click(function(){
       $('#'+id).hide();
       $('#camera<%= i+1%>').show();
 
@@ -200,7 +201,7 @@
   id = "camera1";
   button = "cam1";
 
-  document.getElementById('save').addEventListener('click', function() {
+  $('#save').click(function(){
     $('#save').hide();
     $('#cancel').hide();
     $('#reset').show();
@@ -209,7 +210,7 @@
     $( "#" + id).selectable( "destroy" );
   });
 
-  document.getElementById('reset').addEventListener('click', function() {
+  $('#reset').click(function(){
     $('#' + id).children('div').remove();
     $('#'+id).children().eq(0).text('0');
     $('#save').hide();
@@ -255,7 +256,7 @@
     });
   });
 
-  document.getElementById('cancel').addEventListener('click', function() {
+  $('#cancel').click(function(){
     $('#'+id).children().eq($('#'+id).children().length-1).remove();
     $('#'+id).children().eq(0).text('0');
     if($('#'+id).children().length < 2){
@@ -264,11 +265,11 @@
     }
   });
 
-  document.getElementById('submit').addEventListener('click', function() {
+  $('#submit').click(function(){
     roiForm.submit();
   });
 
-  document.querySelector('#refresh').addEventListener('click', function(){
+  $('#refresh').click(function(){
     var data = {'update' : "setting"};
     data = JSON.stringify(data);
 
@@ -283,6 +284,43 @@
       $("#"+id).children('img').eq(0).attr("src", "../resources/images/conf/" +  result.data[Number(id.substring(6,id.length))-1].image);
       $("#"+id).children('img').eq(0).css("display", "inline");
       $("#"+id).children('div').eq(1).css("display", "none");
+
+      $("#" + id).selectable({
+        start: function(event, ui) {
+          var offset = $(this).offset();
+          x1 = (event.pageX - offset.left);
+          y1 = (event.pageY - offset.top);
+        },
+        stop: function(event, ui) {
+          var offset = $(this).offset();
+          x2 = (event.pageX - offset.left);
+          y2 = (event.pageY - offset.top);
+
+          if (y1 <= y2 && x1 <= x2)
+            $("#" + id).append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x1 + 'px;top: ' + (y1-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
+          else if (y1 <= y2)
+            $("#" + id).append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x2 + 'px;top: ' + (y1-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
+          else if (x1 > x2)
+            $("#" + id).append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x2 + 'px;top: ' + (y2-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
+          else
+            $("#" + id).append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x1 + 'px;top: ' + (y2-500) + 'px;width: ' + Math.abs(x2 - x1) + 'px;height: ' + Math.abs(y2 - y1) + 'px;"></div></div>');
+
+          $('#section'+count).resizable();
+          $('#blur'+count).draggable({
+              appendTo: 'body',
+              start: function(event, ui) {
+                  isDraggingMedia = true;
+              },
+              stop: function(event, ui) {
+                  isDraggingMedia = false;
+              }
+          });
+          count++;
+          $('#save').show();
+          $('#cancel').show();
+          $('#reset').hide();
+        }
+      });
     });
   });
 </script>
