@@ -138,16 +138,19 @@ button.confirm{
   padding: 0px 20px;
 }
 
-button#confirm, button#confirm_image{
+button#confirm{
   width: 100px;
   height:25px;
   float:right;
   margin-left:50px;
 }
-button#confirm_company{
+button#confirm_camera, button#confirm_image, button#confirm_company{
   text-align: center;
   width: 80px;
   height:24px;
+}
+button#confirm_camera, button#confirm_image{
+  margin-left: 10px;
 }
 
 button#confirm_camera, button#confirm_image, button#confirm_company{
