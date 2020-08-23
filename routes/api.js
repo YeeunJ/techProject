@@ -55,7 +55,7 @@ router.post('/admin/roi-image', function(req, res) {
   });
 });
 
-
+/*
 router.get('/admin/roi-info', function(req, res) {
   const query = `select id, leftX, leftY, rightX, rightY from roi;`;
   db.all(query, (err, rows) => {
@@ -72,7 +72,7 @@ router.get('/admin/roi-info', function(req, res) {
     });
     res.status(200).json(data);
   });
-});
+});*/
 
 router.post('/basic/image-info', function(req, res) {
   const {cameraID, originalDate, image} = req.body;
