@@ -192,6 +192,9 @@ $(document).ready(function() {
       console.log(data3[i][3]);
       document.getElementsByClassName('imageCount')[<%= i %>].innerHTML = data3[i][3];
       document.getElementsByClassName('avg')[<%= i %>].innerHTML = data3[i][3];
+    }else{
+      document.getElementsByClassName('imageCount')[<%= i %>].innerHTML =  '0';
+      document.getElementsByClassName('avg')[<%= i %>].innerHTML = '0';
     }
   <% } %>
 
