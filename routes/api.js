@@ -36,7 +36,7 @@ router.post('/admin/roi-image', function(req, res) {
   });
   const begin = `BEGIN EXCLUSIVE TRANSACTION;`;
   const query1 = `insert into camera(ip, image) values ( "${req.body.ip}", "${req.body.ip}_out.jpeg");`;
-const query2 = `select seq, datetime('now', 'localtime', '+10 seconds') as date from sqlite_sequence where name = 'camera';`;
+const query2 = `select seq as seq, datetime('now', 'localtime', '+10 seconds') as date from sqlite_sequence where name = 'camera';`;
   const end = `COMMIT TRANSACTION;`;
 
   db.serialize(() => {
@@ -104,8 +104,10 @@ router.post('/basic/image-info', function(req, res) {
 
               var obj = new addon.Yolo_cpu();
               if(row){
+                console.log('empty');
                 var people = obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416, {"data": row});
               }else{
+                console.log('full');
                 var people = obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416);
               }
               console.log(people); // people number
