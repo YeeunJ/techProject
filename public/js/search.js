@@ -151,17 +151,15 @@ $('#searchBtn').click(function(){
       for (var j= 0; j<= Math.floor((endTime.getTime() - startTime.getTime()) / (1000*60*60*24)); j++){
         data1[i].push(0);
       }
-    }
-    console.log(data1);
+    }\
 
     for(var i=0; i< dt3.length; i++){
     var date = dt3[i].date;
     date = date.replace('-','/').replace('-','/');
     dateTemp = new Date(date);
     data1[dt3[i].cameraID-1][Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60*24))] = dt3[i].people;
-    data1[dt1.camNum][Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60*24))] += dt3[i].people;
     }
-
+    console.log(data1);
     var label = [];
     label[0]= sTime.format('MM월 dd일(KS)');
     for (var i= 1; i<= Math.floor((endTime.getTime() - startTime.getTime()) / (1000*60*60*24)); i++){

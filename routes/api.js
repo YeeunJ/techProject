@@ -34,21 +34,25 @@ router.post('/admin/roi-image', function(req, res) {
   require("fs").writeFile("resources/images/conf/" + req.body.ip + "_out.jpeg", base64Data, 'base64', function(err) {
     console.log(err);
   });
-
-  const query1 = `insert into camera(id, ip, image) values (${req.body.id}, "${req.body.ip}", "${req.body.ip}_out.jpeg");`;
-  const query2 = `select datetime('now', 'localtime', '+10 seconds') as date;`;
+  const begin = `BEGIN EXCLUSIVE TRANSACTION;`;
+  const query1 = `insert into camera(ip, image) values ( "${req.body.ip}", "${req.body.ip}_out.jpeg");`;
+const query2 = `select seq, datetime('now', 'localtime', '+10 seconds') as date from sqlite_sequence where name = 'camera';`;
+  const end = `COMMIT TRANSACTION;`;
 
   db.serialize(() => {
     // Queries scheduled here will be serialized.
-    db.run(query1)
+    db.run(begin)
+      .run(query1)
       .each(query2, (err, row) => {
         if (err) {
           throw err;
         }
         console.log(row);
         res.status(201).json({
+          "originalDate": row.seq,
           "originalDate": row.date
         });
+        db.run(end);
       });
   });
 });
