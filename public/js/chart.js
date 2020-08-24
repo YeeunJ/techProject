@@ -1,5 +1,3 @@
-console.log('test');
-console.log(data3);
 $(document).ready(function() {
   $('#myChart4').hide();
   var ctx = $('#myChart1');
