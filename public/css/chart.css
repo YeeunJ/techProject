@@ -5,6 +5,13 @@ body{
   text-align: center;
 }
 
+#wrapper {
+  max-width: 1215px;
+  min-width: 1000px;
+  width: 80%;
+  display: inline-block;
+}
+
 #header {
   text-align: center;
 }

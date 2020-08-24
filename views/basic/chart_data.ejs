@@ -48,15 +48,12 @@ Number.prototype.zf = function (len) { return this.toString().zf(len); };
     data1[<%=d.cameraID%>-1][Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60*24))] = <%=d.people%>;
     data1[<%=data1.camNum%>][Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60*24))] += <%=d.people%>;
   <% }) %>
-console.log(data1);
   var label = [];
   label[6]= dateD1.format('MM월 dd일(KS)')
   for(var i=1; i<7; i++){
     dateD1.setDate(dateD1.getDate()-1);
-    console.log(dateD1.format('MM월 dd일(KS)'));
     label[7-i-1] = dateD1.format('MM월 dd일(KS)');
   }
-  console.log(label);
 var datasets1 = [];
   for(var i=0; i< <%=data1.camNum%>; i++){
     var dataset = {
@@ -64,8 +61,7 @@ var datasets1 = [];
         borderColor: color[i],
         backgroundColor: color[i],
         fill: false,
-        data: data1[i].reverse(),
-        yAxisID: 'y-axis-1',
+        data: data1[i].reverse()
       };
     datasets1.push(dataset);
   }
@@ -75,18 +71,15 @@ var datasets1 = [];
       borderColor: color[<%=data1.camNum%>],
       backgroundColor: color[<%=data1.camNum%>],
       fill: false,
-      data: data1[<%=data1.camNum%>].reverse(),
-      yAxisID: 'y-axis-1',
+      data: data1[<%=data1.camNum%>].reverse()
     };
   datasets1.push(dataset);
-  console.log('datasets1');
-console.log(datasets1);
-
+  console.log(label);
   var chart1 = {
     labels: label,
     datasets: datasets1
   };
-/* 차트 2*/
+
 for(var i=0; i<= <%=data1.camNum%>; i++){
   data2[i] = [0,0,0,0,0,0,0,0];
 }
@@ -97,7 +90,6 @@ for(var i=0; i<= <%=data1.camNum%>; i++){
     data2[<%=d.cameraID%>-1][Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60*3))] = <%=d.people%>;
     data2[<%=data1.camNum%>][Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60*3))] += <%=d.people%>;
       data2.push([<%=d.cameraID%>, '<%=d.date%>', <%=d.people%>]);
-      console.log(Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60*3)));
   <% }) %>
   var datasets2 = [];
     for(var i=0; i< <%=data1.camNum%>; i++){
@@ -107,8 +99,7 @@ for(var i=0; i<= <%=data1.camNum%>; i++){
           borderColor: color[i],
           backgroundColor: color[i],
           fill: false,
-          data: data2[i].reverse(),
-          yAxisID: 'y-axis-1',
+          data: data2[i].reverse()
         };
       datasets2.push(dataset);
     }
@@ -118,8 +109,7 @@ for(var i=0; i<= <%=data1.camNum%>; i++){
         borderColor: color[<%=data1.camNum%>],
         backgroundColor: color[<%=data1.camNum%>],
         fill: false,
-        data: data2[<%=data1.camNum%>],
-        yAxisID: 'y-axis-1',
+        data: data2[<%=data1.camNum%>]
       };
     datasets2.push(dataset);
     console.log('datasets2');
@@ -129,6 +119,8 @@ for(var i=0; i<= <%=data1.camNum%>; i++){
     labels: ['0~3시', '3~6시', '6~9시', '9~12시', '12~15시', '15~18시', '18~21시', '21~24시'],
     datasets:datasets2
   };
+
+
 var image_info = [];
   for(var i=0; i<= <%=data1.camNum%>; i++){
     data3[i] = [0,0,0,0];
@@ -141,7 +133,6 @@ var image_info = [];
       data3[<%=d.cameraID%>-1][Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60))] = <%=d.people%>;
       data3[<%=data1.camNum%>][Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60))] += <%=d.people%>;
       data3.push([<%=d.cameraID%>, '<%=d.date%>', <%=d.people%>]);
-      console.log(Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60*3)));
       image_info[<%=d.cameraID%>-1] = <%=d.count%>;
   <% }) %>
   var datasets3 = [];
@@ -152,13 +143,11 @@ var image_info = [];
           borderColor: color[i],
           backgroundColor: color[i],
           fill: false,
-          data: data3[i].reverse(),
-          yAxisID: 'y-axis-1',
+          data: data3[i].reverse()
         };
       datasets3.push(dataset);
     }
 
-  console.log(datasets3);
   var chart3 = {
     labels: ['5분', '10분', '30분', '1시간'],
     datasets: datasets3

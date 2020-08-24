@@ -3,13 +3,19 @@
   <head>
     <meta charset="utf-8">
     <title>technonia dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
     <link rel="stylesheet" href="./public/css/chart.css">
     <link rel="stylesheet" href="./public/css/info.css">
     <link rel="stylesheet" href="./public/css/cameraImage.css">
     <link rel="stylesheet" href="./public/css/search.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script src="https://use.fontawesome.com/893b912e06.js"></script>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+    <%- include('./chart_data') %>
+    <script src="./public/js/chart.js"></script>
+    
   </head>
   <body>
 	<!--<div id="wrapper" style="margin:0 auto; width: 80%; min-width: 1040px;">-->
@@ -18,7 +24,6 @@
 	        <img src="../public/images/technonia_logo.png" id="header" style = "width: 160px;padding-left: 8px;"/>
 	      </div>
 	    </div>
-      <%- include('./chart_data') %>
 	    <%- include('./info') %>
 	    <%- include('./chart') %>
 	    <%- include('./cameraImage') %>
