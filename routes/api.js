@@ -103,10 +103,13 @@ router.post('/basic/image-info', function(req, res) {
         console.log({"data": row});
 
               var obj = new addon.Yolo_cpu();
-              var people = obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416, {"data": row});
+              if(row){
+                var people = obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416, {"data": row});
+              }else{
+                var people = obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416);
+              }
               console.log(people); // people number
 
-var people = 3;
               const query1 = `insert into cam_image (name, originalDate, cameraID, peopleCNT)
                 values ("${originalDate}_${cameraID}.jpeg", "${originalDate}", ${cameraID}, ${people});`;
               db.each(query1, (err, row) => {
