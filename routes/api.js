@@ -16,7 +16,7 @@ const db = new sqlite3.Database('./resources/db/information.db', sqlite3.OPEN_RE
 
 
 router.get('/admin/setting', function(req, res) {
-  const query = `SELECT * FROM setting;`;
+  const query = `SELECT * FROM setting where id = 1;`;
   db.serialize();
   db.each(query, (err, row) => {
     res.status(200).json({
@@ -35,20 +35,18 @@ router.post('/admin/roi-image', function(req, res) {
     console.log(err);
   });
 
-  const query1 = `insert into camera(ip, image) values ("${req.body.ip}", "${req.body.ip}_out.jpeg");`;
-  const query2 = `select id, datetime('now', 'localtime', '+10 seconds') as date from camera  where ip = "${req.body.ip}" limit 1;`
-  const query3 = `select SEQ, datetime('now', 'localtime', '+10 seconds') as date from SQLITE_SEQUENCE WHERE NAME = 'camera';`;
+  const query1 = `insert into camera(id, ip, image) values (${req.body.id}, "${req.body.ip}", "${req.body.ip}_out.jpeg");`;
+  const query2 = `select datetime('now', 'localtime', '+10 seconds') as date;`;
 
   db.serialize(() => {
     // Queries scheduled here will be serialized.
     db.run(query1)
-      .each(query3, (err, row) => {
+      .each(query2, (err, row) => {
         if (err) {
           throw err;
         }
         console.log(row);
         res.status(201).json({
-          "cameraID": row.SEQ,
           "originalDate": row.date
         });
       });
@@ -85,7 +83,7 @@ router.post('/basic/image-info', function(req, res) {
   console.log(filename);
 
   const query2 = `select datetime('${originalDate}', (select '+' || saveInterval || ' seconds' from setting)) as date, sizeW, sizeH from setting;`;
-  const query3 = `select leftX, leftY, rightX as width, rightY as height from roi where camID = ${cameraID}`;
+  //const query3 = `select leftX, leftY, rightX as width, rightY as height from roi where camID = ${cameraID};`;
   db.each(query2, (err, row) => {
     if (err) return res.json(err);
     res.status(201).json({

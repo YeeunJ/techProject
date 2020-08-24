@@ -165,4 +165,30 @@ var image_info = [];
   <% data5.forEach(function(d) { %>
       data5.push([<%=d.cameraID%>, '<%=d.date%>', <%=d.people%>]);
   <% }) %>
+
+
+  <%
+	var img_check = new Array();
+	for(var i=0 ; i<data1.camNum ; i++) {
+		img_check[i] = 0;
+	}
+	for(var k=0 ; k<data1.camNum ; k++) {
+		%>console.log(<%= k %>);<%
+		if(img_check[k] == 0) {
+  %>
+  		var name = '.total_wrapper'+<%= k+1 %>+' .img_wrapper';
+			console.log("i: "+<%= k %>+"name: "+name);
+
+		 $('.total_wrapper'+<%= k+1 %>+' .img_wrapper').append('<div class="append">No Image</div>');
+  <%
+		}
+	}
+  %>
+
+  <% for(var i = 0; i< data1.camNum; i++){%>
+    console.log(data3[i][3]);
+    document.getElementsByClassName('imageCount')[<%= i %>].innerHTML = data3[i][3];
+    document.getElementsByClassName('avg')[<%= i %>].innerHTML = data3[i][3];
+  <% } %>
+
 </script>

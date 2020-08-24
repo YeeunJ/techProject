@@ -9,9 +9,9 @@ body,div,ul,li,dl,dd,dt,ol,h1,h2,h3,h4,h5,h6,input,fieldset,legend,p,select,tabl
   #info_wrapper {
     margin: 15px auto 30px auto;
     overflow: hidden;
-    width: 1210px;
-    min-width: 1040px;
-	padding: 4px 3px 4px 0;
+    width: 100%;
+    box-sizing: border-box;
+	  padding: 4px 0;
   }
   .info_table {
     border-collapse: separate;
