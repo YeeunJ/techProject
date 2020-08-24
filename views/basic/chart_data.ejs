@@ -156,6 +156,8 @@ var image_info = [];
   var data3 = [];
   var data4 = [];
   var data5 = [];
+  console.log('data3');
+  console.log(data3);
   <% data3.forEach(function(d) { %>
       data3.push([<%=d.cameraID%>, '<%=d.date%>', <%=d.people%>]);
   <% }) %>
@@ -166,7 +168,7 @@ var image_info = [];
       data5.push([<%=d.cameraID%>, '<%=d.date%>', <%=d.people%>]);
   <% }) %>
 
-
+$(document).ready(function() {
   <%
 	var img_check = new Array();
 	for(var i=0 ; i<data1.camNum ; i++) {
@@ -186,9 +188,12 @@ var image_info = [];
   %>
 
   <% for(var i = 0; i< data1.camNum; i++){%>
-    console.log(data3[i][3]);
-    document.getElementsByClassName('imageCount')[<%= i %>].innerHTML = data3[i][3];
-    document.getElementsByClassName('avg')[<%= i %>].innerHTML = data3[i][3];
+    if(!data3){
+      console.log(data3[i][3]);
+      document.getElementsByClassName('imageCount')[<%= i %>].innerHTML = data3[i][3];
+      document.getElementsByClassName('avg')[<%= i %>].innerHTML = data3[i][3];
+    }
   <% } %>
 
+});
 </script>
