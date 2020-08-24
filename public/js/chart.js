@@ -119,7 +119,6 @@ $(document).ready(function() {
     }
   });
   $('#myChart3').hide();
-});
 
   $('#chartBtn1').click(function(){
     $('#myChart1').show();
@@ -148,3 +147,4 @@ $(document).ready(function() {
     $('#chartBtn1').attr('class', 'criteria');
     $('#chartBtn2').attr('class', 'criteria');
   });
+});
