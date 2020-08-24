@@ -49,7 +49,7 @@ const query2 = `select seq as seq, datetime('now', 'localtime', '+10 seconds') a
         }
         console.log(row);
         res.status(201).json({
-          "originalDate": row.seq,
+          "cameraID": row.seq,
           "originalDate": row.date
         });
         db.run(end);
