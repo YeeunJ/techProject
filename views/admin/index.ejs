@@ -14,25 +14,23 @@
     <% } %>
   </head>
   <body>
-    <div id = "header">
-      <div id="logo">
-        <img src="../public/images/technonia_logo.png" id="header" style = "width: 160px;padding-left: 8px;"/>
-      </div>
-    </div>
-    <div id="main">
-      <% if(data2) { %>
-      <%- include('./setting2') %>
-      <%- include('./roi') %>
-      <% }else{ %>
-        <%- include('./setting1') %>
-        <%}%>
-    </div>
-    <div id = "footer">
-      <div id="copyright">
-        Copyright &copy; 2020 Technonia.
-      </div>
-      <div id="companyInfo">
-        TEL. 000-000-0000 FAX.000-000-0000
+    <div id = "wrapper">
+        <div id="logo">
+          <img src="../public/images/technonia_logo.png" id="header" style = "width: 160px;padding-left: 8px;"/>
+        </div>
+        <% if(data2) { %>
+        <%- include('./setting2') %>
+        <%- include('./roi') %>
+        <% }else{ %>
+          <%- include('./setting1') %>
+          <%}%>
+      <div id = "footer">
+        <div id="copyright">
+          Copyright &copy; 2020 Technonia.
+        </div>
+        <div id="companyInfo">
+          TEL. 000-000-0000 FAX.000-000-0000
+        </div>
       </div>
     </div>
   </body>
