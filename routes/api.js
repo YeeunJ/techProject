@@ -87,7 +87,7 @@ router.post('/basic/image-info', function(req, res) {
   console.log(filename);
 
   const query2 = `select datetime('${originalDate}', (select '+' || saveInterval || ' seconds' from setting)) as date, sizeW, sizeH from setting;`;
-  //const query3 = `select leftX, leftY, rightX as width, rightY as height from roi where camID = ${cameraID};`;
+  const query3 = `select leftX, leftY, rightX as width, rightY as height from roi where camID = ${cameraID};`;
   db.each(query2, (err, row) => {
     if (err) return res.json(err);
     res.status(201).json({
