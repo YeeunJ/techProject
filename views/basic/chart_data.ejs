@@ -152,4 +152,17 @@ var image_info = [];
     labels: ['5분', '10분', '30분', '1시간'],
     datasets: datasets3
   };
+
+  var data3 = [];
+  var data4 = [];
+  var data5 = [];
+  <% data3.forEach(function(d) { %>
+      data3.push([<%=d.cameraID%>, '<%=d.date%>', <%=d.people%>]);
+  <% }) %>
+  <% data4.forEach(function(d) { %>
+      data4.push([<%=d.cameraID%>, '<%=d.date%>', <%=d.people%>]);
+  <% }) %>
+  <% data5.forEach(function(d) { %>
+      data5.push([<%=d.cameraID%>, '<%=d.date%>', <%=d.people%>]);
+  <% }) %>
 </script>

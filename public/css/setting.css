@@ -38,6 +38,7 @@ div#info_company{
   width: 50%;
   height:100%;
   float: left;
+  font-size: 14px;
   text-align:left;
 }
 

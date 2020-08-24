@@ -1,3 +1,4 @@
+$(document).ready(function() {
 const search = $('#search_btn');
 var now = new Date();
 var real_now = new Date();
@@ -112,7 +113,7 @@ time_change2.change(function(){
   submit();
 });
 
-document.querySelector('#searchBtn').addEventListener('click', function(){
+$('#searchBtn').click(function(){
   var data = {"starttime": document.getElementById('result_from').value, "endtime": document.getElementById('result_to').value};
   //var data = {"starttime": '2020-07-26 12:00:22', "endtime": '2020-08-02 12:00:22'};
   console.log(data);
@@ -126,7 +127,6 @@ document.querySelector('#searchBtn').addEventListener('click', function(){
 
   // 데이터 수신이 완료되면 표시
   xhr.addEventListener('load', function(){
-    console.log(xhr.responseText);
     var result = JSON.parse(xhr.responseText);
     var dt1 = result.data1;
     var dt2 = result.data2;
@@ -161,15 +161,15 @@ document.querySelector('#searchBtn').addEventListener('click', function(){
     data1[dt3[i].cameraID-1][Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60*24))] = dt3[i].people;
     data1[dt1.camNum][Math.floor((today.getTime() - dateTemp.getTime()) / (1000*60*60*24))] += dt3[i].people;
     }
-    console.log(data1);
+
     var label = [];
     label[0]= sTime.format('MM월 dd일(KS)');
     for (var i= 1; i<= Math.floor((endTime.getTime() - startTime.getTime()) / (1000*60*60*24)); i++){
     sTime.setDate(sTime.getDate()+1);
-    console.log(sTime.format('MM월 dd일(KS)'));
+
     label[i] = sTime.format('MM월 dd일(KS)');
     }
-    console.log(label);
+
     var datasets1 = [];
     for(var i=0; i< dt1.camNum; i++){
     var dataset = {
@@ -177,23 +177,21 @@ document.querySelector('#searchBtn').addEventListener('click', function(){
         borderColor: color[i],
         backgroundColor: color[i],
         fill: false,
-        data: data1[i].reverse(),
-        yAxisID: 'y-axis-1',
+        data: data1[i].reverse()
       };
     datasets1.push(dataset);
     }
-
-    console.log('datasets4');
-    console.log(datasets1);
 
     var chart1 = {
       labels: label,
       datasets: datasets1
     };
 
-  document.getElementById('myChart4').style.display = "block";
-  var ctx = document.getElementById('myChart4').getContext('2d');
-  window.myLine = Chart.Line(ctx, {
+  $('#myChart4').show();
+  var ctx = $('#myChart4');
+
+  var myChart = new Chart(ctx, {
+    type: 'line',
     data: chart1,
     options: {
       responsive: true,
@@ -232,12 +230,12 @@ document.querySelector('#searchBtn').addEventListener('click', function(){
     }
   });
 
-  document.getElementById('myChart3').style.display = 'none';
-  document.getElementById('myChart2').style.display = 'none';
-  document.getElementById('myChart1').style.display = 'none';
-  document.getElementById('chartBtn1').className = 'criteria';
-  document.getElementById('chartBtn2').className = 'criteria';
-  document.getElementById('chartBtn3').className = 'criteria';
+  $('#myChart1').hide();
+  $('#myChart2').hide();
+  $('#myChart3').hide();
+  $('#chartBtn1').attr('class', 'criteria');
+  $('#chartBtn2').attr('class', 'criteria');
+  $('#chartBtn3').attr('class', 'criteria');
 
   $('.img_wrapper').children().remove();
 
@@ -246,11 +244,11 @@ document.querySelector('#searchBtn').addEventListener('click', function(){
   }
 
   for(var i=0; i<dt1.camNum; i++){
-    console.log($('.img_wrapper').eq(i).children());
 
     if($('.img_wrapper').eq(i).children().length == 0){
       $('.img_wrapper').eq(i).append('<div class="append">No Image</div>');
     }
   }
   });
+});
 });
