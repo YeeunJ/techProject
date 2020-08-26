@@ -78,6 +78,7 @@ body,div,ul,li,dl,dd,dt,ol,h1,h2,h3,h4,h5,h6,input,fieldset,legend,p,select,tabl
     margin: 0 50px 0 55px;
     padding-bottom: 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    overflow-y: hidden;
   }
 
   /* scrollbar 속성 변경 */

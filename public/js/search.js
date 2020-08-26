@@ -151,7 +151,7 @@ $('#searchBtn').click(function(){
       for (var j= 0; j<= Math.floor((endTime.getTime() - startTime.getTime()) / (1000*60*60*24)); j++){
         data1[i].push(0);
       }
-    }\
+    }
 
     for(var i=0; i< dt3.length; i++){
     var date = dt3[i].date;

@@ -2,9 +2,12 @@ var express = require('express');
 var router = express.Router();
 var sqlite3 = require('sqlite3').verbose();
 var fs = require('fs');
-var addon = require('bindings')('../resources/cpp/build/Release/people-detector');
-//var exec = require('child_process').exec;
-//var api = require('./apiController');
+//var addon = require('bindings')('../resources/cpp/build/Release/people-detector');
+
+//여기서 많은게 바뀌어야 해요..ㅎ
+//쿼리 다 바꿔서..!! setting id를 생각해줄 수 있게 만들기!!
+
+var setting_id = 1;
 
 const db = new sqlite3.Database('./resources/db/information.db', sqlite3.OPEN_READWRITE, (err) => {
   if (err) {
@@ -16,7 +19,7 @@ const db = new sqlite3.Database('./resources/db/information.db', sqlite3.OPEN_RE
 
 
 router.get('/admin/setting', function(req, res) {
-  const query = `SELECT * FROM setting where id = 1;`;
+  const query = `SELECT * FROM setting where id = ${setting_id};`;
   db.serialize();
   db.each(query, (err, row) => {
     res.status(200).json({
@@ -35,8 +38,8 @@ router.post('/admin/roi-image', function(req, res) {
     console.log(err);
   });
   const begin = `BEGIN EXCLUSIVE TRANSACTION;`;
-  const query1 = `insert into camera(ip, image) values ( "${req.body.ip}", "${req.body.ip}_out.jpeg");`;
-const query2 = `select seq as seq, datetime('now', 'localtime', '+10 seconds') as date from sqlite_sequence where name = 'camera';`;
+  const query1 = `insert into camera(camID, settingID, ip, image) values ((select count(*)+1 from camera where settingID = ${setting_id}), ${setting_id}, "${req.body.ip}", "${req.body.ip}_out.jpeg");`;
+const query2 = `select count(*) as seq, datetime('now', 'localtime', '+10 seconds') as date from camera where settingID = ${setting_id};`;
   const end = `COMMIT TRANSACTION;`;
 
   db.serialize(() => {
@@ -57,25 +60,6 @@ const query2 = `select seq as seq, datetime('now', 'localtime', '+10 seconds') a
   });
 });
 
-/*
-router.get('/admin/roi-info', function(req, res) {
-  const query = `select id, leftX, leftY, rightX, rightY from roi;`;
-  db.all(query, (err, rows) => {
-    console.log(rows);
-    var data = [];
-    rows.forEach(function(row) {
-      data.push({
-        "id": row.id,
-        "leftX": row.leftX,
-        "leftY": row.leftY,
-        "rightX": row.rightX,
-        "rightY": row.rightY,
-      });
-    });
-    res.status(200).json(data);
-  });
-});*/
-
 router.post('/basic/image-info', function(req, res) {
   const {cameraID, originalDate, image} = req.body;
   var base64Data = image.replace(/^data:image\/jpeg;base64,/, "");
@@ -86,8 +70,8 @@ router.post('/basic/image-info', function(req, res) {
   filename = filename.replace(/-/g,"");
   console.log(filename);
 
-  const query2 = `select datetime('${originalDate}', (select '+' || saveInterval || ' seconds' from setting)) as date, sizeW, sizeH from setting;`;
-  const query3 = `select leftX, leftY, rightX as width, rightY as height from roi where camID = ${cameraID};`;
+  const query2 = `select datetime('${originalDate}', (select '+' || saveInterval || ' seconds' from setting)) as date, sizeW, sizeH from setting where id = ${setting_id};`;
+  const query3 = `select leftX, leftY, width, height from roi where camID = ${cameraID} and settingID = ${setting_id};`;
   db.each(query2, (err, row) => {
     if (err) return res.json(err);
     res.status(201).json({
@@ -100,23 +84,19 @@ router.post('/basic/image-info', function(req, res) {
   require("fs").writeFile("resources/images/original/" + filename, base64Data, 'base64', function(err) {
     if (err === null) {
       db.all(query3, (err, row) => {
-        console.log({"data": row});
-
+          /*
               var obj = new addon.Yolo_cpu();
               if(row){
-                console.log('empty');
                 var people = obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416, {"data": row});
               }else{
-                console.log('full');
                 var people = obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416);
               }
-              console.log(people); // people number
+              */
 
-              const query1 = `insert into cam_image (name, originalDate, cameraID, peopleCNT)
-                values ("${originalDate}_${cameraID}.jpeg", "${originalDate}", ${cameraID}, ${people});`;
+              const query1 = `insert into cam_image (name, originalDate, cameraID, peopleCNT, settingID)
+                values ("${originalDate}_${cameraID}.jpeg", "${originalDate}", ${cameraID}, ${people}, ${setting_id});`;
               db.each(query1, (err, row) => {
                 if (err) return res.json(err);
-                console.log('update success!!');
               });
       });
     } else {

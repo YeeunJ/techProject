@@ -44,9 +44,9 @@
           <% if(data2[i].id == data3[j].camID){ %>
             var x1 = <%= data3[j].leftX %>;
             console.log(x1);
-            var width = <%= data3[j].rightX %>;
+            var width = <%= data3[j].width %>;
             var y1 = <%= data3[j].leftY %>;
-            var height = <%= data3[j].rightY %>;
+            var height = <%= data3[j].height %>;
             console.log(y1);
 
             $("#camera<%= i+1%>").append('<div class="blurRoi" id = "blur'+count+'"><div class = "sectionRoi" id = "section'+count+'" style="left: ' + x1 + 'px;top: ' + (y1-500) + 'px;width: ' + width + 'px;height: ' + height + 'px;"></div></div>');

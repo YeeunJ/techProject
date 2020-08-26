@@ -2,6 +2,8 @@ var express  = require('express');
 var router = express.Router();
 var sqlite3 = require('sqlite3').verbose();
 
+var setting_id = 1;
+
 const db = new sqlite3.Database('./resources/db/information.db', sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
         console.log(err);
@@ -19,7 +21,6 @@ router.get('/reset', function(req, res){
   db.serialize();
 
   db.serialize(() => {
-  // Queries scheduled here will be serialized.
   db.run(query1)
     .run(query2)
     .run(query3);
@@ -30,7 +31,7 @@ router.get('/reset', function(req, res){
 });
 
 router.get('/first', function(req, res){
-  const query = `select * from setting where id = 1;`;
+  const query = `select * from setting where id = ${setting_id};`;
   console.log(req);
   db.serialize();
   db.each(query, function(err, row){
@@ -43,9 +44,9 @@ router.get('/first', function(req, res){
 
 
 router.get('/update', function (req, res, next) {
-    const cam_query = `select * from camera;`;
-    const query2 = `select * from setting where id = 1;`;
-    const roi_query = `select * from roi order by camID;`;
+    const cam_query = `select * from camera where settingID = ${setting_id};`;
+    const query2 = `select * from setting where id = ${setting_id};`;
+    const roi_query = `select * from roi where settingID = ${setting_id} order by camID;`;
 
     db.serialize(() => {
       db.all(cam_query, (err, row1) => {
@@ -67,15 +68,14 @@ router.post('/update', function (req, res, next) {
     const query = `update setting
     set sizeW = ${sizeW}, sizeH = ${sizeH}, resizeW = ${resizeW}, resizeH = ${resizeH},
     camNum = ${camNum}, savePeriod = ${savePeriod}, saveInterval = ${saveInterval}, saveNum = ${saveNum}, regDate = datetime('now', 'localtime')
-    where id = 1;`;
-    const cam_query = `select * from camera;`;
-    const query2 = `select * from setting where id = 1;`;
-    const roi_query = `select * from roi;`;
+    where id = ${setting_id};`;
+    const cam_query = `select * from camera where settingID = ${setting_id};`;
+    const query2 = `select * from setting where id = ${setting_id};`;
+    const roi_query = `select * from roi where settingID = ${setting_id} order by camID;`;
     console.log(query);
-    console.log(cam_query);
+    console.log(roi_query);
 
     db.serialize(() => {
-      // Queries scheduled here will be serialized.
       db.run(query)
         .all(cam_query, (err, row1) => {
           if (err){
@@ -90,9 +90,6 @@ router.post('/update', function (req, res, next) {
           });
         });
     });
-    /*db.each(query, (err, row) => {
-        if(err) return res.json(err);
-    });*/
 });
 
 router.post('/submit', function(req, res){
@@ -107,8 +104,8 @@ router.post('/submit', function(req, res){
   db.parallelize(() => {
     if(req.body.data[0].length == 1){
       var arr = req.body.data.split(',');
-      var query = `insert into roi(camID, leftX, leftY, rightX, rightY)
-        values (${arr[0]}, ${arr[1]}, ${arr[2]}, ${arr[3]}, ${arr[4]});`;
+      var query = `insert into roi(camID, leftX, leftY, width, height, settingID)
+        values (${arr[0]}, ${arr[1]}, ${arr[2]}, ${arr[3]}, ${arr[4]}, ${setting_id});`;
         console.log(query);
       db.get(query, (err, row) => {
         if (err) {
@@ -118,8 +115,8 @@ router.post('/submit', function(req, res){
     }else{
       for(var i=0; i<req.body.data.length; i++){
         var arr = req.body.data[i].split(',');
-        var query = `insert into roi(camID, leftX, leftY, rightX, rightY)
-          values (${arr[0]}, ${arr[1]}, ${arr[2]}, ${arr[3]}, ${arr[4]});`;
+        var query = `insert into roi(camID, leftX, leftY, width, height, settingID)
+          values (${arr[0]}, ${arr[1]}, ${arr[2]}, ${arr[3]}, ${arr[4]}, ${setting_id});`;
           console.log(query);
         db.get(query, (err, row) => {
           if (err) {
@@ -135,7 +132,7 @@ router.post('/submit', function(req, res){
 
 router.post('/refresh', function(req, res){
 
-  const cam_query = `select * from camera`;
+  const cam_query = `select * from camera where settingID = ${setting_id}`;
 
   db.serialize(() => {
     db.all(cam_query, (err, row1) => {
@@ -146,7 +143,6 @@ router.post('/refresh', function(req, res){
         console.log(row1);
       });
   });
-  // 서버에서는 JSON.stringify 필요없음
 })
 
 module.exports = router;
