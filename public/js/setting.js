@@ -56,3 +56,10 @@ $('#cancle_camera').click(function(){
 $('#cancle_image').click(function(){
   $(location).attr('href', './update');
 });
+
+$("#resizeW").keydown(function(){
+    $('#resizeH').val($(this).val());
+});
+$("#resizeH").keydown(function(){
+    $('#resizeW').val($(this).val());
+});
