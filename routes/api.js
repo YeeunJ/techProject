@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var sqlite3 = require('sqlite3').verbose();
 var fs = require('fs');
-//var addon = require('bindings')('../resources/cpp/build/Release/people-detector');
+var addon = require('bindings')('../resources/cpp/build/Release/people-detector');
 
 var setting_id = 1;
 
@@ -74,13 +74,13 @@ router.post('/basic/image-info', function(req, res) {
     var people = 0;
     if (err === null) {
       db.all(query3, (err, row) => {
-        /*
+
           var obj = new addon.Yolo_cpu();
           if(row){
             var people = obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416, {"data": row});
           }else{
             var people = obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416);
-          }*/
+          }
         const query1 = `insert into cam_image (name, originalDate, cameraID, peopleCNT, settingID)
             values ("${originalDate}_${cameraID}.jpeg", "${originalDate}", ${cameraID}, ${people}, ${setting_id});`;
         db.each(query1, (err, row) => {
