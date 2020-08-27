@@ -71,14 +71,15 @@ router.post('/basic/image-info', function(req, res) {
   });
 
   require("fs").writeFile("resources/images/original/" + filename, base64Data, 'base64', function(err) {
+    var people = 0;
     if (err === null) {
       db.all(query3, (err, row) => {
         try {
           var obj = new addon.Yolo_cpu();
           if(row){
-            var people = obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416, {"data": row});
+            var people = await obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416, {"data": row});
           }else{
-            var people = obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416);
+            var people = await obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416);
           }
         } catch (e) {
           alert(`${e.name}: ${e.message}`);
