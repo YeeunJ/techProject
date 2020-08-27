@@ -14,7 +14,7 @@ const db = new sqlite3.Database('./resources/db/information.db', sqlite3.OPEN_RE
 
 var addon2 = require('bindings')('people-detector');
 var obj2 = new addon.Yolo_cpu();
-console.log( obj.start('3.jpeg', '3_result.jpeg', 416) ); // people number
+console.log( obj2.start('3.jpeg', '3_result.jpeg', 416) ); // people number
 
 router.get('/admin/setting', function(req, res) {
   const query = `SELECT * FROM setting where id = ${setting_id};`;
