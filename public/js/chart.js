@@ -54,7 +54,7 @@ $(document).ready(function() {
       },
       scales: {
         yAxes: [{
-          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+          type: 'linear',
           display: true,
           position: 'left',
           id: 'y-axis-1',
@@ -94,8 +94,7 @@ $(document).ready(function() {
       },
       scales: {
         yAxes: [{
-          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-          display: true,
+          type: 'linear',
           position: 'left',
           id: 'y-axis-1',
           gridLines:{

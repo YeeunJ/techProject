@@ -1,5 +1,4 @@
 body,div,ul,li,dl,dd,dt,ol,h1,h2,h3,h4,h5,h6,input,fieldset,legend,p,select,table,th,td,tr,textarea,button,form,figure,figcaption{margin:0; padding:0;}
-  /* information */
 
   th, td {
     padding-bottom: 10px;
@@ -36,7 +35,6 @@ body,div,ul,li,dl,dd,dt,ol,h1,h2,h3,h4,h5,h6,input,fieldset,legend,p,select,tabl
   .info_div {
     padding-top: 23px;
     color: rgba(255, 255, 255, 0.6);
-	/* fix */
     font-size: 14px;
   }
   .thumbnail {
@@ -88,10 +86,10 @@ body,div,ul,li,dl,dd,dt,ol,h1,h2,h3,h4,h5,h6,input,fieldset,legend,p,select,tabl
     width: 97%; height: 147px;
     margin: 0 auto;
   }
-  /* scrollbar 속성 변경 */
+
   .table_wrapper::-webkit-scrollbar {
-		width: 6px;  /* 세로축 스크롤바 길이 */
-		height: 6px;  /* 가로축 스크롤바 길이 */
+		width: 6px;
+		height: 6px;
   }
   .table_wrapper::-webkit-scrollbar-track-piece {
 	background-color: transparent;
