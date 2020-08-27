@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var sqlite3 = require('sqlite3').verbose();
 var fs = require('fs');
-var addon = require('bindings')('../resources/cpp/build/Release/people-detector');
+var addon = require('bindings')('../build/Release/people-detector');
 
 var setting_id = 1;
 
