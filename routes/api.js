@@ -81,7 +81,7 @@ router.post('/basic/image-info', function(req, res) {
             var people = obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416);
           }
         } catch (e) {
-          alert(`다음과 같은 에러가 발생했습니다: ${e.name}: ${e.message}`);
+          alert(`${e.name}: ${e.message}`);
           var people = 0;
         }
         const query1 = `insert into cam_image (name, originalDate, cameraID, peopleCNT, settingID)
