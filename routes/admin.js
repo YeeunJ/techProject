@@ -85,7 +85,6 @@ router.post('/update', function (req, res, next) {
             if(err) return res.json(err);
             db.all (roi_query, (err, row3) => {
               res.render('admin/index', {data: row2, data2: row1, data3: row3});
-              console.log(row1);
             });
           });
         });
@@ -99,14 +98,12 @@ router.post('/submit', function(req, res){
   const roi_setup = `delete from roi;`;
 
   db.run(roi_setup);
-
   if(req.body.data){
   db.parallelize(() => {
     if(req.body.data[0].length == 1){
       var arr = req.body.data.split(',');
       var query = `insert into roi(camID, leftX, leftY, width, height, settingID)
         values (${arr[0]}, ${arr[1]}, ${arr[2]}, ${arr[3]}, ${arr[4]}, ${setting_id});`;
-        console.log(query);
       db.get(query, (err, row) => {
         if (err) {
           console.error(err.message);
@@ -117,7 +114,6 @@ router.post('/submit', function(req, res){
         var arr = req.body.data[i].split(',');
         var query = `insert into roi(camID, leftX, leftY, width, height, settingID)
           values (${arr[0]}, ${arr[1]}, ${arr[2]}, ${arr[3]}, ${arr[4]}, ${setting_id});`;
-          console.log(query);
         db.get(query, (err, row) => {
           if (err) {
             console.error(err.message);
@@ -140,7 +136,6 @@ router.post('/refresh', function(req, res){
           throw err;
         }
         res.json({"data": row1});
-        console.log(row1);
       });
   });
 })
