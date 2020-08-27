@@ -77,9 +77,9 @@ router.post('/basic/image-info', function(req, res) {
 
           var obj = new addon.Yolo_cpu();
           if(row){
-            var people = obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416, {"data": row});
+            var people = obj.start("resources/images/original/3.jpeg", "resources/images/result/3.jpeg", 416, {"data": row});
           }else{
-            var people = obj.start("resources/images/original/" + filename, "resources/images/result/" + filename, 416);
+            var people = obj.start("resources/images/original/3.jpeg", "resources/images/result/3.jpeg", 416);
           }
         const query1 = `insert into cam_image (name, originalDate, cameraID, peopleCNT, settingID)
             values ("${originalDate}_${cameraID}.jpeg", "${originalDate}", ${cameraID}, ${people}, ${setting_id});`;
