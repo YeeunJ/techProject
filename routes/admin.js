@@ -7,8 +7,6 @@ var setting_id = 1;
 const db = new sqlite3.Database('./resources/db/information.db', sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
         console.log(err);
-    } else {
-        console.log('success');
     }
 });
 
@@ -17,7 +15,6 @@ router.get('/reset', function(req, res){
   const query2 = `UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME = 'cam_image';`;
   const query3 = `delete from camera;`;
   const query4 = `delete from roi;`;
-  console.log(req);
   db.serialize();
 
   db.serialize(() => {
@@ -32,12 +29,10 @@ router.get('/reset', function(req, res){
 
 router.get('/first', function(req, res){
   const query = `select * from setting where id = ${setting_id};`;
-  console.log(req);
   db.serialize();
   db.each(query, function(err, row){
     if(err) return res.json(err);
     res.render('admin/index', {data: row, data2: ""});
-    console.log(row);
   });
 
 });
@@ -55,7 +50,6 @@ router.get('/update', function (req, res, next) {
             if(err) return res.json(err);
             db.all (roi_query, (err, row3) => {
               res.render('admin/index', {data: row2, data2: row1, data3: row3});
-              console.log(row3);
             });
           });
         });
@@ -72,8 +66,6 @@ router.post('/update', function (req, res, next) {
     const cam_query = `select * from camera where settingID = ${setting_id};`;
     const query2 = `select * from setting where id = ${setting_id};`;
     const roi_query = `select * from roi where settingID = ${setting_id} order by camID;`;
-    console.log(query);
-    console.log(roi_query);
 
     db.serialize(() => {
       db.run(query)
@@ -92,9 +84,6 @@ router.post('/update', function (req, res, next) {
 });
 
 router.post('/submit', function(req, res){
-  console.log("submit");
-  console.log(req.body.data);
-  console.log(req.body.data);
   const roi_setup = `delete from roi;`;
 
   db.run(roi_setup);
