@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var sqlite3 = require('sqlite3').verbose();
 var fs = require('fs');
+var exec = require('child_process').exec;
 
 var setting_id = 1;
 
@@ -57,7 +58,7 @@ router.post('/basic/image-info', function(req, res) {
   filename = filename.replace(/:/g,"");
   filename = filename.replace(/-/g,"");
 
-  const query2 = `select datetime('${originalDate}', (select '+' || saveInterval || ' seconds' from setting)) as date, sizeW, sizeH from setting where id = ${setting_id};`;
+  const query2 = `select datetime('${originalDate}', (select '+' || saveInterval || ' seconds' from setting)) as date, sizeW, sizeH, resizeW from setting where id = ${setting_id};`;
   const query3 = `select leftX, leftY, width, height from roi where camID = ${cameraID} and settingID = ${setting_id};`;
   db.each(query2, (err, row) => {
     if (err) return res.json(err);
@@ -66,24 +67,38 @@ router.post('/basic/image-info', function(req, res) {
       "sizeW": row.sizeW,
       "sizeH": row.sizeH,
     });
-  });
 
   require("fs").writeFile("resources/images/original/" + filename, base64Data, 'base64', function(err) {
     var people = 0;
     if (err === null) {
-      db.all(query3, (err, row) => {
-
+      db.all(query3, (err, row2) => {
+        //console.log('./resources/cpp/people-detector/people-detector.out "resources/images/original/' + filename+'" "resources/images/result/' + filename+ '" '+ row.resizeW +' {\"data\": '+ JSON.stringify(row2)+ '}');
+        exec('./resources/cpp/people-detector/people-detector.out "resources/images/original/' + filename+'" "resources/images/result/' + filename+ '" '+ row.resizeW +' {\"data\": '+ JSON.stringify(row2)+ '}', function (stderr, stdout) {
+          console.log('stdout: ' + stdout);
+          if (stderr != null) {
+              console.log('error: ' + stderr);
+          }else {
+            console.log('stdout: ' + stdout);
+            people = stdout;
+            const query1 = `insert into cam_image (name, originalDate, cameraID, peopleCNT, settingID)
+                values ("${originalDate}_${cameraID}.jpeg", "${originalDate}", ${cameraID}, ${people}, ${setting_id});`;
+            db.each(query1, (err, row) => {
+              if (err) return res.json(err);
+            });
+          }
+      });
+      /*
         const query1 = `insert into cam_image (name, originalDate, cameraID, peopleCNT, settingID)
             values ("${originalDate}_${cameraID}.jpeg", "${originalDate}", ${cameraID}, ${people}, ${setting_id});`;
         db.each(query1, (err, row) => {
           if (err) return res.json(err);
-        });
+        });*/
     });
     } else {
       console.log('fail');
     }
   });
-
+});
 });
 
 module.exports = router;
