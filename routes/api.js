@@ -73,7 +73,7 @@ router.post('/basic/image-info', function(req, res) {
     if (err === null) {
       db.all(query3, (err, row2) => {
         //console.log('./resources/cpp/people-detector/people-detector.out "resources/images/original/' + filename+'" "resources/images/result/' + filename+ '" '+ row.resizeW +' {\"data\": '+ JSON.stringify(row2)+ '}');
-        exec('./resources/cpp/people-detector/people-detector.out "resources/images/original/' + filename+'" "resources/images/result/' + filename+ '" '+ row.resizeW +' {\"data\": '+ JSON.stringify(row2)+ '}', function (stderr, stdout) {
+        exec('./resources/people-detector/people-detector.out "resources/images/original/' + filename+'" "resources/images/result/' + filename+ '" '+ row.resizeW +' {\"data\": '+ JSON.stringify(row2)+ '}', function (stderr, stdout) {
           console.log('stdout: ' + stdout);
           if (stderr != null) {
               console.log('error: ' + stderr);
